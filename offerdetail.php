@@ -1,4 +1,42 @@
 <?php
+    session_start();
+    require('dbconnect.php');
+    require('functions.php');
+    // require('signin_check.php');ログインしていないとこのページに来れない
+
+    $order_id = $_REQUEST['orders_id'];
+      // v($order_id);
+
+    if (!empty($order_id)) {
+      $sql = 'SELECT * FROM `orders` WHERE id = ?';
+      $data = array($order_id);
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute($data);
+      $order = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+      // header('Location: orderlist.php');
+      // exit();
+      }
+      // v($order);
+
+    $errors = array();
+    $offer_price = '';
+
+    if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
+      $_POST['input_offer_price'] = $_SESSION['register']['offer_price'];
+      $errors['rewrite'] = true;
+    }
+
+    if (!empty($_POST)) {
+        $offer_price = $_POST['input_offer_price'];
+        if ($offer_price == '') {
+            $errors['offer_price'] = 'blank';
+        }
+        $_SESSION['register']['offer_price'] = $_POST['input_offer_price'];
+        // header('Location: offerdetailcheck1.php');
+        // exit();
+
+    }
 
 
 ?>
@@ -87,7 +125,6 @@
       <!-- ここから -->
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-left content_header">依頼詳細</h2>
-        <form method="POST" action="" enctype="multipart/form-data">
           <!-- ユーザー情報表示 -->
           <div class="row">
               <div class="col-lg-5" style="margin:30px auto">
@@ -115,42 +152,42 @@
               <h2 class="text-center content_header">依頼内容</h2>
               <div class="row">
                 <div class="col-xs-5">
-                  <img src="assets/img/portfolio/port02.jpg" class="img-responsive img-thumbnail">
+                  <img src="order_images/<?php echo $order['images'];?>" class="img-responsive img-thumbnail">
                   <p>お気に入り - <i class="fa fa-heart-o"></i></p>
                 </div>
                 <div class="col-xs-5">
                   <div>
                     <span>国</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo "";?></p> <!-- FK結合する-->
                   </div>
                   <div>
                     <span>都市</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['city_id'];?></p>
                   </div>
                   <div>
                     <span>商品名</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['item_name'];?></p>
                   </div>
                   <div>
                     <span>個数</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['amount'];?></p>
                   </div>
                   <div>
                     <span>希望価格</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['order_price'];?></p>
                   </div>
                   <div>
                     <span>希望受取日</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['delivery_date'];?></p>
                   </div>
                   <div>
                     <span>掲載期間</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['publication_period'];?></p>
                   </div>
                   <!-- ↓もし,$imagesが空じゃなかったら発動する、空だったらスルーの処理を行う -->
                   <div>
                     <span>参考画像</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['attached_files'];?></p>
                   </div>
                 </div>
               </div>
@@ -158,11 +195,12 @@
           </div>
         </div>
         <h3 class="text-left content_header">引受け内容詳細</h3>
+        <form method="POST" action="offerdetail.php" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="delivery_date">引受価格</label>
-            <input type="text" name="input_delivery_date" class="form-control" id="delivery_date" placeholder="2017/10/02 10:00" value="ほげほげ">
-            <?php if(isset($errors['delivery_date']) && $errors['delivery_date'] == 'blank'){ ?>
-              <p class="text-danger">希望受取日時を入力して下さい</p>
+            <label for="offer_price">引受価格</label>
+            <input type="text" name="input_offer_price" class="form-control" id="offer_price" placeholder="¥3,000" value="<?php echo $offer_price; ?>">
+            <?php if(isset($errors['offer_price']) && $errors['offer_price'] == 'blank'){ ?>
+              <p class="text-danger">希望引受け価格を入力して下さい</p>
             <?php } ?>
           </div>
           <div class="form-group">

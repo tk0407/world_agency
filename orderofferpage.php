@@ -5,6 +5,34 @@
     require('functions.php');
     $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
+    // 国々の名前をDBから全件取得
+    $sql = 'SELECT * FROM `countries` WHERE 1';
+    $data = array();
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $countries = [];
+    while (true) {
+        $country = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($country == false) {
+            break;
+        }
+        $countries[] = $country;
+    }
+    // 各都市の名前をDBから全件取得
+    $sql = 'SELECT * FROM `cities` WHERE 1';
+    $data = array();
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $cities = [];
+    while (true) {
+        $city = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($city == false) {
+            break;
+        }
+        $cities[] = $city;
+    }
 
     // header('Location: tradelist.php');
     // exit();
@@ -107,7 +135,7 @@
       <!-- ここから -->
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">依頼を受ける</h2>
-        <form method="POST" action="_order_detail1.php" enctype="multipart/form-data">
+        <form method="POST" action="orderlist.php" enctype="multipart/form-data">
           <!-- 下記、国のDBからスクロールして国名を取ってくる -->
           <div class="form-group">
             <label for="country">国</label>
@@ -130,11 +158,11 @@
           </div>
           <!-- 下記、カテゴリーのDBからスクロールしてカテゴリー名を取ってくる -->
           <div class="form-group">
-            <label for="city">カテゴリー</label>
-            <select type="text" name="input_city" class="form-control">
-              <?php foreach($cities as $city): ?>
-                <option value="<?= $city['id'] ?>"><?= $city['city_name']; ?></option>
-              <?php endforeach; ?>
+            <label for="category">カテゴリー</label>
+            <select type="text" name="input_category" class="form-control">
+              <option value="1">モノ</option>
+              <option value="2">情報</option>
+              <option value="3">データ</option>
             </select>
           </div>
             <!-- $_POST['hoge'] = 3 -->

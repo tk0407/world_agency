@@ -29,6 +29,7 @@
     $request = $_SESSION['register']['request'];
     $purpose = $_SESSION['register']['purpose'];
     $attached_file = $_SESSION['register']['attached_file'];
+    $category = 3;
 
 
     // 登録ボタンが押された時の処理
@@ -37,6 +38,7 @@
         // $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = 'INSERT INTO `orders` SET
           `city_id`=?
+          ,`category`=?
           ,`title`=?
           ,`file`=?
           ,`order_price`=?
@@ -53,7 +55,7 @@
           ,`created`=NOW()
           ';
           // 上記が雛形の書き方
-        $file = array($city_id,$title,$file,$order_price,$delivery_date,$delivery_format,$publication_period,$recruitment_numbers,$requirement_skills,$images,$detail,$request,$purpose,$attached_file);
+        $file = array($city_id,$category,$title,$file,$order_price,$delivery_date,$delivery_format,$publication_period,$recruitment_numbers,$requirement_skills,$images,$detail,$request,$purpose,$attached_file);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($file);
 

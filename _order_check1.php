@@ -25,6 +25,7 @@
     $images = $_SESSION['register']['images'];
     $detail = $_SESSION['register']['detail'];
     $attached_file = $_SESSION['register']['attached_file'];
+    $category = 1;
 
     // 登録ボタンが押された時の処理
     if (!empty($_POST)) {
@@ -33,6 +34,7 @@
         $sql = 'INSERT INTO `orders` SET
           -- `country`=?
           `city_id`=?
+          ,`category`=?
           ,`item_name`=?
           ,`amount`=?
           ,`order_price`=?
@@ -44,7 +46,7 @@
           ,`created`=NOW()
           ';
           // 上記が雛形の書き方
-        $data = array($city_id,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file);
+        $data = array($city_id,$category,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
