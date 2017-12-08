@@ -17,10 +17,10 @@
       // header('Location: orderlist.php');
       // exit();
       }
-      // v($order);
+      v($order);
     // 指定したオーダー内容をクッキーで飛ばす。
     echo $order_id;
-    setcookie('order_id', $order_id, time() + 3600*24*1); 
+    setcookie('order_id', $order_id, time() + 3600*24*1);
 
     $errors = array();
     $offer_price = '';
@@ -192,11 +192,17 @@
                   </div>
                   <div>
                     <span>商品名</span>
-                    <p class="lead"><?php echo $order['item_name'];?></p>
+                    <p class="lead"><?php if (!empty($order['item_name'])) {
+                      echo $order['item_name'];
+                    } else { echo $order['title'];}?></p>
                   </div>
                   <div>
                     <span>個数</span>
-                    <p class="lead"><?php echo $order['amount'];?></p>
+                    <p class="lead"><?php if (!empty($order['amount'])) {
+                      echo $order['amount'];
+                    } elseif (!empty($order['file'])) {
+                      echo $order['file'];
+                    } else { echo $order['draft'];}?></p>
                   </div>
                   <div>
                     <span>希望価格</span>
