@@ -1,5 +1,63 @@
 <?php
+    session_start();
+    // requireでfunctionsの関数を呼び出す。linkのようなモノ
+    require('dbconnect.php');
+    require('functions.php');
+    $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
+    if(!isset($_SESSION['register'])) {
+      header('Location: offerdetail.php');
+      exit();
+    }
+    // 指定したオーダーのidをクッキーで受け取る
+    $order_id = $_COOKIE['order_id'];
+      // v($order_id);
+
+    if (!empty($order_id)) {
+      $sql = 'SELECT * FROM `orders` WHERE id = ?';
+      $data = array($order_id);
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute($data);
+      $order = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+      // header('Location: orderlist.php');
+      // exit();
+      }
+      // v($order);
+
+    v($_POST);
+
+
+    v($_SESSION['register']);
+
+    // $country = $_SESSION['register']['country'];
+    // $city_id = $_SESSION['register']['city'];
+    $offer_price = $_SESSION['register']['offer_price'];
+    $delivery_deadline = $_SESSION['register']['delivery_deadline'];
+    $delivery = $_SESSION['register']['delivery'];
+    $comment = $_SESSION['register']['comment'];
+
+
+    // 登録ボタンが押された時の処理
+    if (!empty($_POST)) {
+        echo '通過<br>';
+        // $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = 'INSERT INTO `offers` SET
+          `offer_price`=?
+          ,`delivery_deadline`=?
+          ,`delivery`=?
+          ,`comment`=?
+          ';
+          // 上記が雛形の書き方
+        $data = array($offer_price,$delivery_deadline,$delivery,$comment);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
+
+        unset($_SESSION['register']);
+        header('Location: thanksoffer.php');
+        exit();
+
+    }
 
 ?>
 
@@ -83,16 +141,9 @@
   <![endif]-->
 </head>
 <body>
-  <div class="header_img">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-          <h2>The probability of success is difficult to estimate;<br/>but if we never search, the chance of success is zero.</h2>
-          <button type="button" class="btn btn-cta btn-lg">LEARN MORE</button>
-        </div>
-      </div><!-- /row -->
-    </div><!-- /container -->
-  </div>
+<body style="margin-top: 60px; background: #E4E6EB;">
+  <?php require('navbar.php'); ?>
+
   <div class="container" style="opacity: 0.9;">
     <div class="row">
       <!-- ここから -->
@@ -126,37 +177,37 @@
               <h2 class="text-center content_header">依頼内容</h2>
               <div class="row">
                 <div class="col-xs-5">
-                  <img src="assets/img/portfolio/port02.jpg" class="img-responsive img-thumbnail">
+                  <img src="order_images/<?php echo $order['images'];?>" class="img-responsive img-thumbnail">
                   <p>お気に入り - <i class="fa fa-heart-o"></i></p>
                 </div>
                 <div class="col-xs-5">
                   <div>
                     <span>国</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo "アメリカ";?></p>
                   </div>
                   <div>
                     <span>都市</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['city_id'];?></p>
                   </div>
                   <div>
                     <span>商品名</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['item_name'];?></p>
                   </div>
                   <div>
                     <span>個数</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['amount'];?></p>
                   </div>
                   <div>
                     <span>希望価格</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['order_price'];?></p>
                   </div>
                   <div>
                     <span>希望受取日</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['delivery_date'];?></p>
                   </div>
                   <div>
                     <span>掲載期間</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $order['publication_period'];?></p>
                   </div>
                   <!-- ↓もし,$imagesが空じゃなかったら発動する、空だったらスルーの処理を行う -->
                   <div>
@@ -172,24 +223,24 @@
         <div class="col-xs-8">
           <div>
             <span>引受け価格</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $offer_price;?></p>
           </div>
           <div>
             <span>引渡期限</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $delivery_deadline;?></p>
           </div>
           <div>
             <span>引渡方法</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $delivery;?></p>
           </div>
           <div>
             <span>コメント</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $comment;?></p>
           </div>
           <!-- ③ -->
-          <form method="POST" action=".php">
+          <form method="POST" action="offerdetailcheck.php">
             <!-- ④ -->
-            <a href=".php?action=rewrite" class="btn btn-default">&laquo;&nbsp;戻る</a> |
+            <a href="offerdetail.php?action=rewrite" class="btn btn-default">&laquo;&nbsp;戻る</a> |
             <!-- ⑤ -->
             <input type="hidden" name="action" value="submit">
             <input type="submit" class="btn btn-primary" value="この内容で依頼を引き受ける">
