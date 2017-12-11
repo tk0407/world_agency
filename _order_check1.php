@@ -49,6 +49,16 @@
         $data = array($city_id,$category,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
+        $stmt->bindParam(1, $city_id, PDO::PARAM_STR);
+        $stmt->bindParam(2, $category, PDO::PARAM_STR);
+        $stmt->bindParam(3, $item_name, PDO::PARAM_STR);
+        $stmt->bindParam(4, $amount, PDO::PARAM_STR);
+        $stmt->bindParam(5, $order_price, PDO::PARAM_STR);
+        $stmt->bindParam(6, $delivery_date, PDO::PARAM_STR);
+        $stmt->bindParam(7, $publication_period, PDO::PARAM_STR);
+        $stmt->bindParam(8, $images, PDO::PARAM_STR); //LOBでバリデーションして問題ないか？→ここはTEXTでDBに保存しているのでSTRで大丈夫
+        $stmt->bindParam(9, $detail, PDO::PARAM_STR);
+        $stmt->bindParam(10, $attached_file, PDO::PARAM_STR);
 
         unset($_SESSION['register']);
         header('Location: thanksorder.php');

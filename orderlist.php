@@ -32,6 +32,8 @@
       $sql = 'SELECT * FROM `orders` WHERE city_id = ? AND category = ?';
       $data = array($city_id, $category);
       $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $city_id, PDO::PARAM_INT); //インジェクション対策
+      $stmt->bindParam(2, $category, PDO::PARAM_INT);
       $stmt->execute($data);
       $order = $stmt->fetch(PDO::FETCH_ASSOC);
     } else {

@@ -10,6 +10,7 @@
     $sql = 'SELECT * FROM `countries` WHERE 1'; // valid=1のように対応している国だけ選ぶ。
     $data = array();
     $stmt = $dbh->prepare($sql);
+    // $stmt->bindParam(1, $id, PDO::PARAM_INT);  TODO:bindParam全件取得の場合はどうすべき？
     $stmt->execute($data);
 
     $countries = [];

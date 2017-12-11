@@ -9,14 +9,18 @@
       header('Location: offerdetail.php');
       exit();
     }
-    // 指定したオーダーのidをクッキーで受け取る
-    $order_id = $_COOKIE['order_id'];
+    // // 指定したオーダーのidをクッキーで受け取る
+    // $order_id = $_COOKIE['order_id'];
       // v($order_id);
+    $order_id = $_REQUEST['orders_id'];
+    v($order_id);
+
 
     if (!empty($order_id)) {
       $sql = 'SELECT * FROM `orders` WHERE id = ?';
       $data = array($order_id);
       $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $id, PDO::PARAM_INT);
       $stmt->execute($data);
       $order = $stmt->fetch(PDO::FETCH_ASSOC);
     } else {
@@ -51,6 +55,10 @@
           // 上記が雛形の書き方
         $data = array($offer_price,$delivery_deadline,$delivery,$comment);
         $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(1, $offer_price, PDO::PARAM_INT);
+        $stmt->bindParam(2, $delivery_deadline, PDO::PARAM_STR);
+        $stmt->bindParam(3, $delivery, PDO::PARAM_STR);
+        $stmt->bindParam(4, $comment, PDO::PARAM_STR);
         $stmt->execute($data);
 
         unset($_SESSION['register']);
@@ -182,37 +190,124 @@
                 </div>
                 <div class="col-xs-5">
                   <div>
+                    <?php if (!empty($order['country'])) { ?>
                     <span>国</span>
-                    <p class="lead"><?php echo "アメリカ";?></p>
+                      <p class="lead">
+                        <?php echo $order['country'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
                     <span>都市</span>
                     <p class="lead"><?php echo $order['city_id'];?></p>
                   </div>
                   <div>
+                    <?php if (!empty($order['item_name'])) { ?>
                     <span>商品名</span>
-                    <p class="lead"><?php echo $order['item_name'];?></p>
+                      <p class="lead">
+                        <?php echo $order['item_name'];?>
+                        <?php } else { echo $order['title'];?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
                     <span>個数</span>
-                    <p class="lead"><?php echo $order['amount'];?></p>
+                    <?php if (!empty($order['amount'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['amount']; ?><span>個</span>
+                      </p>
+                    <?php } elseif (!empty($order['file'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['file']; ?><span>つ</span>
+                      </p>
+                    <?php } elseif (!empty($order['draft'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['draft'];?><span>枚</span>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['order_price'])) { ?>
                     <span>希望価格</span>
-                    <p class="lead"><?php echo $order['order_price'];?></p>
+                      <p class="lead">
+                        <?php echo $order['order_price'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['delivery_date'])) { ?>
                     <span>希望受取日</span>
-                    <p class="lead"><?php echo $order['delivery_date'];?></p>
+                      <p class="lead">
+                        <?php echo $order['delivery_date'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['publication_period'])) { ?>
                     <span>掲載期間</span>
-                    <p class="lead"><?php echo $order['publication_period'];?></p>
+                      <p class="lead">
+                        <?php echo $order['publication_period'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['recruitment_numbers'])) { ?>
+                    <span>募集人数</span>
+                      <p class="lead">
+                        <?php echo $order['recruitment_numbers'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['requirement_skills'])) { ?>
+                    <span>求めるスキル</span>
+                      <p class="lead">
+                        <?php echo $order['requirement_skills'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['detail'])) { ?>
+                    <span>詳細</span>
+                      <p class="lead">
+                        <?php echo $order['detail'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['request'])) { ?>
+                    <span>提案条件</span>
+                      <p class="lead">
+                        <?php echo $order['request'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['purpose'])) { ?>
+                    <span>利用目的</span>
+                      <p class="lead">
+                        <?php echo $order['purpose'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <!-- ↓もし,$imagesが空じゃなかったら発動する、空だったらスルーの処理を行う -->
                   <div>
-                    <span>参考画像</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <?php if (!empty($order['attached_file'])) { ?>
+                    <span>添付ファイル</span>
+                      <p class="lead">
+                        <?php echo $order['attached_file'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                 </div>
               </div>
@@ -240,7 +335,7 @@
           <!-- ③ -->
           <form method="POST" action="offerdetailcheck.php">
             <!-- ④ -->
-            <a href="offerdetail.php?action=rewrite" class="btn btn-default">&laquo;&nbsp;戻る</a> |
+            <a href="offerdetail.php?orders_id=<?php echo $order_id ?>" class="btn btn-default">&laquo;&nbsp;戻る</a> |
             <!-- ⑤ -->
             <input type="hidden" name="action" value="submit">
             <input type="submit" class="btn btn-primary" value="この内容で依頼を引き受ける">

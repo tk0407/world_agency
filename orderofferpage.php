@@ -34,7 +34,7 @@
         $cities[] = $city;
     }
 
-    // header('Location: tradelist.php');
+    // header('Location: orderofferpage.php');
     // exit();
 
 ?>
