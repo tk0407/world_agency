@@ -6,7 +6,6 @@
 
     $order_id = $_REQUEST['orders_id'];
       // v($order_id);
-    $city_id = '';
     $city = '';
 
     if (!empty($order_id)) {

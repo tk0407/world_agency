@@ -15,6 +15,7 @@
     $order_id = $_REQUEST['orders_id'];
     v($order_id);
 
+    $city = '';
 
     if (!empty($order_id)) {
       $sql = 'SELECT * FROM `orders` WHERE id = ?';
@@ -23,6 +24,13 @@
       $stmt->bindParam(1, $id, PDO::PARAM_INT);
       $stmt->execute($data);
       $order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      $sql = 'SELECT * FROM `cities` WHERE id = ?';
+      $data = array($order['city_id']);
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute($data);
+      $city = $stmt->fetch(PDO::FETCH_ASSOC);
     } else {
       // header('Location: orderlist.php');
       // exit();
@@ -200,7 +208,7 @@
                   </div>
                   <div>
                     <span>都市</span>
-                    <p class="lead"><?php echo $order['city_id'];?></p>
+                    <p class="lead"><?php echo $city['city_name'];?></p>
                   </div>
                   <div>
                     <?php if (!empty($order['item_name'])) { ?>

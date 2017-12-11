@@ -36,6 +36,8 @@
         $cities[] = $city;
     }
 
+    // v($cities);
+
 
     $errors = array();
     $country = '';

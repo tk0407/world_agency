@@ -31,6 +31,14 @@
     $attached_file = $_SESSION['register']['attached_file'];
     $category = 2;
 
+    $sql = 'SELECT * FROM `cities` WHERE id = ?';
+    $data = array($city_id);
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
+    $stmt->execute($data);
+    $city = $stmt->fetch(PDO::FETCH_ASSOC);
+    // v($city);
+
 
     // 登録ボタンが押された時の処理
     if (!empty($_POST)) {
@@ -85,12 +93,8 @@
           </div>
           <div class="col-xs-8">
             <div>
-              <span>国</span>
-              <p class="lead"><?php echo $country;?></p>
-            </div>
-            <div>
               <span>都市</span>
-              <p class="lead"><?php echo $city_id;?></p>
+              <p class="lead"><?php echo $city['city_name'];?></p>
             </div>
             <div>
               <span>タイトル</span>
@@ -141,8 +145,13 @@
               <p class="lead"><?php echo $purpose;?></p>
             </div>
             <div>
+              <?php if (!empty($attached_file)) { ?>
               <span>添付ファイル</span>
-              <p class="lead"><?php echo $attached_file;?></p>
+                <p class="lead">
+                  <?php echo $attached_file ;?>
+                  <?php } else { echo ""; ?>
+                </p>
+              <?php } ?>
             </div>
             <!-- ③ -->
             <form method="POST" action="_order_check2.php">
