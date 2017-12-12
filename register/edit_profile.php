@@ -14,7 +14,7 @@
     $lastname = '';
     $email = '';
     $password = '';
-    $countries = '';
+    $homecountry = '';
     $adress = '';
     $sex = '';
     $phone = '';
@@ -84,7 +84,7 @@
       $lastname = $_POST['lastname'];
       $email = $_POST['email'];
       $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-      $countries = $_POST['countries'];
+      $homecountry = $_POST['homecountry'];
       $adress = $_POST['adress'];
       $sex = $_POST['sex'];
       $phone = $_POST['phone'];
@@ -115,8 +115,8 @@
               move_uploaded_file($_FILES['input_img_name']['tmp_name'], '../user_profile_img/' . $submit_file_name);
           }
 
-          $sql = 'UPDATE `users` SET `firstname` =? , `lastname` =? , `email` =? , `password` =? , `countries` =? , `adress` =? , `sex` =?, `phone` =? , `profile` =? , `language` =? , `paypal_adress` =? , `bitcoin_adress` =? , `bank_name` =? , `account_type` =?, `account_name` =? , `branch_code` =? , `account_number` =? , `img_name` =?, `updated`=NOW() WHERE `id`=?'; // SQL文を文字で用意
-          $data = array($firstname,$lastname,$email,$password,$countries,$adress,$sex,$phone,$profile,$language,$paypal_adress,$bitcoin_adress,$bank_name,$account_type,$account_name,$branch_code,$account_number,$submit_file_name,$signin_user['id']); // ?に入れるデータを配列で用意
+          $sql = 'UPDATE `users` SET `firstname` =? , `lastname` =? , `email` =? , `password` =? , `homecountry` =? , `adress` =? , `sex` =?, `phone` =? , `profile` =? , `language` =? , `paypal_adress` =? , `bitcoin_adress` =? , `bank_name` =? , `account_type` =?, `account_name` =? , `branch_code` =? , `account_number` =? , `img_name` =?, `updated`=NOW() WHERE `id`=?'; // SQL文を文字で用意
+          $data = array($firstname,$lastname,$email,$password,$homecountry,$adress,$sex,$phone,$profile,$language,$paypal_adress,$bitcoin_adress,$bank_name,$account_type,$account_name,$branch_code,$account_number,$submit_file_name,$signin_user['id']); // ?に入れるデータを配列で用意
           $stmt = $dbh->prepare($sql); // SQL文をデータベースにセット
           v($data);
           $stmt->execute($data); // SQL文を実行
@@ -174,8 +174,8 @@
           </div>
 
           <div class="form-group">
-            <label for="countries">国</label>
-            <input type="text" name="countries"  value="<?php echo htmlspecialchars($signin_user['countries']); ?>" class="form-control" id="countries" placeholder="選択する">
+            <label for="homecountry">国</label>
+            <input type="text" name="homecountry"  value="<?php echo htmlspecialchars($signin_user['homecountry']); ?>" class="form-control" id="homecountry" placeholder="選択する">
           </div>
 
           <div class="form-group">

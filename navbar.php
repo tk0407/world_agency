@@ -14,12 +14,6 @@
           <li class="active"><a href="orderlist.php">依頼一覧</a></li>
           <li><a href="mypage.php">マイページ</a></li>
         </ul>
-        <form method="GET" action="" class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" name="search_word" class="form-control" placeholder="投稿を検索" value="<?= $search_word ?>">
-          </div>
-          <button type="submit" class="btn btn-default">Search</button>
-        </form>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
