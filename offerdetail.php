@@ -2,7 +2,7 @@
     session_start();
     require('dbconnect.php');
     require('functions.php');
-    // require('signin_check.php');ログインしていないとこのページに来れない
+    require('signin_check.php');ログインしていないとこのページに来れない
 
     $order_id = $_REQUEST['orders_id'];
       // v($order_id);

@@ -4,8 +4,8 @@
     // requireでfunctionsの関数を呼び出す。linkのようなモノ
     require('dbconnect.php');
     require('functions.php');
-    // require('signin_check.php');
-    $signin_user['id'] = 1; //TODO 後でsignin idをここに表示できるようにする。
+    require('signin_check.php');
+    // $signin_user['id'] = 1; //TODO 後でsignin idをここに表示できるようにする。
 
     // 国々の名前をDBから全件取得
     $sql = 'SELECT * FROM `countries` WHERE 1'; // valid=1のように対応している国だけ選ぶ。

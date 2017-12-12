@@ -2,7 +2,7 @@
     session_start();
     require('dbconnect.php');
     require('functions.php');
-    // require('signin_check.php');
+    require('signin_check.php');
 
     // if (!isset($_REQUEST['user_id'])) {
     //     header('Location: users.php');
