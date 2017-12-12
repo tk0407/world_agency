@@ -3,15 +3,20 @@
     // requireでfunctionsの関数を呼び出す。linkのようなモノ
     require('dbconnect.php');
     require('functions.php');
+    // require('signin_check.php');
+
     $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
     if(!isset($_SESSION['register'])) {
       header('Location: _order_detail1.php');
       exit();
     }
+    // サインインユーザーが依頼をする時、ユーザーidはclient_idに代入される。
+    if (!empty($_SESSION['signin_user']['id'])) {
+      $client_id = $_SESSION['signin_user']['id'];
+    }
 
     // v($_POST);
-
 
     // v($_SESSION['register']);
 
@@ -51,10 +56,11 @@
           ,`images`=?
           ,`detail`=?
           ,`attached_file`=?
+          ,`client_id`=?
           ,`created`=NOW()
           ';
           // 上記が雛形の書き方
-        $data = array($city_id,$category,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file);
+        $data = array($city_id,$category,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file,$client_id);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
         $stmt->bindParam(1, $city_id, PDO::PARAM_STR);
