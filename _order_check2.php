@@ -3,7 +3,8 @@
     // requireでfunctionsの関数を呼び出す。linkのようなモノ
     require('dbconnect.php');
     require('functions.php');
-    $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
+    require('signin_check.php');
+    // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
     if(!isset($_SESSION['register'])) {
       header('Location: _order_detail2.php');
@@ -29,6 +30,15 @@
     $request = $_SESSION['register']['request'];
     $purpose = $_SESSION['register']['purpose'];
     $attached_file = $_SESSION['register']['attached_file'];
+    $category = 2;
+
+    $sql = 'SELECT * FROM `cities` WHERE id = ?';
+    $data = array($city_id);
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
+    $stmt->execute($data);
+    $city = $stmt->fetch(PDO::FETCH_ASSOC);
+    // v($city);
 
 
     // 登録ボタンが押された時の処理
@@ -37,6 +47,7 @@
         // $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = 'INSERT INTO `orders` SET
           `city_id`=?
+          ,`category`=?
           ,`title`=?
           ,`draft`=?
           ,`order_price`=?
@@ -53,7 +64,7 @@
           ,`created`=NOW()
           ';
           // 上記が雛形の書き方
-        $data = array($city_id,$title,$draft,$order_price,$delivery_date,$delivery_format,$publication_period,$recruitment_numbers,$requirement_skills,$images,$detail,$request,$purpose,$attached_file);
+        $data = array($city_id,$category,$title,$draft,$order_price,$delivery_date,$delivery_format,$publication_period,$recruitment_numbers,$requirement_skills,$images,$detail,$request,$purpose,$attached_file);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
@@ -83,12 +94,8 @@
           </div>
           <div class="col-xs-8">
             <div>
-              <span>国</span>
-              <p class="lead"><?php echo $country;?></p>
-            </div>
-            <div>
               <span>都市</span>
-              <p class="lead"><?php echo $city_id;?></p>
+              <p class="lead"><?php echo $city['city_name'];?></p>
             </div>
             <div>
               <span>タイトル</span>
@@ -139,8 +146,13 @@
               <p class="lead"><?php echo $purpose;?></p>
             </div>
             <div>
+              <?php if (!empty($attached_file)) { ?>
               <span>添付ファイル</span>
-              <p class="lead"><?php echo $attached_file;?></p>
+                <p class="lead">
+                  <?php echo $attached_file ;?>
+                  <?php } else { echo ""; ?>
+                </p>
+              <?php } ?>
             </div>
             <!-- ③ -->
             <form method="POST" action="_order_check2.php">

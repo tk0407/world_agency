@@ -200,9 +200,9 @@ p.capitalize:first-letter {
 
 /* Button Call To Action */
 .btn-cta {
-  color: #ffffff;
+  color: #696969;
   background-color: transparent;
-  border-color: #ffffff;
+  border-color: #696969;
   font-family: 'Ruda', sans-serif;
   font-size: 13px;
   letter-spacing: 2px;
@@ -221,9 +221,9 @@ p.capitalize:first-letter {
 
 /* Button Theme */
 .btn-theme {
-  color: #ffffff;
+  color: #696969;
   background-color: transparent;
-  border-color: #ffffff;
+  border-color: #696969;
   font-family: 'Ruda', sans-serif;
   font-size: 13px;
   letter-spacing: 2px;
