@@ -1,5 +1,80 @@
 <?php
+    session_start();
+    // requireでfunctionsの関数を呼び出す。linkのようなモノ
+    require('dbconnect.php');
+    require('functions.php');
+    require('signin_check.php');
+    // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
+    if(!isset($_SESSION['register'])) {
+      header('Location: offerdetail.php');
+      exit();
+    }
+    // // 指定したオーダーのidをクッキーで受け取る
+    // $order_id = $_COOKIE['order_id'];
+      // v($order_id);
+    $order_id = $_REQUEST['orders_id'];
+    v($order_id);
+
+    $city = '';
+
+    if (!empty($order_id)) {
+      $sql = 'SELECT * FROM `orders` WHERE id = ?';
+      $data = array($order_id);
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $id, PDO::PARAM_INT);
+      $stmt->execute($data);
+      $order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      $sql = 'SELECT * FROM `cities` WHERE id = ?';
+      $data = array($order['city_id']);
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute($data);
+      $city = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+      // header('Location: orderlist.php');
+      // exit();
+      }
+      // v($order);
+
+    v($_POST);
+
+
+    v($_SESSION['register']);
+
+    // $country = $_SESSION['register']['country'];
+    // $city_id = $_SESSION['register']['city'];
+    $offer_price = $_SESSION['register']['offer_price'];
+    $delivery_deadline = $_SESSION['register']['delivery_deadline'];
+    $delivery = $_SESSION['register']['delivery'];
+    $comment = $_SESSION['register']['comment'];
+
+
+    // 登録ボタンが押された時の処理
+    if (!empty($_POST)) {
+        echo '通過<br>';
+        // $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = 'INSERT INTO `offers` SET
+          `offer_price`=?
+          ,`delivery_deadline`=?
+          ,`delivery`=?
+          ,`comment`=?
+          ';
+          // 上記が雛形の書き方
+        $data = array($offer_price,$delivery_deadline,$delivery,$comment);
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(1, $offer_price, PDO::PARAM_INT);
+        $stmt->bindParam(2, $delivery_deadline, PDO::PARAM_STR);
+        $stmt->bindParam(3, $delivery, PDO::PARAM_STR);
+        $stmt->bindParam(4, $comment, PDO::PARAM_STR);
+        $stmt->execute($data);
+
+        unset($_SESSION['register']);
+        header('Location: thanksoffer.php');
+        exit();
+
+    }
 
 ?>
 
@@ -83,16 +158,9 @@
   <![endif]-->
 </head>
 <body>
-  <div class="header_img">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-          <h2>The probability of success is difficult to estimate;<br/>but if we never search, the chance of success is zero.</h2>
-          <button type="button" class="btn btn-cta btn-lg">LEARN MORE</button>
-        </div>
-      </div><!-- /row -->
-    </div><!-- /container -->
-  </div>
+<body style="margin-top: 60px; background: #E4E6EB;">
+  <?php require('navbar.php'); ?>
+
   <div class="container" style="opacity: 0.9;">
     <div class="row">
       <!-- ここから -->
@@ -126,42 +194,129 @@
               <h2 class="text-center content_header">依頼内容</h2>
               <div class="row">
                 <div class="col-xs-5">
-                  <img src="assets/img/portfolio/port02.jpg" class="img-responsive img-thumbnail">
+                  <img src="order_images/<?php echo $order['images'];?>" class="img-responsive img-thumbnail">
                   <p>お気に入り - <i class="fa fa-heart-o"></i></p>
                 </div>
                 <div class="col-xs-5">
                   <div>
+                    <?php if (!empty($order['country'])) { ?>
                     <span>国</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['country'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
                     <span>都市</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $city['city_name'];?></p>
                   </div>
                   <div>
+                    <?php if (!empty($order['item_name'])) { ?>
                     <span>商品名</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['item_name'];?>
+                        <?php } else { echo $order['title'];?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
                     <span>個数</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <?php if (!empty($order['amount'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['amount']; ?><span>個</span>
+                      </p>
+                    <?php } elseif (!empty($order['file'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['file']; ?><span>つ</span>
+                      </p>
+                    <?php } elseif (!empty($order['draft'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['draft'];?><span>枚</span>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['order_price'])) { ?>
                     <span>希望価格</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['order_price'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['delivery_date'])) { ?>
                     <span>希望受取日</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['delivery_date'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['publication_period'])) { ?>
                     <span>掲載期間</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['publication_period'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['recruitment_numbers'])) { ?>
+                    <span>募集人数</span>
+                      <p class="lead">
+                        <?php echo $order['recruitment_numbers'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['requirement_skills'])) { ?>
+                    <span>求めるスキル</span>
+                      <p class="lead">
+                        <?php echo $order['requirement_skills'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['detail'])) { ?>
+                    <span>詳細</span>
+                      <p class="lead">
+                        <?php echo $order['detail'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['request'])) { ?>
+                    <span>提案条件</span>
+                      <p class="lead">
+                        <?php echo $order['request'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['purpose'])) { ?>
+                    <span>利用目的</span>
+                      <p class="lead">
+                        <?php echo $order['purpose'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <!-- ↓もし,$imagesが空じゃなかったら発動する、空だったらスルーの処理を行う -->
                   <div>
-                    <span>参考画像</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <?php if (!empty($order['attached_file'])) { ?>
+                    <span>添付ファイル</span>
+                      <p class="lead">
+                        <?php echo $order['attached_file'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                 </div>
               </div>
@@ -172,24 +327,24 @@
         <div class="col-xs-8">
           <div>
             <span>引受け価格</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $offer_price;?></p>
           </div>
           <div>
             <span>引渡期限</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $delivery_deadline;?></p>
           </div>
           <div>
             <span>引渡方法</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $delivery;?></p>
           </div>
           <div>
             <span>コメント</span>
-            <p class="lead"><?php echo "ほげほげ";?></p>
+            <p class="lead"><?php echo $comment;?></p>
           </div>
           <!-- ③ -->
-          <form method="POST" action=".php">
+          <form method="POST" action="offerdetailcheck.php">
             <!-- ④ -->
-            <a href=".php?action=rewrite" class="btn btn-default">&laquo;&nbsp;戻る</a> |
+            <a href="offerdetail.php?orders_id=<?php echo $order_id ?>" class="btn btn-default">&laquo;&nbsp;戻る</a> |
             <!-- ⑤ -->
             <input type="hidden" name="action" value="submit">
             <input type="submit" class="btn btn-primary" value="この内容で依頼を引き受ける">

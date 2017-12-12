@@ -3,17 +3,22 @@
     // requireでfunctionsの関数を呼び出す。linkのようなモノ
     require('dbconnect.php');
     require('functions.php');
+    require('signin_check.php');
+
     $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
     if(!isset($_SESSION['register'])) {
       header('Location: _order_detail1.php');
       exit();
     }
+    // サインインユーザーが依頼をする時、ユーザーidはclient_idに代入される。
+    if (!empty($_SESSION['signin_user']['id'])) {
+      $client_id = $_SESSION['signin_user']['id'];
+    }
 
-    v($_POST);
+    // v($_POST);
 
-
-    v($_SESSION['register']);
+    // v($_SESSION['register']);
 
     $country = $_SESSION['register']['country'];
     $city_id = $_SESSION['register']['city'];
@@ -25,6 +30,15 @@
     $images = $_SESSION['register']['images'];
     $detail = $_SESSION['register']['detail'];
     $attached_file = $_SESSION['register']['attached_file'];
+    $category = 1;
+
+    $sql = 'SELECT * FROM `cities` WHERE id = ?';
+    $data = array($city_id);
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
+    $stmt->execute($data);
+    $city = $stmt->fetch(PDO::FETCH_ASSOC);
+    // v($city);
 
     // 登録ボタンが押された時の処理
     if (!empty($_POST)) {
@@ -33,6 +47,7 @@
         $sql = 'INSERT INTO `orders` SET
           -- `country`=?
           `city_id`=?
+          ,`category`=?
           ,`item_name`=?
           ,`amount`=?
           ,`order_price`=?
@@ -41,12 +56,23 @@
           ,`images`=?
           ,`detail`=?
           ,`attached_file`=?
+          ,`client_id`=?
           ,`created`=NOW()
           ';
           // 上記が雛形の書き方
-        $data = array($city_id,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file);
+        $data = array($city_id,$category,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file,$client_id);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
+        $stmt->bindParam(1, $city_id, PDO::PARAM_STR);
+        $stmt->bindParam(2, $category, PDO::PARAM_STR);
+        $stmt->bindParam(3, $item_name, PDO::PARAM_STR);
+        $stmt->bindParam(4, $amount, PDO::PARAM_STR);
+        $stmt->bindParam(5, $order_price, PDO::PARAM_STR);
+        $stmt->bindParam(6, $delivery_date, PDO::PARAM_STR);
+        $stmt->bindParam(7, $publication_period, PDO::PARAM_STR);
+        $stmt->bindParam(8, $images, PDO::PARAM_STR); //LOBでバリデーションして問題ないか？→ここはTEXTでDBに保存しているのでSTRで大丈夫
+        $stmt->bindParam(9, $detail, PDO::PARAM_STR);
+        $stmt->bindParam(10, $attached_file, PDO::PARAM_STR);
 
         unset($_SESSION['register']);
         header('Location: thanksorder.php');
@@ -74,12 +100,8 @@
           </div>
           <div class="col-xs-8">
             <div>
-              <span>国</span>
-              <p class="lead"><?php echo $country;?></p>
-            </div>
-            <div>
               <span>都市</span>
-              <p class="lead"><?php echo $city_id;?></p>
+              <p class="lead"><?php echo $city['city_name'];?></p>
             </div>
             <div>
               <span>商品名</span>
@@ -108,14 +130,18 @@
                 echo $images;
               } ?></p>
             </div>
-
             <div>
               <span>詳細</span>
               <p class="lead"><?php echo $detail;?></p>
             </div>
             <div>
+              <?php if (!empty($attached_file)) { ?>
               <span>添付ファイル</span>
-              <p class="lead"><?php if (!empty($attached_file)) {echo $attached_file;} ?></p>
+                <p class="lead">
+                  <?php echo $attached_file ;?>
+                  <?php } else { echo ""; ?>
+                </p>
+              <?php } ?>
             </div>
             <!-- ③ -->
             <form method="POST" action="_order_check1.php">

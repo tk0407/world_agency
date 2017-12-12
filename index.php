@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -80,8 +83,7 @@
       <div class="container">
       <div class="row centered">
         <div class="col-lg-8 col-lg-offset-2 mt">
-          <h1 class="animation slideDown">We are a digital creative agency. We focus on design, consulting, and technology.</h1>
-            <p class="mt"><button type="button" class="btn btn-cta btn-lg">LEARN MORE</button></p>
+          <h1 class="animation slideDown" style="font-size: 1000%">WA</h1>
         </div>
         
       </div><!-- /row -->
@@ -91,10 +93,17 @@
   <! ========== BLOG POSTS ==================================================================================================== 
   =============================================================================================================================>    
   <div class="container"> 
+    <div class="pull-right">
+      <p class="mt">
+        <a href="register/signup.php"><button type="button" class="btn btn-theme btn-lg">新規登録</button></a>
+        <a href="signin.php"><button type="button" class="btn btn-theme btn-lg">ログイン</button></a>
+        <a href="mypage.php"><button type="button" class="btn btn-theme btn-lg">マイページ</button></a>
+      </p>
+    </div>
 
     <div class="row mt centered ">
       <div class="col-lg-4 col-lg-offset-4">
-        <h3>What Is Happening?</h3>
+        <p class="mt"><a href="orderofferpage.php"><button type="button" class="btn btn-theme btn-lg">依頼する/依頼を受ける</button></a></p>
         <hr>
       </div>
     </div><!-- /row -->
@@ -107,8 +116,8 @@
               <p class="b-from-right b-animate b-delay03">Read More.</p>
           </div>
         </a>
-        <p>The Sky Is The Limit</p>
-        <p class="lead">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <p>海外で購入したら安いモノ</p>
+        <p class="lead">世の中には海外で購入したほうが安いもの、海外でしか手に入らないモノがたくさんあります。ここではそういったモノを今現地にいる人達に頼んで簡単に手に入れましょう。</p>
         <hr-d>
         <p class="time"><i class="fa fa-comment-o"></i> 3 | <i class="fa fa-calendar"></i> 14 Nov.</p>
       </div><!-- col-lg-4 -->
@@ -120,8 +129,8 @@
               <p class="b-from-right b-animate b-delay03">Read More.</p>
           </div>
         </a>
-        <p>Another Cool Stuff</p>
-        <p class="lead">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <p>海外でしか手に入らない情報</p>
+        <p class="lead">世界中にある観光地の数々、昔行ったことはあるけれど今どうなっているか最新の情報などは現地にいる人でないとわかりません。また、今その土地で流行っているモノやサービスの情報は自国にとってとても有益であったりします。これらの情報を現地にいる人に調達してもらいましょう。</p>
         <hr-d>
         <p class="time"><i class="fa fa-comment-o"></i> 1 | <i class="fa fa-calendar"></i> 13 Oct.</p>
       </div><!-- col-lg-4 -->
@@ -133,8 +142,8 @@
               <p class="b-from-right b-animate b-delay03">Read More.</p>
           </div>
         </a>
-        <p>This Is Awesome</p>
-        <p class="lead">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <p>海外の写真等のデータ</p>
+        <p class="lead">WEBサイトを運営したり、海外に関してのビジネスを運営しているとどうしてもその国、土地の写真やデータが必要になる時があります。ここではそういったデータも今現地にいる人達に依頼してみましょう。</p>
         <hr-d>
         <p class="time"><i class="fa fa-comment-o"></i> 1 | <i class="fa fa-calendar"></i> 13 Oct.</p>
       </div><!-- col-lg-4 -->
@@ -225,7 +234,7 @@
 
     <div class="row mt centered">
       <div class="col-lg-4 col-lg-offset-4">
-          <button type="button" class="btn btn-theme btn-lg">VIEW OUR PORTFOLIO</button>
+          <a href="orderofferpage.php"><button type="button" class="btn btn-theme btn-lg">依頼する/依頼を受ける</button></a>
       </div>
     </div><!-- /row -->
   </div><!-- /container -->

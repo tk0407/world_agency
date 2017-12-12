@@ -2,7 +2,7 @@
     session_start();
     require('dbconnect.php');
     require('functions.php');
-    // require('signin_check.php');
+    require('signin_check.php');
 
     // if (!isset($_REQUEST['user_id'])) {
     //     header('Location: users.php');
@@ -20,30 +20,27 @@
     // $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // v($signin_user);
-
-      $_POST['city_id'] = 1;
-      $_POST['category'] = 1;
-      // $city_id = '';
-      // $category = '';
-    // v($city_id);
-    // v($category);
+    // 依頼者が指定した都市とカテゴリーを受け取る。
+    $_POST['city_id'] = $_POST['input_city'];
+    $_POST['category'] = $_POST['input_category'];
     // v($_POST);
-    // オーダー内容取得
+    // 依頼者が選択した項目に当てはまるオーダー内容取得
     // オーダーのトグル処理
-        $city_id = $_POST['city_id'];
-        $category = $_POST['category'];
-      if (!empty($_POST['city_id'] && $_POST['category'])) {
-        $sql = 'SELECT * FROM `orders` WHERE city_id = ? AND category = ?';
-        $data = array($city_id, $category);
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute($data);
-        $order = $stmt->fetch(PDO::FETCH_ASSOC);
-      } else {
-        header('Location: orderofferpage.php');
-        exit();
-        }
-        // v($order);
-
+      $city_id = $_POST['city_id'];
+      $category = $_POST['category'];
+    if (!empty($_POST['city_id'] && $_POST['category'])) {
+      $sql = 'SELECT * FROM `orders` WHERE city_id = ? AND category = ?';
+      $data = array($city_id, $category);
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $city_id, PDO::PARAM_INT); //インジェクション対策
+      $stmt->bindParam(2, $category, PDO::PARAM_INT);
+      $stmt->execute($data);
+      $order = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+      header('Location: orderofferpage.php');
+      exit();
+      }
+    // orders配列に上で取ってきたorder内容を入れる
     $orders = array();
     while(true){
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -54,7 +51,7 @@
         $orders[] = $record;
     }
     $c = count($orders);
-      // v($c);
+      v($c);
 ?>
 
 <!DOCTYPE html>
@@ -84,14 +81,14 @@
           <div class="thumbnail">
             <div class="row">
               <div class="col-xs-2">
-                <img src="order_images/<?php echo $orders[$i]['images']; ?>" width="80">
+                <img src="order_images/<?php echo $orders[$i]['images']; ?>" width="150">
               </div>
               <div class="col-xs-8">
-                <a href=""><span style="font-size: 24px;"><?php echo $orders[$i]['title'] ?><?php echo $orders[$i]['item_name'] ?></span></a><br>
-                個数　<?php echo $orders[$i]['amount']; ?>個　依頼日時　<?php echo $orders[$i]['created']; ?>
+                <a href=""><span style="font-size: 24px;"><?php echo $orders[$i]['title']; ?><?php echo $orders[$i]['item_name']; ?></span></a><br>
+                個数　<?php echo $orders[$i]['amount']; ?><?php echo $orders[$i]['draft']; ?><?php echo $orders[$i]['file']; ?>個　依頼日時　<?php echo $orders[$i]['created']; ?>
               </div>
               <div class="col-xs-2">
-                <a href="agentlist.php?orders_id=<?php echo $orders[$i]['id'] ?>">
+                <a href="offerdetail.php?orders_id=<?php echo $orders[$i]['id'] ?>"><br>
                 <button class="btn btn-info btn-block">確認</button>
                 </a>
               </div>

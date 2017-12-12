@@ -1,4 +1,82 @@
 <?php
+    session_start();
+    require('dbconnect.php');
+    require('functions.php');
+    require('signin_check.php');ログインしていないとこのページに来れない
+
+    $order_id = $_REQUEST['orders_id'];
+      // v($order_id);
+    $city = '';
+
+    if (!empty($order_id)) {
+      $sql = 'SELECT * FROM `orders` WHERE id = ?';
+      $data = array($order_id);
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $id, PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute($data);
+      $order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      $sql = 'SELECT * FROM `cities` WHERE id = ?';
+      $data = array($order['city_id']);
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute($data);
+      $city = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+      header('Location: orderlist.php');
+      exit();
+      }
+      // v($order);
+      // v($city);
+
+    $errors = array();
+    $offer_price = '';
+    $delivery_deadline = '';
+    $delivery = '';
+    $comment = '';
+
+
+    // offerdetil.php (バリデーション処理Ver古)
+    if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
+      $_POST['input_offer_price'] = $_SESSION['register']['offer_price'];
+      $_POST['input_delivery_deadline'] = $_SESSION['register']['delivery_deadline'];
+      $_POST['input_delivery'] = $_SESSION['register']['delivery'];
+      $_POST['input_comment'] = $_SESSION['register']['comment'];
+      $errors['rewrite'] = true;
+    }
+
+    if (!empty($_POST)) {
+        $offer_price = $_POST['input_offer_price'];
+        $delivery_deadline = $_POST['input_delivery_deadline'];
+        $delivery = $_POST['input_delivery'];
+        $comment = $_POST['input_comment'];
+
+        // 空チェック
+        if ($offer_price == '') {
+            $errors['offer_price'] = 'blank';
+        }
+        if ($delivery_deadline == '') {
+            $errors['delivery_deadline'] = 'blank';
+        }
+        if ($delivery == '') {
+            $errors['delivery'] = 'blank';
+        }
+        if ($comment == '') {
+            $errors['comment'] = 'blank';
+        }
+
+        // v($errors);
+
+        if (empty($errors)) {
+        $_SESSION['register']['offer_price'] = $_POST['input_offer_price'];
+        $_SESSION['register']['delivery_deadline'] = $_POST['input_delivery_deadline'];
+        $_SESSION['register']['delivery'] = $_POST['input_delivery'];
+        $_SESSION['register']['comment'] = $_POST['input_comment'];
+        header('Location: offerdetailcheck.php?orders_id='.$order_id); //文字連結
+        exit();
+        }
+    }
+
 
 
 ?>
@@ -87,7 +165,6 @@
       <!-- ここから -->
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-left content_header">依頼詳細</h2>
-        <form method="POST" action="" enctype="multipart/form-data">
           <!-- ユーザー情報表示 -->
           <div class="row">
               <div class="col-lg-5" style="margin:30px auto">
@@ -115,42 +192,132 @@
               <h2 class="text-center content_header">依頼内容</h2>
               <div class="row">
                 <div class="col-xs-5">
-                  <img src="assets/img/portfolio/port02.jpg" class="img-responsive img-thumbnail">
+                  <img src="order_images/<?php echo $order['images'];?>" class="img-responsive img-thumbnail">
                   <p>お気に入り - <i class="fa fa-heart-o"></i></p>
                 </div>
                 <div class="col-xs-5">
                   <div>
+                    <?php if (!empty($order['country'])) { ?>
                     <span>国</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['country'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
                     <span>都市</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <p class="lead"><?php echo $city['city_name'];?></p>
                   </div>
                   <div>
-                    <span>商品名</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <!-- TODO:商品名フォント小さい？修正 -->
+                    <span>商品名</span><br>
+                    <?php if (!empty($order['item_name'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['item_name'];?>
+                      </p>
+                      <p class="lead">
+                        <?php } else { echo $order['title'];?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
                     <span>個数</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <?php if (!empty($order['amount'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['amount']; ?><span>個</span>
+                      </p>
+                    <?php } elseif (!empty($order['file'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['file']; ?><span>つ</span>
+                      </p>
+                    <?php } elseif (!empty($order['draft'])) { ?>
+                      <p class="lead">
+                        <?php echo $order['draft'];?><span>枚</span>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['order_price'])) { ?>
                     <span>希望価格</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['order_price'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['delivery_date'])) { ?>
                     <span>希望受取日</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['delivery_date'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <div>
+                    <?php if (!empty($order['publication_period'])) { ?>
                     <span>掲載期間</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                      <p class="lead">
+                        <?php echo $order['publication_period'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['recruitment_numbers'])) { ?>
+                    <span>募集人数</span>
+                      <p class="lead">
+                        <?php echo $order['recruitment_numbers'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['requirement_skills'])) { ?>
+                    <span>求めるスキル</span>
+                      <p class="lead">
+                        <?php echo $order['requirement_skills'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['detail'])) { ?>
+                    <span>詳細</span>
+                      <p class="lead">
+                        <?php echo $order['detail'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['request'])) { ?>
+                    <span>提案条件</span>
+                      <p class="lead">
+                        <?php echo $order['request'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
+                  </div>
+                  <div>
+                    <?php if (!empty($order['purpose'])) { ?>
+                    <span>利用目的</span>
+                      <p class="lead">
+                        <?php echo $order['purpose'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                   <!-- ↓もし,$imagesが空じゃなかったら発動する、空だったらスルーの処理を行う -->
                   <div>
-                    <span>参考画像</span>
-                    <p class="lead"><?php echo "ほげほげ";?></p>
+                    <?php if (!empty($order['attached_file'])) { ?>
+                    <span>添付ファイル</span>
+                      <p class="lead">
+                        <?php echo $order['attached_file'] ;?>
+                        <?php } else { echo ""; ?>
+                      </p>
+                    <?php } ?>
                   </div>
                 </div>
               </div>
@@ -158,31 +325,32 @@
           </div>
         </div>
         <h3 class="text-left content_header">引受け内容詳細</h3>
+        <form method="POST" action="offerdetail.php?orders_id=<?php echo $order_id ?>" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="delivery_date">引受価格</label>
-            <input type="text" name="input_delivery_date" class="form-control" id="delivery_date" placeholder="2017/10/02 10:00" value="ほげほげ">
-            <?php if(isset($errors['delivery_date']) && $errors['delivery_date'] == 'blank'){ ?>
-              <p class="text-danger">希望受取日時を入力して下さい</p>
+            <label for="offer_price">引受価格</label>
+            <input type="text" name="input_offer_price" class="form-control" id="offer_price" placeholder="¥3,000" value="<?php echo $offer_price; ?>">
+            <?php if(isset($errors['offer_price']) && $errors['offer_price'] == 'blank'){ ?>
+              <p class="text-danger">希望引受け価格を入力して下さい</p>
             <?php } ?>
           </div>
           <div class="form-group">
-            <label for="publication_period">引渡期限</label>
-            <input type="text" name="input_publication_period" class="form-control" id="publication_period" placeholder="2017/10/02" value="ほげほげ">
-            <?php if(isset($errors['publication_period']) && $errors['publication_period'] == 'blank'){ ?>
-              <p class="text-danger">掲載期限を入力して下さい</p>
+            <label for="delivery_deadline">引渡期限</label>
+            <input type="date" name="input_delivery_deadline" class="form-control" id="delivery_deadline" placeholder="2017/10/02" value="<?php echo $delivery_deadline; ?>">
+            <?php if(isset($errors['delivery_deadline']) && $errors['delivery_deadline'] == 'blank'){ ?>
+              <p class="text-danger">引渡期限を入力して下さい</p>
             <?php } ?>
           </div>
           <div class="form-group">
-            <label for="publication_period">引渡方法</label>
-            <input type="text" name="input_publication_period" class="form-control" id="publication_period" placeholder="2017/10/02" value="ほげほげ">
-            <?php if(isset($errors['publication_period']) && $errors['publication_period'] == 'blank'){ ?>
-              <p class="text-danger">掲載期限を入力して下さい</p>
+            <label for="delivery">引渡方法</label>
+            <input type="text" name="input_delivery" class="form-control" id="delivery" placeholder="手渡し" value="<?php echo $delivery; ?>">
+            <?php if(isset($errors['delivery']) && $errors['delivery'] == 'blank'){ ?>
+              <p class="text-danger">引渡方法を入力して下さい</p>
             <?php } ?>
           </div>
           <div class="form-group">
-            <label for="detail">コメント</label>
-            <input type="text" name="input_detail" class="form-control" id="detail" placeholder="依頼内容の詳細をご記入下さい" value="ほげほげ">
-            <?php if(isset($errors['detail']) && $errors['detail'] == 'blank'){ ?>
+            <label for="comment">コメント</label>
+            <input type="text" name="input_comment" class="form-control" id="comment" placeholder="依頼内容の詳細をご記入下さい" value="<?php echo $comment; ?>">
+            <?php if(isset($errors['comment']) && $errors['comment'] == 'blank'){ ?>
               <p class="text-danger">詳細を記入して下さい</p>
             <?php } ?>
           </div>
