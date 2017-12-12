@@ -1,4 +1,4 @@
-<?php
+　<?php
     session_start();
     require('dbconnect.php');
     require('functions.php');
@@ -12,7 +12,7 @@
     $orders_id = $_REQUEST['orders_id'];
 
     // ユーザー情報取得
-    $sql = 'SELECT * FROM offers LEFT JOIN users ON offers.agent_id = users.id WHERE offers.order_id = ? ORDER BY updated DESC';
+    $sql = 'SELECT * FROM offers LEFT JOIN users ON offers.agent_id = users.id WHERE offers.order_id = ? ORDER BY offers.updated DESC';
     $data = array($orders_id);
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -127,7 +127,7 @@
         <ul class="list-group" id="contact-list">
           <li class="list-group-item">
             <div class="col-xs-4">
-              <img src="trade_img/<?php echo $order['images']; ?>" width="80">
+              <img src="order_images/<?php echo $order['images']; ?>" width="80">
             </div>
             <div class="col-xs-8">
               <a href=""><span style="font-size: 24px;"><?php echo $order['title'] ?></span></a><br>

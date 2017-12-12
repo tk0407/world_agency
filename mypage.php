@@ -348,7 +348,7 @@
               <div class="thumbnail">
                 <div class="row">
                   <div class="col-xs-3">
-                    <img src="trade_img/<?php echo $orders[$i]['images']; ?>" width="60">
+                    <img src="order_images/<?php echo $orders[$i]['images']; ?>" width="60">
                   </div>
                   <div class="col-xs-6">
                     <a href=""><span style="font-size: 24px;"><?php echo $client[$i]['title'] ?></span></a><br>
@@ -379,7 +379,7 @@
               <div class="thumbnail">
                 <div class="row">
                   <div class="col-xs-3">
-                    <img src="trade_img/<?php echo $client[$i]['images']; ?>" width="60">
+                    <img src="order_images/<?php echo $client[$i]['images']; ?>" width="60">
                   </div>
                   <div class="col-xs-6">
                     <a href=""><span style="font-size: 24px;"><?php echo $client[$i]['title'] ?></span></a><br>
@@ -414,7 +414,7 @@
           <div class="thumbnail">
             <div class="row">
               <div class="col-xs-3">
-                <img src="trade_img/<?php echo $agent[$i]['images']; ?>" width="60">agent
+                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="60">agent
               </div>
               <div class="col-xs-6">
                 <a href=""><span style="font-size: 24px;"><?php echo $agent[$i]['title'] ?></span></a><br>
@@ -448,7 +448,7 @@
           <div class="thumbnail">
             <div class="row">
               <div class="col-xs-3">
-                <img src="trade_img/<?php echo $agent[$i]['images']; ?>" width="60">agent
+                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="60">agent
               </div>
               <div class="col-xs-6">
                 <a href=""><span style="font-size: 24px;"><?php echo $agent[$i]['title'] ?></span></a><br>

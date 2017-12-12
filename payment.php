@@ -189,7 +189,7 @@ if(!empty($_POST)){
               <ul class="list-group" id="contact-list">
                 <li class="list-group-item">
                   <div class="col-xs-3">
-                    <img src="trade_img/<?php echo $order['images']; ?>" width="80">
+                    <img src="order_images/<?php echo $order['images']; ?>" width="80">
                   </div>
 
                   <div class="col-xs-9">

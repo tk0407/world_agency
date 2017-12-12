@@ -155,7 +155,7 @@ $ca = count($agent);
           <div class="thumbnail">
             <div class="row">
               <div class="col-xs-3">
-                <img src="trade_img/<?php echo $orders[$i]['images']; ?>" width="80">
+                <img src="order_images/<?php echo $orders[$i]['images']; ?>" width="80">
               </div>
               <div class="col-xs-6">
                 <a href=""><span style="font-size: 24px;"><?php echo $orders[$i]['title'] ?></span></a><br>
@@ -199,7 +199,7 @@ $ca = count($agent);
           <div class="thumbnail">
             <div class="row">
               <div class="col-xs-3">
-                <img src="trade_img/<?php echo $agent[$i]['images']; ?>" width="80">
+                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="80">
               </div>
               <div class="col-xs-6">
                 <a href=""><span style="font-size: 24px;"><?php echo $agent[$i]['title'] ?></span></a><br>
