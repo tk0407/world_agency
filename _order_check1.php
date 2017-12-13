@@ -5,7 +5,7 @@
     require('functions.php');
     require('signin_check.php');
 
-    $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
+    // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
     if(!isset($_SESSION['register'])) {
       header('Location: _order_detail1.php');
@@ -16,11 +16,10 @@
       $client_id = $_SESSION['signin_user']['id'];
     }
 
-    // v($_POST);
+    v($_POST);
 
-    // v($_SESSION['register']);
+    v($_SESSION['register']);
 
-    $country = $_SESSION['register']['country'];
     $city_id = $_SESSION['register']['city'];
     $item_name = $_SESSION['register']['item_name'];
     $amount = $_SESSION['register']['amount'];
@@ -33,10 +32,9 @@
     $category = 1;
 
     $sql = 'SELECT * FROM `cities` WHERE id = ?';
-    $data = array($city_id);
     $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
-    $stmt->execute($data);
+    $stmt->bindParam(1, $city_id, PDO::PARAM_INT); //インジェクション対策
+    $stmt->execute();
     $city = $stmt->fetch(PDO::FETCH_ASSOC);
     // v($city);
 
@@ -60,9 +58,7 @@
           ,`created`=NOW()
           ';
           // 上記が雛形の書き方
-        $data = array($city_id,$category,$item_name,$amount,$order_price,$delivery_date,$publication_period,$images,$detail,$attached_file,$client_id);
         $stmt = $dbh->prepare($sql);
-        $stmt->execute($data);
         $stmt->bindParam(1, $city_id, PDO::PARAM_STR);
         $stmt->bindParam(2, $category, PDO::PARAM_STR);
         $stmt->bindParam(3, $item_name, PDO::PARAM_STR);
@@ -70,9 +66,11 @@
         $stmt->bindParam(5, $order_price, PDO::PARAM_STR);
         $stmt->bindParam(6, $delivery_date, PDO::PARAM_STR);
         $stmt->bindParam(7, $publication_period, PDO::PARAM_STR);
-        $stmt->bindParam(8, $images, PDO::PARAM_STR); //LOBでバリデーションして問題ないか？→ここはTEXTでDBに保存しているのでSTRで大丈夫
+        $stmt->bindParam(8, $images, PDO::PARAM_STR);
         $stmt->bindParam(9, $detail, PDO::PARAM_STR);
         $stmt->bindParam(10, $attached_file, PDO::PARAM_STR);
+        $stmt->bindParam(11, $client_id, PDO::PARAM_STR);
+        $stmt->execute();
 
         unset($_SESSION['register']);
         header('Location: thanksorder.php');
@@ -93,7 +91,7 @@
   <div class="container" style="opacity: 0.95;">
     <div class="row">
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
-        <h2 class="text-center content_header">アカウント情報確認</h2>
+        <h2 class="text-center content_header">依頼 情報確認</h2>
         <div class="row">
           <div class="col-xs-4">
             <img src="order_images/<?php echo $images;?>" class="img-responsive img-thumbnail">

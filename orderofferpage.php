@@ -6,20 +6,6 @@
     require('signin_check.php');
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
-    // 国々の名前をDBから全件取得
-    $sql = 'SELECT * FROM `countries` WHERE valid = 1';
-    $data = array();
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
-
-    $countries = [];
-    while (true) {
-        $country = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($country == false) {
-            break;
-        }
-        $countries[] = $country;
-    }
     // 各都市の名前をDBから全件取得
     $sql = 'SELECT * FROM `cities` WHERE 1';
     $data = array();
@@ -137,16 +123,6 @@
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">依頼を受ける</h2>
         <form method="POST" action="orderlist.php" enctype="multipart/form-data">
-          <!-- 下記、国のDBからスクロールして国名を取ってくる -->
-          <div class="form-group">
-            <label for="country">国</label>
-            <select type="text" name="input_country" class="form-control">
-              <?php foreach($countries as $country): ?>
-                <option value="<?= $country['id'] ?>"><?= $country['country_name']; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-            <!-- $_POST['hoge'] = 3 -->
             <!-- 3 -->
             <!-- 下記、都市のDBからスクロールして都市名を取ってくる -->
           <div class="form-group">

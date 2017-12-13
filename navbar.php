@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="index.html" class="navbar-brand">World Agency</a>
+        <a href="index.php" class="navbar-brand">World Agency</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse1">
         <ul class="nav navbar-nav">

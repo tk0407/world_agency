@@ -7,20 +7,6 @@
     require('signin_check.php');
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
-    // 国々の名前をDBから全件取得
-    $sql = 'SELECT * FROM `countries` WHERE 1';
-    $data = array();
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
-
-    $countries = [];
-    while (true) {
-        $country = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($country == false) {
-            break;
-        }
-        $countries[] = $country;
-    }
     // 各都市の名前をDBから全件取得
     $sql = 'SELECT * FROM `cities` WHERE 1';
     $data = array();
@@ -37,7 +23,6 @@
     }
 
     $errors = array();
-    $country = '';
     $city = '';
     $title = '';
     $file = '';
@@ -45,7 +30,6 @@
     $delivery_date = '';
     $delivery_format = '';
     $publication_period = '';
-    $recruitment_numbers = '';
     $requirement_skills = '';
     $images = '';
     $detail = '';
@@ -55,7 +39,6 @@
 
 
     if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
-        $_POST['input_country'] = $_SESSION['register']['country'];
         $_POST['input_city'] = $_SESSION['register']['city'];
         $_POST['input_title'] = $_SESSION['register']['title'];
         $_POST['input_file'] = $_SESSION['register']['file'];
@@ -63,7 +46,6 @@
         $_POST['input_delivery_date'] = $_SESSION['register']['delivery_date'];
         $_POST['input_delivery_format'] = $_SESSION['register']['delivery_format'];
         $_POST['input_publication_period'] = $_SESSION['register']['publication_period'];
-        $_POST['input_recruitment_numbers'] = $_SESSION['register']['recruitment_numbers'];
         $_POST['input_requirement_skills'] = $_SESSION['register']['requirement_skills'];
         $_POST['input_detail'] = $_SESSION['register']['detail'];
         $_POST['input_request'] = $_SESSION['register']['request'];
@@ -73,7 +55,6 @@
     var_dump($_POST);
 
     if (!empty($_POST)) {
-        $country = $_POST['input_country'];
         $city = $_POST['input_city'];
         $title = $_POST['input_title'];
         $file = $_POST['input_file'];
@@ -81,7 +62,6 @@
         $delivery_date = $_POST['input_delivery_date'];
         $delivery_format = $_POST['input_delivery_format'];
         $publication_period = $_POST['input_publication_period'];
-        $recruitment_numbers = $_POST['input_recruitment_numbers'];
         $requirement_skills = $_POST['input_requirement_skills'];
         $detail = $_POST['input_detail'];
         $request = $_POST['input_request'];
@@ -89,9 +69,6 @@
 
 
         // ユーザーネームの空チェック
-        if ($country == '') {
-            $errors['country'] = 'blank';
-        }
 
         if ($city == '') {
             $errors['city'] = 'blank';
@@ -119,10 +96,6 @@
 
         if ($publication_period == '') {
             $errors['publication_period'] = 'blank';
-        }
-
-        if ($recruitment_numbers == '') {
-            $errors['recruitment_numbers'] = 'blank';
         }
 
         if ($requirement_skills == '') {
@@ -188,7 +161,6 @@
               move_uploaded_file($_FILES['input_attached_file']['tmp_name'], 'order_attached_files/' . $submit_file_name2);
           }
 
-          $_SESSION['register']['country'] = $_POST['input_country'];
           $_SESSION['register']['city'] = $_POST['input_city'];
           $_SESSION['register']['title'] = $_POST['input_title'];
           $_SESSION['register']['file'] = $_POST['input_file'];
@@ -196,7 +168,6 @@
           $_SESSION['register']['delivery_date'] = $_POST['input_delivery_date'];
           $_SESSION['register']['delivery_format'] = $_POST['input_delivery_format'];
           $_SESSION['register']['publication_period'] = $_POST['input_publication_period'];
-          $_SESSION['register']['recruitment_numbers'] = $_POST['input_recruitment_numbers'];
           $_SESSION['register']['requirement_skills'] = $_POST['input_requirement_skills'];
           $_SESSION['register']['images'] = $submit_file_name1;
           $_SESSION['register']['detail'] = $_POST['input_detail'];
@@ -227,15 +198,6 @@
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">依頼内容 情報</h2>
         <form method="POST" action="_order_detail3.php" enctype="multipart/form-data">
-          <!-- 下記、国のDBからスクロールして国名を取ってくる -->
-          <div class="form-group">
-            <label for="country">国</label>
-            <select type="text" name="input_country" class="form-control">
-              <?php foreach($countries as $country): ?>
-                <option value="<?= $country['id'] ?>"><?= $country['country_name']; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
             <!-- $_POST['hoge'] = 3 -->
             <!-- 3 -->
             <!-- 下記、都市のDBからスクロールして国名を取ってくる -->
@@ -289,13 +251,6 @@
             <input type="date" name="input_publication_period" class="form-control" id="publication_period" placeholder="2017/10/02" value="<?php echo $publication_period; ?>">
             <?php if(isset($errors['publication_period']) && $errors['publication_period'] == 'blank'){ ?>
               <p class="text-danger">掲載期限を入力して下さい</p>
-            <?php } ?>
-          </div>
-          <div class="form-group">
-            <label for="recruitment_numbers">募集人数</label>
-            <input type="number" name="input_recruitment_numbers" class="form-control" id="recruitment_numbers" placeholder="5人" value="<?php echo $recruitment_numbers; ?>">
-            <?php if(isset($errors['recruitment_numbers']) && $errors['recruitment_numbers'] == 'blank'){ ?>
-              <p class="text-danger">募集人数を入力して下さい</p>
             <?php } ?>
           </div>
           <div class="form-group">

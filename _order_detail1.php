@@ -7,21 +7,6 @@
     require('signin_check.php');
     // $signin_user['id'] = 1; //TODO 後でsignin idをここに表示できるようにする。
 
-    // 国々の名前をDBから全件取得
-    $sql = 'SELECT * FROM `countries` WHERE 1'; // valid=1のように対応している国だけ選ぶ。
-    $data = array();
-    $stmt = $dbh->prepare($sql);
-    // $stmt->bindParam(1, $id, PDO::PARAM_INT);  TODO:bindParam全件取得の場合はどうすべき？
-    $stmt->execute($data);
-
-    $countries = [];
-    while (true) {
-        $country = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($country == false) {
-            break;
-        }
-        $countries[] = $country;
-    }
     // 各都市の名前をDBから全件取得
     $sql = 'SELECT * FROM `cities` WHERE 1';
     $data = array();
@@ -41,7 +26,6 @@
 
 
     $errors = array();
-    $country = '';
     $city = '';
     $item_name = '';
     $amount = '';
@@ -52,7 +36,6 @@
     $images = '';
 
     if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
-        $_POST['input_country'] = $_SESSION['register']['country'];
         $_POST['input_city'] = $_SESSION['register']['city'];
         $_POST['input_item_name'] = $_SESSION['register']['item_name'];
         $_POST['input_amount'] = $_SESSION['register']['amount'];
@@ -67,7 +50,6 @@
 
 
     if (!empty($_POST)) {
-        $country = $_POST['input_country'];
         $city = $_POST['input_city'];
         $item_name = $_POST['input_item_name'];
         $amount = $_POST['input_amount'];
@@ -78,10 +60,6 @@
 
 
         // ユーザーネームの空チェック
-
-        if ($country == '') {
-            $errors['country'] = 'blank';
-        }
 
         if ($city == '') {
             $errors['city'] = 'blank';
@@ -159,7 +137,6 @@
               move_uploaded_file($_FILES['input_attached_file']['tmp_name'], 'order_attached_files/' . $submit_file_name2);
           }
 
-          $_SESSION['register']['country'] = $_POST['input_country'];
           $_SESSION['register']['city'] = $_POST['input_city'];
           $_SESSION['register']['item_name'] = $_POST['input_item_name'];
           $_SESSION['register']['amount'] = $_POST['input_amount'];
@@ -193,15 +170,6 @@
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">依頼内容 モノ</h2>
         <form method="POST" action="_order_detail1.php" enctype="multipart/form-data">
-          <!-- 下記、国のDBからスクロールして国名を取ってくる -->
-          <div class="form-group">
-            <label for="country">国</label>
-            <select type="text" name="input_country" class="form-control">
-              <?php foreach($countries as $country): ?>
-                <option value="<?= $country['id'] ?>"><?= $country['country_name']; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
             <!-- $_POST['hoge'] = 3 -->
             <!-- 3 -->
             <!-- 下記、都市のDBからスクロールして国名を取ってくる -->
