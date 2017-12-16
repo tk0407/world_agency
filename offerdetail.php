@@ -31,9 +31,9 @@
       header('Location: orderlist.php');
       exit();
       }
-      v($order);
+      // v($order);
       // v($city);
-      v($client);
+      // v($client);
 
     $errors = array();
     $offer_price = '';
@@ -184,7 +184,7 @@
                           <hr style="margin:8px auto">
 
                           <span class="label label-default"><?php echo $client['language'];?></span>
-                          <span class="label label-default"></span>
+                          <span class="label label-default">jQuery</span>
                           <span class="label label-info"></span>
                           <span class="label label-default"></span>
                       </div>

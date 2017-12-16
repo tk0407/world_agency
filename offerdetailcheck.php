@@ -4,6 +4,7 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
+
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
     if(!isset($_SESSION['register'])) {
@@ -11,7 +12,7 @@
       exit();
     }
     $order_id = $_REQUEST['orders_id'];
-    v($order_id);
+    // v($order_id);
 
     $city = '';
 
@@ -40,12 +41,12 @@
       // header('Location: orderlist.php');
       // exit();
       }
-      v($order);
+      // v($order);
 
-    v($_POST);
-    v($_SESSION['signin_user']['id']);
+    // v($_POST);
+    // v($_SESSION['signin_user']['id']);
 
-    v($_SESSION['register']);
+    // v($_SESSION['register']);
 
     // $country = $_SESSION['register']['country'];
     // $city_id = $_SESSION['register']['city'];
@@ -79,6 +80,11 @@
         $stmt->bindParam(6, $order_id, PDO::PARAM_STR);
         $stmt->execute();
 
+        $sql = 'UPDATE `orders` SET `flag`=1 WHERE `id` =?';
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(1, $order_id, PDO::PARAM_INT);
+        $stmt->execute();
+
         unset($_SESSION['register']);
         header('Location: thanksoffer.php');
         exit();
@@ -95,24 +101,14 @@
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
   <!-- 基本bootの下でfont awesome読み込む -->
   <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.css">
-  
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
   <link rel="shortcut icon" href="assets/ico/favicon.png">
-
   <link href="assets/css/hover_pack.css" rel="stylesheet">
-
   <!-- Bootstrap core CSS -->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">
   <link href="assets/css/animations.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
   <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->

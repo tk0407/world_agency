@@ -35,7 +35,9 @@
         $orders[] = $record;
     }
     $c = count($orders);
-      v($c);
+      // v($c);
+      // v($orders);
+      // v($_SESSION['signin_user']);
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +48,18 @@
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- 基本bootの下でfont awesome読み込む -->
+  <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.css">
+  <link href="assets/css/hover_pack.css" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="assets/css/animations.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body style="margin-top: 60px; background: #E4E6EB;">
   <?php require('navbar.php'); ?>
@@ -57,8 +71,6 @@
         <hr>
       </div><!-- /col-lg-4 -->
     </div><!-- /row -->
-
-
       <div class="col-xs-12">
         <!-- タイムライン -->
         <?php for($i=0;$i<$c;$i++){ ?>
@@ -81,7 +93,7 @@
         <?php } ?>
       </div>
     </div>
-  </div>
+  <?php require('footer.php');?>
   <script src="assets/js/jquery.js"></script>
   <script src="assets/js/bootstrap.js"></script>
 </body>

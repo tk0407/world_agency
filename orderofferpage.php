@@ -4,6 +4,7 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
+
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
     // 各都市の名前をDBから全件取得
@@ -68,8 +69,8 @@
   <title>World Agency</title>
   </head>
 <body>
+  <?php require('navbar.php');?>
   <div class="container"> 
-
     <div class="row mt centered ">
       <div class="col-lg-4 col-lg-offset-4">
         <h3>海外のエージェントに依頼をする</h3>
@@ -149,6 +150,8 @@
       </div>
     </div>
   </div>
+  <?php require('footer.php');?>
+
 
 
     <!-- Bootstrap core JavaScript

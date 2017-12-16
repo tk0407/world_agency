@@ -5,6 +5,8 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
+
+
     // $signin_user['id'] = 1; //TODO 後でsignin idをここに表示できるようにする。
 
     // 各都市の名前をDBから全件取得
@@ -46,7 +48,7 @@
         $errors['rewrite'] = true; //これはコメントアウト下部分で本来行わなければ行けない処理。コメントアウトしてしまったのでここに追記
     }
 
-    var_dump($_POST);
+    // var_dump($_POST);
 
 
     if (!empty($_POST)) {
@@ -162,8 +164,20 @@
   <!-- 基本bootの下でfont awesome読み込む -->
   <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link href="assets/css/hover_pack.css" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="assets/css/animations.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body style="margin-top: 60px; background-image: url(assets/img/portfolio/formback3.jpg); background-position:center center; background-repeat:no-repeat; background-attachment: fixed; background-size: cover;">
+<body>
+  <?php require('navbar.php');?>
+  <div style="margin-top: 50px; z-index: 1; background-image: url(assets/img/portfolio/formback3.jpg); background-position:center center; background-repeat:no-repeat; background-attachment: fixed; background-size: cover;">
   <div class="container" style="opacity: 0.9;">
     <div class="row">
       <!-- ここから -->
@@ -250,6 +264,8 @@
       </div>
     </div>
   </div>
+  </div>
+<?php require('footer.php');?>
 <script type="assets/js/jquery.js"></script>
 <script type="assets/js/bootstrap.js"></script>
 </body>

@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="assets/ico/favicon.png">
 
-    <title>MARCO - One Page Bootstrap 3 Theme</title>
+    <title>World Agency</title>
 
     <link href="assets/css/hover_pack.css" rel="stylesheet">
 
@@ -110,7 +110,7 @@
 
     <div class="row mt">
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port04.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/mono1.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Post 1</h4>
               <p class="b-from-right b-animate b-delay03">Read More.</p>
@@ -123,7 +123,7 @@
       </div><!-- col-lg-4 -->
       
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port05.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/research.jpeg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Post 2</h4>
               <p class="b-from-right b-animate b-delay03">Read More.</p>
@@ -136,7 +136,7 @@
       </div><!-- col-lg-4 -->
       
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port06.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/photos.jpeg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Post 3</h4>
               <p class="b-from-right b-animate b-delay03">Read More.</p>
