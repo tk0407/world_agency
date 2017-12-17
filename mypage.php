@@ -108,6 +108,24 @@
     }
     $ca = count($agent);
 
+
+            // offers情報取得
+    $sql = 'SELECT * FROM offers LEFT JOIN orders ON orders.id = offers.order_id WHERE orders.client_id = ?';
+    $data = array($signin_user['id']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $offer = array();
+    while(true){
+      $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if ($record == false) {
+        break;
+      }
+      $offer[] = $record;
+    }
+    $co = count($offer);
+
     ?>
 
 <!DOCTYPE html>
@@ -133,6 +151,8 @@
   <link href="assets/css/animations.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+
   </head>
 
   <body style="margin-top: ; background: #FFFFFF;">
@@ -150,7 +170,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
-         <div class="well profile">
+         <div class="profile">
           <div class="col-sm-12">
             <div class="col-xs-12 col-sm-12 text-center">
               <figure>
@@ -177,7 +197,7 @@
                     </a>
                     <a href="#">
                      <span class="fa fa-star-o"></span>
-                   </a> 
+                   </a>
                  </p>
                </figcaption>
              </figure>
@@ -185,23 +205,23 @@
          </div>            
          <div class="col-xs-12 divider text-center">
           <div class="col-xs-4 col-sm-4 emphasis">
-            <button class="btn btn-theme btn-block"><a href="orderstatus.php?user_id=<?php echo $signin_user['id']; ?>" class="text-primary">取引一覧</a></button>
+            <a class="btn btn-wa btn-block" href="orderstatus.php?user_id=<?php echo $signin_user['id']; ?>" class="text-primary">取引一覧</a>
           </div>
           <div class="col-xs-4 col-sm-4 emphasis">
-            <button class="btn btn-theme btn-block"><a href="register/edit_profile.php?id=<?php echo $signin_user['id']; ?>" class="text-primary">プロフィール編集 </a></button>
+            <a class="btn btn-wa btn-block" href="register/edit_profile.php?id=<?php echo $signin_user['id']; ?>" class="text-primary">プロフィール編集 </a>
           </div>
           <div class="col-xs-4 col-sm-4 emphasis">
-            <button class="btn btn-theme btn-block">お気に入り </button>
+            <button class="btn btn-wa btn-block">お気に入り </button>
           </div>
 
           <div class="col-xs-4 col-sm-4 emphasis">
-            <button class="btn btn-theme btn-block"> 評価 </button>
+            <button class="btn btn-wa btn-block"> 評価 </button>
           </div>
           <div class="col-xs-4 col-sm-4 emphasis">
-            <button class="btn btn-theme btn-block">フォロー </button>
+            <button class="btn btn-wa btn-block">フォロー </button>
           </div>
           <div class="col-xs-4 col-sm-4 emphasis">
-            <button class="btn btn-theme btn-block">フォロワー </button>
+            <button class="btn btn-wa btn-block">フォロワー </button>
           </div>
 
         </div>
@@ -300,18 +320,35 @@
               <?php for($i=0;$i<3;$i++){ ?>
               <div class="thumbnail">
                 <div class="row">
-                  <div class="col-xs-3">
-                    <img src="order_images/<?php echo $orders[$i]['images']; ?>" width="60">
+                  <div class="col-xs-3 centered">
+                    <img src="order_images/<?php echo $client[$i]['images']; ?>" width="60">
                   </div>
                   <div class="col-xs-6">
-                    <a href=""><span style="font-size: 24px;"><?php echo $client[$i]['title'] ?></span></a><br>
-                    個数　<?php echo $client[$i]['amount']; ?>個　依頼日時　<?php echo $client[$i]['created']; ?>
+                    <a href=""><span style="font-size: 24px;">
+                    <?php if (!empty($client[$i]['item_name'])) { ?>
+                    <?php echo $client[$i]['item_name'];?>
+                    <?php } else { echo $client[$i]['title'];?>
+                    <?php } ?>
+                    </span></a><br>
+                    個数<?php if (!empty($client[$i]['amount'])) { ?>
+                        <?php echo $client[$i]['amount']; ?>個
+                    <?php } elseif (!empty($client[$i]['file'])) { ?>
+                        <?php echo $client[$i]['file']; ?>つ
+                    <?php } elseif (!empty($client[$i]['draft'])) { ?>
+                        <?php echo $client[$i]['draft'];?>枚
+                    <?php } ?>
+                    　依頼日時　<?php echo $client[$i]['created']; ?>
                   </div>
-                  <div class="col-xs-3">
-                    <?php if ($client[$i]['flag'] == 1): ?>
+                  <div class="col-xs-3 centered">
+                    <?php if ($client[$i]['flag'] == 0): ?>
                       <a href="offeragentlist.php?orders_id=<?php echo $client[$i]['id'] ?>">
-                        <button class="btn btn-wa btn-block">オファー受付中</button>
+                        <button class="btn btn-info btn-block">オファー受付中</button>
                       </a>
+                    <?php elseif($client[$i]['flag'] == 1): ?>
+                      <a href="offeragentlist.php?orders_id=<?php echo $client[$i]['id'] ?>">
+                        <button class="btn btn-info btn-block">オファー受付中</button>
+                      </a>
+                        <i class="fa fa-hand-paper-o faa-flash animated" aria-hidden="true"></i>オファーあり
                     <?php elseif($client[$i]['flag'] == 2): ?>
                       <a href="matchingorder.php?orders_id=<?php echo $client[$i]['id'] ?>">
                         <button class="btn btn-danger btn-block">取引中</button>
@@ -331,18 +368,35 @@
               <?php for($i=0;$i<$cc;$i++){ ?>
               <div class="thumbnail">
                 <div class="row">
-                  <div class="col-xs-3">
+                  <div class="col-xs-3 centered">
                     <img src="order_images/<?php echo $client[$i]['images']; ?>" width="60">
                   </div>
                   <div class="col-xs-6">
-                    <a href=""><span style="font-size: 24px;"><?php echo $client[$i]['title'] ?></span></a><br>
-                    個数　<?php echo $client[$i]['amount']; ?>個　依頼日時　<?php echo $client[$i]['created']; ?>
+                    <a href=""><span style="font-size: 24px;">
+                    <?php if (!empty($client[$i]['item_name'])) { ?>
+                    <?php echo $client[$i]['item_name'];?>
+                    <?php } else { echo $client[$i]['title'];?>
+                    <?php } ?>
+                    </span></a><br>
+                    個数<?php if (!empty($client[$i]['amount'])) { ?>
+                        <?php echo $client[$i]['amount']; ?>個
+                    <?php } elseif (!empty($client[$i]['file'])) { ?>
+                        <?php echo $client[$i]['file']; ?>つ
+                    <?php } elseif (!empty($client[$i]['draft'])) { ?>
+                        <?php echo $client[$i]['draft'];?>枚
+                    <?php } ?>
+                    　依頼日時　<?php echo $client[$i]['created']; ?>
                   </div>
-                  <div class="col-xs-3">
-                    <?php if ($client[$i]['flag'] == 1): ?>
+                  <div class="col-xs-3 centered">
+                    <?php if ($client[$i]['flag'] == 0): ?>
                       <a href="offeragentlist.php?orders_id=<?php echo $client[$i]['id'] ?>">
-                        <button class="btn btn-wa btn-block">オファー受付中</button>
+                        <button class="btn btn-info btn-block">オファー受付中</button>
                       </a>
+                    <?php elseif($client[$i]['flag'] == 1): ?>
+                      <a href="offeragentlist.php?orders_id=<?php echo $client[$i]['id'] ?>">
+                        <button class="btn btn-info btn-block">オファー受付中</button>
+                      </a>
+                        <i class="fa fa-hand-paper-o faa-flash animated" aria-hidden="true"></i>オファーあり
                     <?php elseif($client[$i]['flag'] == 2): ?>
                       <a href="matchingorder.php?orders_id=<?php echo $client[$i]['id'] ?>">
                         <button class="btn btn-danger btn-block">取引中</button>
@@ -357,6 +411,7 @@
               </div>
               <?php } ?>
 
+
           <?php endif; ?>
 
 <!-- ------------------エージェント側------------------------- -->
@@ -366,17 +421,29 @@
             <?php for($i=0;$i<$ca;$i++){ ?>
           <div class="thumbnail">
             <div class="row">
-              <div class="col-xs-3">
-                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="60">agent
+              <div class="col-xs-3 centered">
+                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="60"><i class="fa fa-hand-paper-o faa-flash animated" aria-hidden="true"></i>
               </div>
               <div class="col-xs-6">
-                <a href=""><span style="font-size: 24px;"><?php echo $agent[$i]['title'] ?></span></a><br>
-                個数　<?php echo $agent[$i]['amount']; ?>個　依頼日時　<?php echo $agent[$i]['created']; ?>
+                <a href=""><span style="font-size: 24px;">
+                <?php if (!empty($agent[$i]['item_name'])) { ?>
+                <?php echo $agent[$i]['item_name'];?>
+                <?php } else { echo $agent[$i]['title'];?>
+                <?php } ?>
+                </span></a><br>
+                個数<?php if (!empty($agent[$i]['amount'])) { ?>
+                    <?php echo $agent[$i]['amount']; ?>個
+                <?php } elseif (!empty($agent[$i]['file'])) { ?>
+                    <?php echo $agent[$i]['file']; ?>つ
+                <?php } elseif (!empty($agent[$i]['draft'])) { ?>
+                    <?php echo $agent[$i]['draft'];?>枚
+                <?php } ?>
+                　依頼日時　<?php echo $agent[$i]['created']; ?>
               </div>
               <div class="col-xs-3">
                 <?php if ($agent[$i]['flag'] == 1): ?>
                   <a href="waitingoffer.php?offer_id=<?php echo $agent[$i]['order_id'] ?>">
-                    <button class="btn btn-wa btn-block">オファー未承認</button>
+                    <button class="btn btn-info btn-block">オファー未承認</button>
                   </a>
                 <?php elseif($agent[$i]['flag'] == 2 && $agent[$i]['agent_id'] != $signin_user['id']): ?>
                   <button class="btn btn-secondary btn-block">不成立</button>
@@ -400,17 +467,29 @@
               <?php for($i=0;$i<$ca;$i++){ ?>
           <div class="thumbnail">
             <div class="row">
-              <div class="col-xs-3">
-                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="60">agent
+              <div class="col-xs-3 centered">
+                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="60">
               </div>
               <div class="col-xs-6">
-                <a href=""><span style="font-size: 24px;"><?php echo $agent[$i]['title'] ?></span></a><br>
-                個数　<?php echo $agent[$i]['amount']; ?>個　依頼日時　<?php echo $agent[$i]['created']; ?>
+                <a href=""><span style="font-size: 24px;">
+                <?php if (!empty($agent[$i]['item_name'])) { ?>
+                <?php echo $agent[$i]['item_name'];?>
+                <?php } else { echo $agent[$i]['title'];?>
+                <?php } ?>
+                </span></a><br>
+                個数<?php if (!empty($agent[$i]['amount'])) { ?>
+                    <?php echo $agent[$i]['amount']; ?>個
+                <?php } elseif (!empty($agent[$i]['file'])) { ?>
+                    <?php echo $agent[$i]['file']; ?>つ
+                <?php } elseif (!empty($agent[$i]['draft'])) { ?>
+                    <?php echo $agent[$i]['draft'];?>枚
+                <?php } ?>
+                　依頼日時　<?php echo $agent[$i]['created']; ?>
               </div>
               <div class="col-xs-3">
                 <?php if ($agent[$i]['flag'] == 1): ?>
                   <a href="waitingoffer.php?offer_id=<?php echo $agent[$i]['order_id'] ?>">
-                    <button class="btn btn-wa btn-block">オファー未承認</button>
+                    <button class="btn btn-info btn-block">オファー未承認</button>
                   </a>
                 <?php elseif($agent[$i]['flag'] == 2 && $agent[$i]['agent_id'] != $signin_user['id']): ?>
                   <button class="btn btn-secondary btn-block">不成立</button>
@@ -433,116 +512,13 @@
         </div>
       </div>
     </div>
+    <br>
 
   </div><!-- /container -->
 </div><!-- /black -->
 
 
+<?php require('footer.php'); ?>
 
-
-
-
-<! ========== CALL TO ACTION BAR =============================================================================================== 
-=============================================================================================================================>    
-<div id="cta-bar">
-  <div class="container">
-   <div class="row centered">
-    <a href="#"><h4>Are You Ready For The Next Step?</h4></a>
-  </div>
-</div><!-- /container -->
-</div><!-- /cta-bar -->
-
-<! ========== FOOTER ======================================================================================================== 
-=============================================================================================================================>    
-
-<div id="f">
-  <div class="container">
-   <div class="row">
-    <!-- ADDRESS -->
-    <div class="col-lg-3">
-     <h4>Our Studio</h4>
-     <p>
-      Some Ave. 987,<br/>
-      Postal 64733<br/>
-      London, UK.<br/>
-    </p>
-    <p>
-      <i class="fa fa-mobile"></i> +55 4893.8943<br/>
-      <i class="fa fa-envelope-o"></i> hello@yourdomain.com
-    </p>
-  </div><! --/col-lg-3 -->
-
-  <!-- TWEETS -->
-  <div class="col-lg-3">
-   <h4>Recent Tweets</h4>
-   <div id="showtweets"></div>
-   <script>
-     twitterFetcher.fetch('258157205101088768', 'showtweets', 2, true, false, false, '', false, handleTweets, false);
-
-     function handleTweets(tweets){
-       var x = tweets.length;
-       var n = 0;
-       var element = document.getElementById('showtweets');
-       var html = '<ul>';
-       while(n < x) {
-         html += '<li>' + tweets[n] + '</li>';
-         n++;
-       }
-       html += '</ul>';
-       element.innerHTML = html;
-     }					
-   </script>
-   <p>Follow us <b>@Alvrz_is</b></p>
- </div><!-- /col-lg-3 -->
-
- <!-- LATEST POSTS -->
- <div class="col-lg-3">
-   <h4>Latest Posts</h4>
-   <p>
-    <i class="fa fa-angle-right"></i> A post with an image<br/>
-    <i class="fa fa-angle-right"></i> Other post with a video<br/>
-    <i class="fa fa-angle-right"></i> A full width post<br/>
-    <i class="fa fa-angle-right"></i> We talk about something nice<br/>
-    <i class="fa fa-angle-right"></i> Yet another single post<br/>
-  </p>
-</div><!-- /col-lg-3 -->
-
-<!-- NEW PROJECT -->
-<div class="col-lg-3">
- <h4>New Project</h4>
- <a href="#"><img class="img-responsive" src="assets/img/portfolio/port03.jpg" alt="" /></a>
-</div><!-- /col-lg-3 -->
-
-
-</div><! --/row -->
-</div><!-- /container -->
-</div><!-- /f -->
-
-
-
-    <!-- Bootstrap core JavaScript
-      ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
-      <script src="assets/js/bootstrap.min.js"></script>
-      <script src="assets/js/retina.js"></script>
-
-
-      <script>
-        $(window).scroll(function() {
-         $('.si').each(function(){
-           var imagePos = $(this).offset().top;
-
-           var topOfWindow = $(window).scrollTop();
-           if (imagePos < topOfWindow+400) {
-             $(this).addClass("slideUp");
-           }
-         });
-       });
-     </script>    
-
-
-
-     <script src="assets/js/jquery.js"></script>
-     <script src="assets/js/bootstrap.js"></script>
    </body>
    </html>

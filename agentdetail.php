@@ -150,7 +150,10 @@
                 <li class="list-group-item">
                   <div class="col-xs-4 col-xs-offset-4 centered">
                     <img src="order_images/<?php echo $order['images']; ?>" width="140"><br>
-                    <?php echo $order['item_name']; ?><br>
+                    <?php if (!empty($order['item_name'])) { ?>
+                <?php echo $order['item_name'];?>
+                <?php } else { echo $order['title'];?>
+                <?php } ?><br>
                   </div>
 
 
