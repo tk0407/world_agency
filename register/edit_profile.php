@@ -3,12 +3,10 @@
     require('../dbconnect.php');
     require('../functions.php');
     require('../signin_check.php');
-
     // if (!isset($_REQUEST['edit_id'])) {
     //    header('Location: index.php');
     //    exit();
     // }
-
     $errors = array();
     $firstname = '';
     $lastname = '';
@@ -29,41 +27,31 @@
     $account_number = '';
     $img_name = "../user_profile_img/".$signin_user['img_name'];
     $evaluates_id = '';
-
     if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
       $_POST['name'] = $_SESSION['register']['name'];
       $_POST['email'] = $_SESSION['register']['email'];
     }
-
-
     if(!empty($_POST)) {
       $email = $_POST['email'];
       if (!isset($_REQUEST['action'])) {
           $password = $_POST['password'];
       }
-
       // メールアドレスの空チェック
       if ($email == '') {
           $errors['email'] = 'blank';
       }
-
-
       v($_POST);
       v($errors);
-
-
       $count = strlen($password);
       if ($password == '') {
           $errors['password'] = 'blank';
       } elseif ($count < 4 || 16 < $count) {
           $errors['password'] = 'length';
       }
-
       $file_name = "";
       if (!isset($_REQUEST['action'])) {
           $file_name = $_FILES['input_img_name']['name'];
       }
-
       if (!empty($file_name)) {
         echo 'hoge';
           // 画像選択時のバリデーション
@@ -72,14 +60,10 @@
           if ($file_type != 'png' && $file_type != 'jpg' && $file_type != 'gif') {
         echo 'hoge2';
             $errors['img_name'] = 'type';
-
           }
       }
-
-
       // メールアドレス重複チェック 2017/11/15
       // SELECTのときはFETCHもセット FETCHしないと取ってきただけになってしまう
-
       $firstname = $_POST['firstname'];
       $lastname = $_POST['lastname'];
       $email = $_POST['email'];
@@ -104,42 +88,53 @@
       // }
       
       // $evaluates_id = $_POST['evaluates_id'];
-
-
       if (empty($errors)) {
-
           $submit_file_name = $signin_user['img_name'];
           if ($_FILES['input_img_name']['name'] != '') {
               $date_str = date('YmdHis');
               $submit_file_name = $date_str . $file_name;
               move_uploaded_file($_FILES['input_img_name']['tmp_name'], '../user_profile_img/' . $submit_file_name);
           }
-
           $sql = 'UPDATE `users` SET `firstname` =? , `lastname` =? , `email` =? , `password` =? , `homecountry` =? , `adress` =? , `sex` =?, `phone` =? , `profile` =? , `language` =? , `paypal_adress` =? , `bitcoin_adress` =? , `bank_name` =? , `account_type` =?, `account_name` =? , `branch_code` =? , `account_number` =? , `img_name` =?, `updated`=NOW() WHERE `id`=?'; // SQL文を文字で用意
           $data = array($firstname,$lastname,$email,$password,$homecountry,$adress,$sex,$phone,$profile,$language,$paypal_adress,$bitcoin_adress,$bank_name,$account_type,$account_name,$branch_code,$account_number,$submit_file_name,$signin_user['id']); // ?に入れるデータを配列で用意
           $stmt = $dbh->prepare($sql); // SQL文をデータベースにセット
           v($data);
           $stmt->execute($data); // SQL文を実行
-
           header("Location: edit_profile.php");
           exit(); //ここで処理を止める。
       }
-
       }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>World Agency：プロフィール編集画面</title>
-  <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="../assets/font-awesome-4.7.0/css/font-awesome.css">
-  <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-</head>
-  <body style="margin-top: 60px; background: #E4E6EB;">
-  <?php require('../navbar.php'); ?>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+  <title>World Agency</title>
+
+  <link href="../assets/css/hover_pack.css" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <link href="../assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="../assets/css/animations.css" rel="stylesheet">
+  <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+
+  </head>
+
+  <body style="margin-top: ; background: #FFFFFF;">
+    <?php require('../navbar_register.php'); ?>
 
   <div class="row mt centered ">
     <div class="col-xs-8 col-xs-offset-2">
@@ -175,7 +170,7 @@
 
           <div class="form-group">
             <label for="homecountry">国</label>
-            <input type="text" name="homecountry"  value="<?php echo htmlspecialchars($signin_user['homecountry']); ?>" class="form-control" id="homecountry" placeholder="選択する">
+            <input type="text" name="homecountry"  value="<?php echo htmlspecialchars($signin_user['homecountry']); ?>" class="form-control" id="homecountry" placeholder="国名">
           </div>
 
           <div class="form-group">
@@ -216,7 +211,7 @@
 
           <div class="form-group">
             <label for="bitcoin_adress">ビットコイン受け取り用アドレス</label>
-            <input type="text" name="bitcoin_adress"  value="<?php echo htmlspecialchars($signin_user['bitcoin_adress']); ?>" class="form-control" id="bitcoin_adress" placeholder="ビットコイン">
+            <input type="text" name="bitcoin_adress"  value="<?php echo htmlspecialchars($signin_user['bitcoin_adress']); ?>" class="form-control" id="bitcoin_adress" placeholder="1BitCoinDescriptionAddressadTvGDH">
           </div>
 
           <div class="form-group">
@@ -270,14 +265,14 @@
             <p class="text-danger">パスワードを４〜１６文字で入力してください</p>
             <?php  } ?>
           </div>
-          <input type="submit" class="btn btn-default" value="確認">
+          <input type="submit" class="btn btn-wa" value="確認">
         </form>
       </div>
 
     </div>
   </div>
 
-  <script type="../assets/js/jquery.js"></script>
-  <script type="../assets/js/bootstrap.js"></script>
+<?php require('../footer.php'); ?>
+
 </body>
 </html>

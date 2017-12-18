@@ -127,7 +127,7 @@
         <ul class="list-group" id="contact-list">
           <li class="list-group-item">
             <div class="col-xs-4">
-              <img src="trade_img/<?php echo $order['images']; ?>" width="80">
+              <img src="order_images/<?php echo $order['images']; ?>" width="80">
             </div>
             <div class="col-xs-8">
               <a href=""><span style="font-size: 24px;"><?php echo $order['title'] ?></span></a><br>

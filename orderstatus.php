@@ -5,7 +5,13 @@ require('functions.php');
 require('signin_check.php');
 
 if (!isset($_REQUEST['user_id'])) {
-  header('Location: users.php');
+  header('Location: mypage.php');
+  exit();
+}
+
+if ($_REQUEST['user_id'] != $signin_user['id']) {
+  echo '不正なアクセスです';
+  header('Location: mypage.php');
   exit();
 }
 
@@ -71,7 +77,7 @@ $ca = count($agent);
   <meta name="author" content="">
   <link rel="shortcut icon" href="assets/ico/favicon.png">
 
-  <title>MARCO - One Page Bootstrap 3 Theme</title>
+  <title>World Agency</title>
 
   <link href="assets/css/hover_pack.css" rel="stylesheet">
 
@@ -84,57 +90,11 @@ $ca = count($agent);
   <link href="assets/css/animations.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
 
-    <!-- JavaScripts needed at the beginning
-      ================================================== -->
-      <script type="text/javascript" src="http://alvarez.is/demo/marco/assets/js/twitterFetcher_v10_min.js"></script>
-
-      <!-- MAP SCRIPT - ALL CONFIGURATION IS PLACED HERE - VIEW OUR DOCUMENTATION FOR FURTHER INFORMATION -->
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&sensor=false"></script>
-      <script type="text/javascript">
-        // When the window has finished loading create our google map below
-        google.maps.event.addDomListener(window, 'load', init);
-
-        function init() {
-            // Basic options for a simple Google Map
-            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-            var mapOptions = {
-                // How zoomed in you want the map to start at (always required)
-                zoom: 11,
-                
-                scrollwheel: false,
-
-                // The latitude and longitude to center the map (always required)
-                center: new google.maps.LatLng(40.6700, -73.9400), // New York
-
-                // How you would like to style the map. 
-                // This is where you would paste any style found on Snazzy Maps.
-                styles: [ {   featureType:'water',    stylers:[{color:'#74c9be'},{visibility:'on'}] },{   featureType:'landscape',    stylers:[{color:'#f2f2f2'}] },{   featureType:'road',   stylers:[{saturation:-100},{lightness:45}]  },{   featureType:'road.highway',   stylers:[{visibility:'simplified'}] },{   featureType:'road.arterial',    elementType:'labels.icon',    stylers:[{visibility:'off'}]  },{   featureType:'administrative',   elementType:'labels.text.fill',   stylers:[{color:'#444444'}] },{   featureType:'transit',    stylers:[{visibility:'off'}]  },{   featureType:'poi',    stylers:[{visibility:'off'}]  }]
-              };
-
-            // Get the HTML DOM element that will contain your map 
-            // We are using a div with id="map" seen below in the <body>
-            var mapElement = document.getElementById('map');
-
-            // Create the Google Map using out element and options defined above
-            var map = new google.maps.Map(mapElement, mapOptions);
-          }
-        </script>
-
-
-        <!-- Main Jquery & Hover Effects. Should load first -->
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="assets/js/hover_pack.js"></script>
-
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
   </head>
 
-  <body style="margin-top: 60px; background: #E4E6EB;">
+  <body style="margin-top: ; background: #FFFFFF;">
     <?php require('navbar.php'); ?>
 
     <!-- ---------------------------オファー一覧------------------------------- -->
@@ -143,7 +103,7 @@ $ca = count($agent);
       <div class="container">
         <div class="row mt centered ">
           <div class="col-xs-8 col-xs-offset-2">
-            <h3><?php echo $signin_user['firstname']; ?>さんが出している依頼一覧</h3>
+            <h3><?php echo $signin_user['firstname']; ?>さんが出しているオーダーリスト</h3>
             <hr>
           </div><!-- /col-lg-4 -->
         </div><!-- /row -->
@@ -154,18 +114,34 @@ $ca = count($agent);
           <?php for($i=0;$i<$c;$i++){ ?>
           <div class="thumbnail">
             <div class="row">
-              <div class="col-xs-3">
-                <img src="trade_img/<?php echo $orders[$i]['images']; ?>" width="80">
+              <div class="col-xs-3 centered">
+                <img src="order_images/<?php echo $orders[$i]['images']; ?>" width="55">
               </div>
               <div class="col-xs-6">
-                <a href=""><span style="font-size: 24px;"><?php echo $orders[$i]['title'] ?></span></a><br>
-                個数　<?php echo $orders[$i]['amount']; ?>個　依頼日時　<?php echo $orders[$i]['created']; ?>
+                <a href=""><span style="font-size: 24px;">
+                <?php if (!empty($orders[$i]['item_name'])) { ?>
+                <?php echo $orders[$i]['item_name'];?>
+                <?php } else { echo $orders[$i]['title'];?>
+                <?php } ?>
+                </span></a><br>
+                個数<?php if (!empty($orders[$i]['amount'])) { ?>
+                    <?php echo $orders[$i]['amount']; ?>個
+                <?php } elseif (!empty($orders[$i]['file'])) { ?>
+                    <?php echo $orders[$i]['file']; ?>つ
+                <?php } elseif (!empty($orders[$i]['draft'])) { ?>
+                    <?php echo $orders[$i]['draft'];?>枚
+                <?php } ?>
+                　依頼日時　<?php echo $orders[$i]['created']; ?>
               </div>
-              <div class="col-xs-3">
-                <?php if ($orders[$i]['flag'] == 1): ?>
+              <div class="col-xs-3 centerd">
+                <?php if ($orders[$i]['flag'] == 0): ?>
                   <a href="offeragentlist.php?orders_id=<?php echo $orders[$i]['id'] ?>">
                     <button class="btn btn-info btn-block">オファー受付中</button>
                   </a>
+                <?php elseif($orders[$i]['flag'] == 1): ?>
+                  <a href="offeragentlist.php?orders_id=<?php echo $orders[$i]['id'] ?>">
+                    <button class="btn btn-info btn-block">オファー受付中</button>
+                  </a><i class="fa fa-hand-paper-o faa-flash animated" aria-hidden="true"></i> オファーあり
                 <?php elseif($orders[$i]['flag'] == 2): ?>
                   <a href="matchingorder.php?orders_id=<?php echo $orders[$i]['id'] ?>">
                     <button class="btn btn-danger btn-block">取引中</button>
@@ -187,7 +163,7 @@ $ca = count($agent);
       <div class="container">
         <div class="row mt centered ">
           <div class="col-xs-8 col-xs-offset-2">
-            <h3><?php echo $signin_user['firstname']; ?>さんが引き受けている依頼一覧</h3>
+            <h3><?php echo $signin_user['firstname']; ?>さんが引き受けているオーダーリスト</h3>
             <hr>
           </div><!-- /col-lg-4 -->
         </div><!-- /row -->
@@ -198,15 +174,27 @@ $ca = count($agent);
           <?php for($i=0;$i<$ca;$i++){ ?>
           <div class="thumbnail">
             <div class="row">
-              <div class="col-xs-3">
-                <img src="trade_img/<?php echo $agent[$i]['images']; ?>" width="80">
+              <div class="col-xs-3 centered">
+                <img src="order_images/<?php echo $agent[$i]['images']; ?>" width="55">
               </div>
               <div class="col-xs-6">
-                <a href=""><span style="font-size: 24px;"><?php echo $agent[$i]['title'] ?></span></a><br>
-                個数　<?php echo $agent[$i]['amount']; ?>個　依頼日時　<?php echo $agent[$i]['created']; ?>
+                <a href=""><span style="font-size: 24px;">
+                <?php if (!empty($agent[$i]['item_name'])) { ?>
+                <?php echo $agent[$i]['item_name'];?>
+                <?php } else { echo $agent[$i]['title'];?>
+                <?php } ?>
+                </span></a><br>
+                個数<?php if (!empty($agent[$i]['amount'])) { ?>
+                    <?php echo $agent[$i]['amount']; ?>個
+                <?php } elseif (!empty($agent[$i]['file'])) { ?>
+                    <?php echo $agent[$i]['file']; ?>つ
+                <?php } elseif (!empty($agent[$i]['draft'])) { ?>
+                    <?php echo $agent[$i]['draft'];?>枚
+                <?php } ?>
+                　依頼日時　<?php echo $agent[$i]['created']; ?>
               </div>
               <div class="col-xs-3">
-                <?php if ($agent[$i]['flag'] == 1): ?>
+                <?php if ($agent[$i]['flag'] == 0 || $agent[$i]['flag'] == 1): ?>
                   <a href="waitingoffer.php?offer_id=<?php echo $agent[$i]['order_id'] ?>">
                     <button class="btn btn-info btn-block">オファー未承認</button>
                   </a>

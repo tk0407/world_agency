@@ -2,9 +2,10 @@
 
     // サインインチェック
     if (!isset($_SESSION['signin_user']['id'])) {
-        header('Location: _signin.php');
+        header('Location: signin.php');
         exit();
     }
+
 
     // サインインしているユーザー情報をDB取得
     $sql = 'SELECT * FROM `users` WHERE `id`=?';
@@ -13,5 +14,5 @@
     $stmt->execute($data);
     $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
     // v($signin_user);
-
+    
 ?>

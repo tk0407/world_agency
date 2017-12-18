@@ -11,9 +11,6 @@
       $_POST['input_email'] = $_SESSION['register']['email'];
     }
 
-
-    v($_POST);
-
     if(!empty($_POST)) {
       $email = $_POST['input_email'];
       if (!isset($_REQUEST['action'])) {
@@ -65,16 +62,35 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>Learn SNS</title>
-  <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="../assets/font-awesome-4.7.0/css/font-awesome.css">
-  <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-</head>
-<body style="margin-top: 60px;">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+  <title>World Agency</title>
+
+  <link href="../assets/css/hover_pack.css" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <link href="../assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="../assets/css/animations.css" rel="stylesheet">
+  <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+
+  <body style="margin-top: ; background: #FFFFFF;">
+  <br>
+  <br>
+  <br>
   <div class="container">
     <div class="row">
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
-        <h2 class="text-center content_header">アカウント作成</h2>
+        <h2 class="text-center content_header">World Agency  アカウント作成</h2>
         <form method="POST" action="signup.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="email">メールアドレス</label>
@@ -96,7 +112,7 @@
             <p class="text-danger">パスワードを４〜１６文字で入力してください</p>
             <?php  } ?>
           </div>
-          <input type="submit" class="btn btn-default" value="確認">
+          <input type="submit" class="btn btn-wa" value="確認">
           <a href="../signin.php" style="float: right; padding-top: 6px;" class="text-success">サインイン</a>
         </form>
       </div>

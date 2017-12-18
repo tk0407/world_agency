@@ -4,10 +4,10 @@ require('dbconnect.php');
 require('functions.php');
 require('signin_check.php');
 
-    // if (!isset($_REQUEST['agent_id'])) {
-    //     header('Location: users.php');
-    //     exit();
-    // }
+if (!isset($_REQUEST['offer_id'])) {
+  header('Location: mypage.php');
+  exit();
+}
 
 if (isset($_REQUEST['offer_id'])) {
   $offer_id = $_REQUEST['offer_id'];
@@ -40,6 +40,13 @@ if (isset($_REQUEST['offer_id'])) {
 
 }
 
+if ($offer['agent_id'] != $signin_user['id']) {
+  echo '不正なアクセスです';
+  header('Location: mypage.php');
+  exit();
+}
+
+
 ?>
 
 
@@ -53,7 +60,7 @@ if (isset($_REQUEST['offer_id'])) {
   <meta name="author" content="">
   <link rel="shortcut icon" href="assets/ico/favicon.png">
 
-  <title>MARCO - One Page Bootstrap 3 Theme</title>
+  <title>World Agency</title>
 
   <link href="assets/css/hover_pack.css" rel="stylesheet">
 
@@ -66,163 +73,218 @@ if (isset($_REQUEST['offer_id'])) {
   <link href="assets/css/animations.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
+</head>
 
-    <!-- JavaScripts needed at the beginning
-      ================================================== -->
-      <script type="text/javascript" src="http://alvarez.is/demo/marco/assets/js/twitterFetcher_v10_min.js"></script>
+<body style="margin-top: ; background: #FFFFFF;">
+  <?php require('navbar.php'); ?>
 
-      <!-- MAP SCRIPT - ALL CONFIGURATION IS PLACED HERE - VIEW OUR DOCUMENTATION FOR FURTHER INFORMATION -->
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&sensor=false"></script>
-      <script type="text/javascript">
-        // When the window has finished loading create our google map below
-        google.maps.event.addDomListener(window, 'load', init);
-
-        function init() {
-            // Basic options for a simple Google Map
-            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-            var mapOptions = {
-                // How zoomed in you want the map to start at (always required)
-                zoom: 11,
-                
-                scrollwheel: false,
-
-                // The latitude and longitude to center the map (always required)
-                center: new google.maps.LatLng(40.6700, -73.9400), // New York
-
-                // How you would like to style the map. 
-                // This is where you would paste any style found on Snazzy Maps.
-                styles: [ {   featureType:'water',    stylers:[{color:'#74c9be'},{visibility:'on'}] },{   featureType:'landscape',    stylers:[{color:'#f2f2f2'}] },{   featureType:'road',   stylers:[{saturation:-100},{lightness:45}]  },{   featureType:'road.highway',   stylers:[{visibility:'simplified'}] },{   featureType:'road.arterial',    elementType:'labels.icon',    stylers:[{visibility:'off'}]  },{   featureType:'administrative',   elementType:'labels.text.fill',   stylers:[{color:'#444444'}] },{   featureType:'transit',    stylers:[{visibility:'off'}]  },{   featureType:'poi',    stylers:[{visibility:'off'}]  }]
-              };
-
-            // Get the HTML DOM element that will contain your map 
-            // We are using a div with id="map" seen below in the <body>
-            var mapElement = document.getElementById('map');
-
-            // Create the Google Map using out element and options defined above
-            var map = new google.maps.Map(mapElement, mapOptions);
-          }
-        </script>
-
-
-        <!-- Main Jquery & Hover Effects. Should load first -->
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="assets/js/hover_pack.js"></script>
-
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body style="margin-top: 60px; background: #E4E6EB;">
-    <?php require('navbar.php'); ?>
-
-    <! ========== BLOG POSTS ==================================================================================================== 
-    =============================================================================================================================>    
-    <div id="white">
-      <div class="container"> 
-        <div class="row mt centered ">
-          <div class="col-lg-4 col-lg-offset-4">
-            <h3>送信済みオファー確認</h3>
-            <hr>
-          </div><!-- /col-lg-4 -->
-        </div><!-- /row -->
+  <! ========== BLOG POSTS ==================================================================================================== 
+  =============================================================================================================================>    
+  <div id="white">
+    <div class="container"> 
+      <div class="row mt centered ">
+        <div class="col-lg-4 col-lg-offset-4">
+          <h3>送信済みオファー確認</h3>
+          <hr>
+        </div><!-- /col-lg-4 -->
+      </div><!-- /row -->
 
 
 
-        <div class="container">
-          <div class="row">
+      <div class="container">
+        <div class="row">
 
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-              <ul class="list-group" id="contact-list">
-                <li class="list-group-item">
-                  <div class="col-xs-12">
-                    <strong>クライアント側希望条件</strong>
-                  </div>
-                  <div class="col-xs-4 col-xs-offset-4 centered">
-                    <img src="order_images/<?php echo $order['images']; ?>"  class="img-responsive img-thumbnail" width="140"><br>
-                    <?php echo $order['item_name']; ?><br>
-                  </div>
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <ul class="list-group" id="contact-list">
+              <li class="list-group-item">
+                <div class="col-xs-12">
+                  <strong>クライアント側希望条件</strong>
+                </div>
 
-                  <div class="col-xs-12">
-                    <ul class="list-group" id="contact-list">
-                      <li class="list-group-item">
-                        <div class="col-xs-3 col-xs-offset-1">
-                          <ol>
-                            <li><strong>希望価格</strong></li>
-                            <li><strong>希望受取日</strong></li>
-                            <li><strong>受取方法</strong></li>
-                            <li><strong>詳細</strong></li>
-                          </ol>
-
+                <div class="container">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="col-xs-5 centered">
+                        <img src="order_images/<?php echo $order['images'];?>" class="img-responsive img-thumbnail" width="300">
+                      </div>
+                      <div class="col-xs-5">
+                        <div>
+                          <?php if (!empty($order['country'])) { ?>
+                          <span>国</span>
+                          <p class="lead">
+                            <?php echo $order['country'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
                         </div>
-
-                        <div class="col-xs-8">
-                          <ul>
-
-                            <?php echo $order['order_price']; ?> 円<br>
-                            <?php echo $order['delivery_date']; ?><br>
-                            <?php echo $order['delivery_format']; ?><br>
-                            <?php echo $order['detail']; ?><br>
-                          </ul>
+                        <div>
+                          <!-- TODO:商品名フォント小さい？修正 -->
+                          <span>商品名</span><br>
+                          <?php if (!empty($order['item_name'])) { ?>
+                          <p class="lead">
+                            <?php echo $order['item_name'];?>
+                          </p>
+                          <p class="lead">
+                            <?php } else { echo $order['title'];?>
+                          </p>
+                          <?php } ?>
                         </div>
-                        <div class="clearfix"></div>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div class="col-xs-12">
-                    <strong>自分が提示した条件</strong>
-                  </div>
-
-                  <div class="col-xs-12">
-                    <ul class="list-group" id="contact-list">
-                      <li class="list-group-item">
-                         <div class="col-xs-3 col-xs-offset-1">
-                          <ol>
-                            <li><strong>価格</strong></li>
-                            <li><strong>引渡日</strong></li>
-                            <li><strong>引渡方法</strong></li>
-                            <li><strong>コメント</strong></li>
-                          </ol>
-
+                        <div>
+                          <span>個数</span>
+                          <?php if (!empty($order['amount'])) { ?>
+                          <p class="lead">
+                            <?php echo $order['amount']; ?><span>個</span>
+                          </p>
+                          <?php } elseif (!empty($order['file'])) { ?>
+                          <p class="lead">
+                            <?php echo $order['file']; ?><span>つ</span>
+                          </p>
+                          <?php } elseif (!empty($order['draft'])) { ?>
+                          <p class="lead">
+                            <?php echo $order['draft'];?><span>枚</span>
+                          </p>
+                          <?php } ?>
                         </div>
-
-                        <div class="col-xs-8">
-                          <ul>
-                            <?php echo $offer['offer_price']; ?> 円<br>
-                            <?php echo $offer['delivery_deadline']; ?><br>
-                            <?php echo $offer['delivery']; ?><br>
-                            <?php echo $offer['comment']; ?><br>
-                          </ul>
+                        <div>
+                          <?php if (!empty($order['order_price'])) { ?>
+                          <span>希望価格</span>
+                          <p class="lead">
+                            <?php echo $order['order_price'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
                         </div>
-                        <div class="clearfix"></div>
-                    </li>
-                  </ul>
-                </div><br>
+                        <div>
+                          <?php if (!empty($order['delivery_date'])) { ?>
+                          <span>希望受取日</span>
+                          <p class="lead">
+                            <?php echo $order['delivery_date'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                        <div>
+                          <?php if (!empty($order['publication_period'])) { ?>
+                          <span>掲載期間</span>
+                          <p class="lead">
+                            <?php echo $order['publication_period'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                        <div>
+                          <?php if (!empty($order['recruitment_numbers'])) { ?>
+                          <span>募集人数</span>
+                          <p class="lead">
+                            <?php echo $order['recruitment_numbers'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                        <div>
+                          <?php if (!empty($order['requirement_skills'])) { ?>
+                          <span>求めるスキル</span>
+                          <p class="lead">
+                            <?php echo $order['requirement_skills'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                        <div>
+                          <?php if (!empty($order['detail'])) { ?>
+                          <span>詳細</span>
+                          <p class="lead">
+                            <?php echo $order['detail'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                        <div>
+                          <?php if (!empty($order['request'])) { ?>
+                          <span>提案条件</span>
+                          <p class="lead">
+                            <?php echo $order['request'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                        <div>
+                          <?php if (!empty($order['purpose'])) { ?>
+                          <span>利用目的</span>
+                          <p class="lead">
+                            <?php echo $order['purpose'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                        <!-- ↓もし,$imagesが空じゃなかったら発動する、空だったらスルーの処理を行う -->
+                        <div>
+                          <?php if (!empty($order['attached_file'])) { ?>
+                          <span>添付ファイル</span>
+                          <p class="lead">
+                            <?php echo $order['attached_file'] ;?>
+                            <?php } else { echo ""; ?>
+                          </p>
+                          <?php } ?>
+                        </div>
+                      </div>
+                    </div>
 
-                  <div class="col-xs-12">
-                    <strong>クライアントプロフィール</strong>
+
                   </div>
+                </div>
 
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2 centered">
-                  <img src="user_profile_img/<?php echo $client['img_name']; ?>" class="img-circle img-responsive img-thumbnail" width="140"><br>
-                  <?php echo $client['firstname']; ?>さん<br>
-                  
-                    <span class="fa fa-star"></span>
-                  
-                    <span class="fa fa-star"></span>
-                  
-                    <span class="fa fa-star"></span>
-                  
-                    <span class="fa fa-star"></span>
-                  
-                   <span class="fa fa-star-o"></span>
-               </div>
 
-               <div class="form-group">
+                <div class="col-xs-12">
+                  <strong>自分が提示した条件</strong>
+                </div>
+
+                <div class="col-xs-12">
+                  <ul class="list-group" id="contact-list">
+                    <li class="list-group-item">
+                     <div class="col-xs-3 col-xs-offset-1">
+                      <ol>
+                        <li><strong>価格</strong></li>
+                        <li><strong>引渡日</strong></li>
+                        <li><strong>引渡方法</strong></li>
+                        <li><strong>コメント</strong></li>
+                      </ol>
+
+                    </div>
+
+                    <div class="col-xs-8">
+                      <ul>
+                        <?php echo $offer['offer_price']; ?> 円<br>
+                        <?php echo $offer['delivery_deadline']; ?><br>
+                        <?php echo $offer['delivery']; ?><br>
+                        <?php echo $offer['comment']; ?><br>
+                      </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                  </li>
+                </ul>
+              </div><br>
+
+              <div class="col-xs-12">
+                <strong>クライアントプロフィール</strong>
+              </div>
+
+              <div class="col-xs-12 col-sm-8 col-sm-offset-2 centered">
+                <img src="user_profile_img/<?php echo $client['img_name']; ?>" class="img-circle img-responsive img-thumbnail" width="140"><br>
+                <?php echo $client['firstname']; ?>さん<br>
+
+                <span class="fa fa-star"></span>
+
+                <span class="fa fa-star"></span>
+
+                <span class="fa fa-star"></span>
+
+                <span class="fa fa-star"></span>
+
+                <span class="fa fa-star-o"></span>
+              </div>
+
+              <div class="form-group">
                 <div class="col-xs-12">
                   <label>居住地</label>
                   <ul class="list-group" id="contact-list">
@@ -258,6 +320,10 @@ if (isset($_REQUEST['offer_id'])) {
                 </div>
               </div>
 
+              <div class="col-xs-12 col-sm-4 centered">
+                <a href="orderstatus.php?user_id=<?php echo $signin_user['id']; ?>" class="btn btn-wa">戻る</a>
+              </div>
+
               <div class="clearfix"></div>
 
             </li>
@@ -270,98 +336,7 @@ if (isset($_REQUEST['offer_id'])) {
   </div><!-- /container -->
 </div><!-- /black -->
 
+<?php require('footer.php'); ?>
 
-<! ========== FOOTER ======================================================================================================== 
-=============================================================================================================================>    
-
-<div id="f">
-  <div class="container">
-    <div class="row">
-      <!-- ADDRESS -->
-      <div class="col-lg-3">
-        <h4>Our Studio</h4>
-        <p>
-          Some Ave. 987,<br/>
-          Postal 64733<br/>
-          London, UK.<br/>
-        </p>
-        <p>
-          <i class="fa fa-mobile"></i> +55 4893.8943<br/>
-          <i class="fa fa-envelope-o"></i> hello@yourdomain.com
-        </p>
-      </div><! --/col-lg-3 -->
-
-      <!-- TWEETS -->
-      <div class="col-lg-3">
-        <h4>Recent Tweets</h4>
-        <div id="showtweets"></div>
-        <script>
-          twitterFetcher.fetch('258157205101088768', 'showtweets', 2, true, false, false, '', false, handleTweets, false);
-
-          function handleTweets(tweets){
-            var x = tweets.length;
-            var n = 0;
-            var element = document.getElementById('showtweets');
-            var html = '<ul>';
-            while(n < x) {
-              html += '<li>' + tweets[n] + '</li>';
-              n++;
-            }
-            html += '</ul>';
-            element.innerHTML = html;
-          }         
-        </script>
-        <p>Follow us <b>@Alvrz_is</b></p>
-      </div><!-- /col-lg-3 -->
-
-      <!-- LATEST POSTS -->
-      <div class="col-lg-3">
-        <h4>Latest Posts</h4>
-        <p>
-          <i class="fa fa-angle-right"></i> A post with an image<br/>
-          <i class="fa fa-angle-right"></i> Other post with a video<br/>
-          <i class="fa fa-angle-right"></i> A full width post<br/>
-          <i class="fa fa-angle-right"></i> We talk about something nice<br/>
-          <i class="fa fa-angle-right"></i> Yet another single post<br/>
-        </p>
-      </div><!-- /col-lg-3 -->
-
-      <!-- NEW PROJECT -->
-      <div class="col-lg-3">
-        <h4>New Project</h4>
-        <a href="#"><img class="img-responsive" src="assets/img/portfolio/port03.jpg" alt="" /></a>
-      </div><!-- /col-lg-3 -->
-
-
-    </div><! --/row -->
-  </div><!-- /container -->
-</div><!-- /f -->
-
-
-
-    <!-- Bootstrap core JavaScript
-      ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
-      <script src="assets/js/bootstrap.min.js"></script>
-      <script src="assets/js/retina.js"></script>
-
-
-      <script>
-        $(window).scroll(function() {
-          $('.si').each(function(){
-            var imagePos = $(this).offset().top;
-
-            var topOfWindow = $(window).scrollTop();
-            if (imagePos < topOfWindow+400) {
-              $(this).addClass("slideUp");
-            }
-          });
-        });
-      </script>    
-
-
-
-      <script src="assets/js/jquery.js"></script>
-      <script src="assets/js/bootstrap.js"></script>
     </body>
     </html>

@@ -51,16 +51,33 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>Learn SNS</title>
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-</head>
-<body style="margin-top: 60px">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+  <title>World Agency</title>
+
+  <link href="assets/css/hover_pack.css" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="assets/css/animations.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+
+  <body style="margin-top: ; background: #FFFFFF;">
+
   <div class="container">
     <div class="row">
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
-        <h2 class="text-center content_header">サインイン</h2>
+        <h2 class="text-center content_header">World Agency サインイン</h2>
         <form method="POST" action="" enctype="multipart/form-data">
           <div class="form-group">
             <label for="email">メールアドレス</label>
@@ -76,7 +93,7 @@
             <label for="password">パスワード</label>
             <input type="password" name="input_password" class="form-control" id="password" placeholder="4 ~ 16文字のパスワード">
           </div>
-          <input type="submit" class="btn btn-info" value="サインイン">
+          <input type="submit" class="btn btn-wa" value="サインイン">
         </form>
       </div>
     </div>
