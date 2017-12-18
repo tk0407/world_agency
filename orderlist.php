@@ -3,39 +3,23 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
-
-    // if (!isset($_REQUEST['user_id'])) {
-    //     header('Location: users.php');
-    //     exit();
-    // }
-
-    // $user_id = $_REQUEST['user_id'];
-
-    // SELECT文 WEHEREの条件等を文法で覚えておく
-    // $sql = 'SELECT * FROM `users` WHERE id = ?';
-    // $data = array($user_id);
-    // $stmt = $dbh->prepare($sql);
-    // $stmt->execute($data);
-
-    // $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // v($signin_user);
+    
     // 依頼者が指定した都市とカテゴリーを受け取る。
     $_POST['city_id'] = $_POST['input_city'];
     $_POST['category'] = $_POST['input_category'];
     // v($_POST);
     // 依頼者が選択した項目に当てはまるオーダー内容取得
     // オーダーのトグル処理
-      $city_id = $_POST['city_id'];
-      $category = $_POST['category'];
+    $city_id = $_POST['city_id'];
+    $category = $_POST['category'];
+
     if (!empty($_POST['city_id'] && $_POST['category'])) {
-      $sql = 'SELECT * FROM `orders` WHERE city_id = ? AND category = ?';
-      $data = array($city_id, $category);
+      $sql = 'SELECT * FROM `orders` WHERE city_id = ? AND category = ? AND client_id != ? ';
       $stmt = $dbh->prepare($sql);
       $stmt->bindParam(1, $city_id, PDO::PARAM_INT); //インジェクション対策
       $stmt->bindParam(2, $category, PDO::PARAM_INT);
-      $stmt->execute($data);
-      $order = $stmt->fetch(PDO::FETCH_ASSOC);
+      $stmt->bindParam(3, $_SESSION['signin_user']['id'], PDO::PARAM_INT);
+      $stmt->execute();
     } else {
       header('Location: orderofferpage.php');
       exit();
@@ -51,7 +35,9 @@
         $orders[] = $record;
     }
     $c = count($orders);
-      v($c);
+      // v($c);
+      // v($orders);
+      // v($_SESSION['signin_user']);
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +48,20 @@
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- 基本bootの下でfont awesome読み込む -->
+  <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.css">
+  <link href="assets/css/hover_pack.css" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="assets/css/animations.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body style="margin-top: 60px; background: #E4E6EB;">
+<body style="margin-top: 60px; background: white;">
   <?php require('navbar.php'); ?>
 
   <div class="container">
@@ -73,8 +71,6 @@
         <hr>
       </div><!-- /col-lg-4 -->
     </div><!-- /row -->
-
-
       <div class="col-xs-12">
         <!-- タイムライン -->
         <?php for($i=0;$i<$c;$i++){ ?>
@@ -97,7 +93,7 @@
         <?php } ?>
       </div>
     </div>
-  </div>
+  <?php require('footer.php');?>
   <script src="assets/js/jquery.js"></script>
   <script src="assets/js/bootstrap.js"></script>
 </body>

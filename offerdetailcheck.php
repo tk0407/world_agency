@@ -4,17 +4,15 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
+
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
     if(!isset($_SESSION['register'])) {
       header('Location: offerdetail.php');
       exit();
     }
-    // // 指定したオーダーのidをクッキーで受け取る
-    // $order_id = $_COOKIE['order_id'];
-      // v($order_id);
     $order_id = $_REQUEST['orders_id'];
-    v($order_id);
+    // v($order_id);
 
     $city = '';
 
@@ -32,16 +30,23 @@
       $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
       $stmt->execute($data);
       $city = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      // 依頼を上げたクライアントのidを選択
+      $sql = 'SELECT * FROM `users` WHERE id = ?';
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $order['client_id'], PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute();
+      $client = $stmt->fetch(PDO::FETCH_ASSOC);
     } else {
       // header('Location: orderlist.php');
       // exit();
       }
       // v($order);
 
-    v($_POST);
+    // v($_POST);
+    // v($_SESSION['signin_user']['id']);
 
-
-    v($_SESSION['register']);
+    // v($_SESSION['register']);
 
     // $country = $_SESSION['register']['country'];
     // $city_id = $_SESSION['register']['city'];
@@ -49,6 +54,8 @@
     $delivery_deadline = $_SESSION['register']['delivery_deadline'];
     $delivery = $_SESSION['register']['delivery'];
     $comment = $_SESSION['register']['comment'];
+    $agent_id = $_SESSION['signin_user']['id'];
+    $order_id = $order['id'];
 
 
     // 登録ボタンが押された時の処理
@@ -60,15 +67,23 @@
           ,`delivery_deadline`=?
           ,`delivery`=?
           ,`comment`=?
+          ,`agent_id`=?
+          ,`order_id`=?
           ';
           // 上記が雛形の書き方
-        $data = array($offer_price,$delivery_deadline,$delivery,$comment);
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(1, $offer_price, PDO::PARAM_INT);
         $stmt->bindParam(2, $delivery_deadline, PDO::PARAM_STR);
         $stmt->bindParam(3, $delivery, PDO::PARAM_STR);
         $stmt->bindParam(4, $comment, PDO::PARAM_STR);
-        $stmt->execute($data);
+        $stmt->bindParam(5, $agent_id, PDO::PARAM_STR);
+        $stmt->bindParam(6, $order_id, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $sql = 'UPDATE `orders` SET `flag`=1 WHERE `id` =?';
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(1, $order_id, PDO::PARAM_INT);
+        $stmt->execute();
 
         unset($_SESSION['register']);
         header('Location: thanksoffer.php');
@@ -86,24 +101,14 @@
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
   <!-- 基本bootの下でfont awesome読み込む -->
   <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.css">
-  
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
   <link rel="shortcut icon" href="assets/ico/favicon.png">
-
   <link href="assets/css/hover_pack.css" rel="stylesheet">
-
   <!-- Bootstrap core CSS -->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">
   <link href="assets/css/animations.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
   <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
@@ -172,17 +177,17 @@
               <div class="col-lg-5" style="margin:30px auto">
                   <div class="media">
                       <a class="pull-left" href="#">
-                          <img class="media-object dp img-circle" src="assets/img/team/gianni.png" style="width: 100px;height:100px;">
+                          <img class="media-object dp img-circle" src="user_profile_img/<?php echo htmlspecialchars($client['img_name']); ?>" style="width: 100px;height:100px;">
                       </a>
                       <div class="media-body">
-                          <h4 class="media-heading">Hardik Sondagar <small> India</small></h4>
-                          <h5>Software Developer at <a href="http://gridle.in">Gridle.in</a></h5>
+                          <h4 class="media-heading"><?php echo $client['firstname'], $client['lastname'];?> <small> <?php echo $client['homecountry'];?></small></h4>
+                          <h5><?php echo $client['evaluate_id'];?></h5>
                           <hr style="margin:8px auto">
 
-                          <span class="label label-default">HTML5/CSS3</span>
-                          <span class="label label-default">jQuery</span>
-                          <span class="label label-info">CakePHP</span>
-                          <span class="label label-default">Android</span>
+                          <span class="label label-default"><?php echo $client['language'];?></span>
+                          <span class="label label-default"></span>
+                          <span class="label label-info"></span>
+                          <span class="label label-default"></span>
                       </div>
                   </div>
               </div>
@@ -259,15 +264,6 @@
                     <span>掲載期間</span>
                       <p class="lead">
                         <?php echo $order['publication_period'] ;?>
-                        <?php } else { echo ""; ?>
-                      </p>
-                    <?php } ?>
-                  </div>
-                  <div>
-                    <?php if (!empty($order['recruitment_numbers'])) { ?>
-                    <span>募集人数</span>
-                      <p class="lead">
-                        <?php echo $order['recruitment_numbers'] ;?>
                         <?php } else { echo ""; ?>
                       </p>
                     <?php } ?>

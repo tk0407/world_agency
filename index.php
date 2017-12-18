@@ -1,5 +1,8 @@
 <?php
-
+    session_start();
+    require('dbconnect.php');
+    require('functions.php');
+    require('signin_check.php');
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -11,7 +14,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="assets/ico/favicon.png">
 
-    <title>MARCO - One Page Bootstrap 3 Theme</title>
+    <title>World Agency</title>
 
     <link href="assets/css/hover_pack.css" rel="stylesheet">
 
@@ -83,23 +86,64 @@
       <div class="container">
       <div class="row centered">
         <div class="col-lg-8 col-lg-offset-2 mt">
-          <h1 class="animation slideDown" style="font-size: 1000%">WA</h1>
+          <h1 class="animation slideDown" style="font-size: 1700%">WA</h1>
         </div>
-        
+        <div class="col-lg-12">
+          <p>
+            <a href="register/signup.php"><button type="button" class="btn btn-theme btn-lg">新規登録</button></a>
+            <a href="signin.php"><button type="button" class="btn btn-theme btn-lg">ログイン</button></a>
+          </p>
+        </div>
       </div><!-- /row -->
       </div><!-- /container -->
     </div> <!-- /headerwrap -->
 
+  <! ========== NAVBAR ==================================================================================================== 
+  =============================================================================================================================>
+  <nav class="navbar navbar-default navbar-fixed-top" id="navtoppage">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="index.php" class="navbar-brand">World Agency</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="orderlist.php">依頼一覧</a></li>
+          <li><a href="mypage.php">マイページ</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="user_profile_img/<?php echo ($signin_user['img_name']);?>" class="img-circle" width="18">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="profile.php?user_id=<?= $signin_user['id'] ?>">My Profile</a></li>
+              <li><a href="signout.php" style="color: #FF0000">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <! ========== BLOG POSTS ==================================================================================================== 
   =============================================================================================================================>    
   <div class="container"> 
     <div class="pull-right">
-      <p class="mt">
-        <a href="register/signup.php"><button type="button" class="btn btn-theme btn-lg">新規登録</button></a>
-        <a href="signin.php"><button type="button" class="btn btn-theme btn-lg">ログイン</button></a>
-        <a href="mypage.php"><button type="button" class="btn btn-theme btn-lg">マイページ</button></a>
-      </p>
     </div>
+
+    <div class="row mt centered ">
+      <p class="text-center"></p>
+    </div>
+    <h1 style="font-family: 'Ruda', sans-serif;font-weight: 900;color: #2c3e50;text-align: center;line-height: 40px;">海の向こうをもっと身近に</h1>
+    <br>
+    <h4 style="font-family: 'Ruda', sans-serif;font-weight: 900;color: #2c3e50;text-align: center;line-height: 40px;">World Agencyとは、海外にいる人と自分の国には無いけど海外にあるものが欲しい人を繋げるサービスです。<br>自分から欲しいものを依頼する形式なので、本当に欲しいものが見つけられます。
+    </h4>
 
     <div class="row mt centered ">
       <div class="col-lg-4 col-lg-offset-4">
@@ -110,20 +154,20 @@
 
     <div class="row mt">
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port04.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/mono1.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Post 1</h4>
               <p class="b-from-right b-animate b-delay03">Read More.</p>
           </div>
         </a>
-        <p>海外で購入したら安いモノ</p>
+        <p>海外でしか手に入らないモノ</p>
         <p class="lead">世の中には海外で購入したほうが安いもの、海外でしか手に入らないモノがたくさんあります。ここではそういったモノを今現地にいる人達に頼んで簡単に手に入れましょう。</p>
         <hr-d>
         <p class="time"><i class="fa fa-comment-o"></i> 3 | <i class="fa fa-calendar"></i> 14 Nov.</p>
       </div><!-- col-lg-4 -->
       
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port05.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/research.jpeg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Post 2</h4>
               <p class="b-from-right b-animate b-delay03">Read More.</p>
@@ -136,7 +180,7 @@
       </div><!-- col-lg-4 -->
       
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port06.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/photos.jpeg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Post 3</h4>
               <p class="b-from-right b-animate b-delay03">Read More.</p>

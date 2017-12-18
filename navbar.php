@@ -37,8 +37,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="assets/img/team/gianni.png" class="img-circle" width="18">
-              
+              <img src="user_profile_img/<?php echo ($signin_user['img_name']);?>" class="img-circle" width="18">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
