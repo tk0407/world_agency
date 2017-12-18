@@ -13,7 +13,7 @@
 /* OVERALL ASPECT */
 
 body {
-    background-color: #f2f2f2;
+    background-color: white;
     font-family: 'Ruda', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -168,6 +168,18 @@ border-bottom-width: 0px;
 	font-size: 12px;
 }
 
+/* navbar Toppage */
+#navtoppage{
+    border-radius: 0;
+    border: none;
+    /*background-color: #003355;*/
+    background-color: rgba(0,51,85,0.6);
+    color: #ffffff;
+}
+
+#navtoppage .navbar-default .navbar-brand {
+    color: #ffffff;
+}
 
 /* Dashed Separator */
 
@@ -221,9 +233,9 @@ p.capitalize:first-letter {
 
 /* Button Theme */
 .btn-theme {
-  color: #696969;
+  color: #ffffff;
   background-color: transparent;
-  border-color: #696969;
+  border-color: #ffffff;
   font-family: 'Ruda', sans-serif;
   font-size: 13px;
   letter-spacing: 2px;
@@ -322,12 +334,12 @@ p.capitalize:first-letter {
 /* ================== MAIN WRAP SECTIONS ================== */
 
 #headerwrap {
-	background: url(../img/bg01.jpg) no-repeat center top;
+	background: url(../img/background/background3.jpeg) no-repeat center top;
 	margin-top: 0px;
 	padding-top: 50px;
 	background-attachment: relative;
 	background-position: center center;
-	min-height: 450px;
+	min-height: 780px;
 	width: 100%;
 	
     -webkit-background-size: 100%;
@@ -361,15 +373,16 @@ p.capitalize:first-letter {
 }
 
 
-
-
 /* Footer Wrap */
 
 #f {
 	background-color: #1b1b1b;
-	padding-top: 40px;
-	padding-bottom: 40px;
+/*   position:fixed;*/
+   left:0px;
+   bottom:0px;
+   width:100%;
 }
+
 
 #f p {
 	color: white;
@@ -439,7 +452,7 @@ p.capitalize:first-letter {
 
 /* ================== CALL TO ACTION WRAP SECTIONS & HELPERS ================== */
 #cta01 {
-	background: url(../img/cta/cta01.jpg) no-repeat center top;
+	background: url(../img/background/background4.jpeg) no-repeat center top;
 	margin-top: 0px;
 	padding-top:100px;
 	text-align:center;
@@ -479,7 +492,7 @@ p.capitalize:first-letter {
 
 
 #cta02 {
-	background: url(../img/cta/cta02.jpg) no-repeat center top;
+	background: url(../img/background/background5.jpeg) no-repeat center top;
 	margin-top: 0px;
 	padding-top:100px;
 	text-align:center;
@@ -507,7 +520,7 @@ p.capitalize:first-letter {
 
 
 #cta03 {
-	background: url(../img/cta/cta01.jpg) no-repeat center top;
+	background: url(../img/background/world2.jpeg) no-repeat center top;
 	margin-top: 0px;
 	padding-top:50px;
 	text-align:center;
@@ -808,8 +821,8 @@ ol {
 
 
   body {
-    padding-top: 70px;
-  }
+/*    padding-top: 70px;
+*/  }
   .btn-grey{
       background-color:#D8D8D8;
     color:#FFF;
@@ -858,25 +871,25 @@ ol {
   /* メインボタン */
   .btn-wa {
     color: #fff;
-    background-color: #63C0B1;
+    background-color: #02AEDC;
     border-color: #46b8da;
   }
   .btn-wa:focus,
   .btn-wa.focus {
     color: #fff;
-    background-color: #31b0d5;
+    background-color: #02AEDC;
     border-color: #1b6d85;
   }
   .btn-wa:hover {
     color: #fff;
-    background-color: #31b0d5;
+    background-color: #02AEDC;
     border-color: #269abc;
   }
   .btn-wa:active,
   .btn-wa.active,
   .open > .dropdown-toggle.btn-wa {
     color: #fff;
-    background-color: #31b0d5;
+    background-color: #02AEDC;
     border-color: #269abc;
   }
   .btn-wa:active:hover,
@@ -889,7 +902,7 @@ ol {
   .btn-wa.active.focus,
   .open > .dropdown-toggle.btn-wa.focus {
     color: #fff;
-    background-color: #269abc;
+    background-color: #02AEDC;
     border-color: #1b6d85;
   }
   .btn-wa:active,
@@ -906,10 +919,10 @@ ol {
   .btn-wa.disabled.focus,
   .btn-wa[disabled].focus,
   fieldset[disabled] .btn-wa.focus {
-    background-color: #63C0B1;
+    background-color: #02AEDC;
     border-color: #46b8da;
   }
   .btn-wa .badge {
-    color: #63C0B1;
+    color: #02AEDC;
     background-color: #fff;
   }

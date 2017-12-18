@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="index.html" class="navbar-brand">World Agency</a>
+        <a href="index.php" class="navbar-brand">World Agency</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse1">
         <ul class="nav navbar-nav">
@@ -17,8 +17,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="assets/img/team/gianni.png" class="img-circle" width="18">
-              
+              <img src="user_profile_img/<?php echo ($signin_user['img_name']);?>" class="img-circle" width="18">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">

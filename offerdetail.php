@@ -2,32 +2,38 @@
     session_start();
     require('dbconnect.php');
     require('functions.php');
-    require('signin_check.php');ログインしていないとこのページに来れない
+    require('signin_check.php');//ログインしていないとこのページに来れない
 
     $order_id = $_REQUEST['orders_id'];
       // v($order_id);
     $city = '';
-
+    $client = '';
     if (!empty($order_id)) {
+      // 依頼を上げたレコード一件取ってくる
       $sql = 'SELECT * FROM `orders` WHERE id = ?';
-      $data = array($order_id);
       $stmt = $dbh->prepare($sql);
-      $stmt->bindParam(1, $id, PDO::PARAM_INT); //インジェクション対策
-      $stmt->execute($data);
+      $stmt->bindParam(1, $order_id, PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute();
       $order = $stmt->fetch(PDO::FETCH_ASSOC);
-
+      // 依頼を上げた都市の名前を取り出す
       $sql = 'SELECT * FROM `cities` WHERE id = ?';
-      $data = array($order['city_id']);
       $stmt = $dbh->prepare($sql);
-      $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
-      $stmt->execute($data);
+      $stmt->bindParam(1, $order['city_id'], PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute();
       $city = $stmt->fetch(PDO::FETCH_ASSOC);
+      // 依頼を上げたクライアントのidを選択
+      $sql = 'SELECT * FROM `users` WHERE id = ?';
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(1, $order['client_id'], PDO::PARAM_INT); //インジェクション対策
+      $stmt->execute();
+      $client = $stmt->fetch(PDO::FETCH_ASSOC);
     } else {
       header('Location: orderlist.php');
       exit();
       }
       // v($order);
       // v($city);
+      // v($client);
 
     $errors = array();
     $offer_price = '';
@@ -170,17 +176,17 @@
               <div class="col-lg-5" style="margin:30px auto">
                   <div class="media">
                       <a class="pull-left" href="#">
-                          <img class="media-object dp img-circle" src="assets/img/team/gianni.png" style="width: 100px;height:100px;">
+                          <img class="media-object dp img-circle" src="user_profile_img/<?php echo htmlspecialchars($client['img_name']); ?>" style="width: 100px;height:100px;">
                       </a>
                       <div class="media-body">
-                          <h4 class="media-heading">Hardik Sondagar <small> India</small></h4>
-                          <h5>Software Developer at <a href="http://gridle.in">Gridle.in</a></h5>
+                          <h4 class="media-heading"><?php echo $client['firstname'], $client['lastname'];?> <small> <?php echo $client['homecountry'];?></small></h4>
+                          <h5><?php echo $client['evaluate_id'];?></h5>
                           <hr style="margin:8px auto">
 
-                          <span class="label label-default">HTML5/CSS3</span>
+                          <span class="label label-default"><?php echo $client['language'];?></span>
                           <span class="label label-default">jQuery</span>
-                          <span class="label label-info">CakePHP</span>
-                          <span class="label label-default">Android</span>
+                          <span class="label label-info"></span>
+                          <span class="label label-default"></span>
                       </div>
                   </div>
               </div>

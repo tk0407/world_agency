@@ -5,23 +5,30 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
-    // $signin_user['id'] = 1; //TODO 後でsignin idをここに表示できるようにする。
 
-    // 国々の名前をDBから全件取得
-    $sql = 'SELECT * FROM `countries` WHERE 1'; // valid=1のように対応している国だけ選ぶ。
-    $data = array();
+    $_GET['edit_id'] = 21;
+
+    if (!empty($_GET['edit_id'])) {
+    $sql = 'SELECT * FROM `orders` WHERE id = ?';
     $stmt = $dbh->prepare($sql);
-    // $stmt->bindParam(1, $id, PDO::PARAM_INT);  TODO:bindParam全件取得の場合はどうすべき？
-    $stmt->execute($data);
+    $stmt->bindParam(1, $_GET['edit_id'], PDO::PARAM_INT); //インジェクション対策
+    $stmt->execute();
+    $edit_order = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $countries = [];
-    while (true) {
-        $country = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($country == false) {
-            break;
-        }
-        $countries[] = $country;
+    $city['id'] = $edit_order['city_id'];
+    $item_name = $edit_order['item_name'];
+    $amount = $edit_order['amount'];
+    $order_price = $edit_order['order_price'];
+    $delivery_date = $edit_order['delivery_date'];
+    $publication_period = $edit_order['publication_period'];
+    // = $edit_order['images'];
+    $detail = $edit_order['detail'];
+    // = $edit_order['attached_file'];
     }
+
+    v($edit_order);
+
+
     // 各都市の名前をDBから全件取得
     $sql = 'SELECT * FROM `cities` WHERE 1';
     $data = array();
@@ -39,9 +46,7 @@
 
     // v($cities);
 
-
     $errors = array();
-    $country = '';
     $city = '';
     $item_name = '';
     $amount = '';
@@ -52,7 +57,6 @@
     $images = '';
 
     if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
-        $_POST['input_country'] = $_SESSION['register']['country'];
         $_POST['input_city'] = $_SESSION['register']['city'];
         $_POST['input_item_name'] = $_SESSION['register']['item_name'];
         $_POST['input_amount'] = $_SESSION['register']['amount'];
@@ -63,11 +67,9 @@
         $errors['rewrite'] = true; //これはコメントアウト下部分で本来行わなければ行けない処理。コメントアウトしてしまったのでここに追記
     }
 
-    var_dump($_POST);
-
+    // var_dump($_POST);
 
     if (!empty($_POST)) {
-        $country = $_POST['input_country'];
         $city = $_POST['input_city'];
         $item_name = $_POST['input_item_name'];
         $amount = $_POST['input_amount'];
@@ -78,10 +80,6 @@
 
 
         // ユーザーネームの空チェック
-
-        if ($country == '') {
-            $errors['country'] = 'blank';
-        }
 
         if ($city == '') {
             $errors['city'] = 'blank';
@@ -159,7 +157,6 @@
               move_uploaded_file($_FILES['input_attached_file']['tmp_name'], 'order_attached_files/' . $submit_file_name2);
           }
 
-          $_SESSION['register']['country'] = $_POST['input_country'];
           $_SESSION['register']['city'] = $_POST['input_city'];
           $_SESSION['register']['item_name'] = $_POST['input_item_name'];
           $_SESSION['register']['amount'] = $_POST['input_amount'];
@@ -185,23 +182,26 @@
   <!-- 基本bootの下でfont awesome読み込む -->
   <link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link href="assets/css/hover_pack.css" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/colors/color-74c9be.css" rel="stylesheet">    
+  <link href="assets/css/animations.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body style="margin-top: 60px; background-image: url(assets/img/portfolio/formback3.jpg); background-position:center center; background-repeat:no-repeat; background-attachment: fixed; background-size: cover;">
+<body>
+  <?php require('navbar.php');?>
+  <div style="margin-top: 50px; z-index: 1; background-image: url(assets/img/portfolio/formback3.jpg); background-position:center center; background-repeat:no-repeat; background-attachment: fixed; background-size: cover;">
   <div class="container" style="opacity: 0.9;">
     <div class="row">
       <!-- ここから -->
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">依頼内容 モノ</h2>
         <form method="POST" action="_order_detail1.php" enctype="multipart/form-data">
-          <!-- 下記、国のDBからスクロールして国名を取ってくる -->
-          <div class="form-group">
-            <label for="country">国</label>
-            <select type="text" name="input_country" class="form-control">
-              <?php foreach($countries as $country): ?>
-                <option value="<?= $country['id'] ?>"><?= $country['country_name']; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
             <!-- $_POST['hoge'] = 3 -->
             <!-- 3 -->
             <!-- 下記、都市のDBからスクロールして国名を取ってくる -->
@@ -238,7 +238,7 @@
           </div>
           <div class="form-group">
             <label for="delivery_date">希望受取日時</label>
-            <input type="datetime-local" name="input_delivery_date" class="form-control" id="delivery_date" placeholder="2017/10/02 10:00" value="<?php echo $delivery_date; ?>">
+            <input type="datetime-local" name="input_delivery_date" class="form-control" id="delivery_date" placeholder="<?php echo $delivery_date; ?>" value="<?php echo $delivery_date; ?>">
             <?php if(isset($errors['delivery_date']) && $errors['delivery_date'] == 'blank'){ ?>
               <p class="text-danger">希望受取日時を入力して下さい</p>
             <?php } ?>
@@ -282,6 +282,8 @@
       </div>
     </div>
   </div>
+  </div>
+<?php require('footer.php');?>
 <script type="assets/js/jquery.js"></script>
 <script type="assets/js/bootstrap.js"></script>
 </body>
