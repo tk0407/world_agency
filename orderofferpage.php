@@ -121,7 +121,7 @@
   <div class="container" style="opacity: 0.9;">
     <div class="row">
       <!-- ここから -->
-      <div class="col-xs-8 col-xs-offset-2 thumbnail">
+      <div class="col-xs-12 thumbnail">
         <h2 class="text-center content_header">依頼を受ける</h2>
         <form method="POST" action="orderlist.php" enctype="multipart/form-data">
             <!-- 3 -->

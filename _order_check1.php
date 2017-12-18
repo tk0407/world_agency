@@ -43,7 +43,6 @@
         echo '通過<br>';
         // $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = 'INSERT INTO `orders` SET
-          -- `country`=?
           `city_id`=?
           ,`category`=?
           ,`item_name`=?
@@ -71,7 +70,7 @@
         $stmt->bindParam(10, $attached_file, PDO::PARAM_STR);
         $stmt->bindParam(11, $client_id, PDO::PARAM_STR);
         $stmt->execute();
-
+s
         unset($_SESSION['register']);
         header('Location: thanksorder.php');
         exit();

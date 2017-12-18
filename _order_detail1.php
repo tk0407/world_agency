@@ -6,8 +6,28 @@
     require('functions.php');
     require('signin_check.php');
 
+    $_GET['edit_id'] = 21;
 
-    // $signin_user['id'] = 1; //TODO 後でsignin idをここに表示できるようにする。
+    if (!empty($_GET['edit_id'])) {
+    $sql = 'SELECT * FROM `orders` WHERE id = ?';
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(1, $_GET['edit_id'], PDO::PARAM_INT); //インジェクション対策
+    $stmt->execute();
+    $edit_order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $city['id'] = $edit_order['city_id'];
+    $item_name = $edit_order['item_name'];
+    $amount = $edit_order['amount'];
+    $order_price = $edit_order['order_price'];
+    $delivery_date = $edit_order['delivery_date'];
+    $publication_period = $edit_order['publication_period'];
+    // = $edit_order['images'];
+    $detail = $edit_order['detail'];
+    // = $edit_order['attached_file'];
+    }
+
+    v($edit_order);
+
 
     // 各都市の名前をDBから全件取得
     $sql = 'SELECT * FROM `cities` WHERE 1';
@@ -25,7 +45,6 @@
     }
 
     // v($cities);
-
 
     $errors = array();
     $city = '';
@@ -49,7 +68,6 @@
     }
 
     // var_dump($_POST);
-
 
     if (!empty($_POST)) {
         $city = $_POST['input_city'];
@@ -220,7 +238,7 @@
           </div>
           <div class="form-group">
             <label for="delivery_date">希望受取日時</label>
-            <input type="datetime-local" name="input_delivery_date" class="form-control" id="delivery_date" placeholder="2017/10/02 10:00" value="<?php echo $delivery_date; ?>">
+            <input type="datetime-local" name="input_delivery_date" class="form-control" id="delivery_date" placeholder="<?php echo $delivery_date; ?>" value="<?php echo $delivery_date; ?>">
             <?php if(isset($errors['delivery_date']) && $errors['delivery_date'] == 'blank'){ ?>
               <p class="text-danger">希望受取日時を入力して下さい</p>
             <?php } ?>

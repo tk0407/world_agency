@@ -17,9 +17,9 @@
       $client_id = $_SESSION['signin_user']['id'];
     }
 
-    // v($_POST);
+      // v($_POST);
 
-    // v($_SESSION['register']);
+      // v($_SESSION['register']);
 
     $city_id = $_SESSION['register']['city'];
     $title = $_SESSION['register']['title'];
