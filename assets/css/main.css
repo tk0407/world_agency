@@ -103,6 +103,13 @@ border-bottom-width: 0px;
 	margin-bottom: 50px;
 }
 
+/* margin top & Bottom */
+.mu {
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+
 /* Special Margin for Wrap sections */
 .mts {
 	margin-top: -20px;
@@ -417,8 +424,14 @@ p.capitalize:first-letter {
 }
 
 #black i {
-	font-size: 35px;
+	font-size: 25px;
 }
+
+
+#white i {
+  font-size: 25px;
+}
+
 
 #black h1 {
 	color: white;
@@ -858,7 +871,7 @@ ol {
   /* メインボタン */
   .btn-wa {
     color: #fff;
-    background-color: #63C0B1;
+    background-color: #02AEDC;
     border-color: #46b8da;
   }
   .btn-wa:focus,
@@ -906,10 +919,18 @@ ol {
   .btn-wa.disabled.focus,
   .btn-wa[disabled].focus,
   fieldset[disabled] .btn-wa.focus {
-    background-color: #63C0B1;
+    background-color: #02AEDC;
     border-color: #46b8da;
   }
   .btn-wa .badge {
-    color: #63C0B1;
+    color: #02AEDC;
     background-color: #fff;
   }
+
+.test {
+  /* こいつが重要 */
+  overflow:auto;
+  height:250px;
+  line-height:1.5;
+  padding:10px 0;
+}
