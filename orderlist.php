@@ -64,7 +64,7 @@
 <body style="margin-top: 60px; background: white;">
   <?php require('navbar.php'); ?>
 
-  <div class="container">
+  <div class="container" style="min-height: 480px">
     <div class="row mt centered ">
       <div class="col-xs-4 col-xs-offset-4">
         <h3>取引一覧</h3>

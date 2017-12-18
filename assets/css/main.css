@@ -947,3 +947,11 @@ ol {
   line-height:1.5;
   padding:10px 0;
 }
+
+.navbar-default a.navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-default ul.navbar-nav > li > a {
+    color: #ffffff;
+}

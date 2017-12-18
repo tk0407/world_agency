@@ -70,7 +70,7 @@
   </head>
 <body>
   <?php require('navbar.php');?>
-  <div class="container"> 
+  <div class="container" id="main_content"> 
     <div class="row mt centered ">
       <div class="col-lg-4 col-lg-offset-4">
         <h3>海外のエージェントに依頼をする</h3>

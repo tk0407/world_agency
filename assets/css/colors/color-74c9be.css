@@ -25,6 +25,18 @@ color: #ffffff;
 background-color: #02AEDC;
 }
 
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+    color: #555;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+    color: #ffffff;
+}
+
 .navbar-default .navbar-nav > li > a:hover {
 color: #02AEDC;
 }
