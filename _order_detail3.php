@@ -5,7 +5,6 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
-    require('navbar.php');
 
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
@@ -52,9 +51,10 @@
         $_POST['input_detail'] = $_SESSION['register']['detail'];
         $_POST['input_request'] = $_SESSION['register']['request'];
         $_POST['input_purpose'] = $_SESSION['register']['purpose'];
+        $errors['rewrite'] = true;
     }
 
-    var_dump($_POST);
+    // var_dump($_POST);
 
     if (!empty($_POST)) {
         $city = $_POST['input_city'];
@@ -144,7 +144,7 @@
         // }
 
 
-        var_dump($errors);
+        // var_dump($errors);
 
         if (empty($errors)) {
           // バリデーション成功時の処理
@@ -205,7 +205,7 @@
 </head>
 <body>
   <?php require('navbar.php');?>
-  <div style="margin-top: 30px; z-index: 1; background-image: url(assets/img/portfolio/databack5.jpg); background-position:center center; background-repeat:no-repeat; background-attachment: fixed; background-size: cover;">
+  <div style="margin-top: 50px; z-index: 1; background-image: url(assets/img/portfolio/databack5.jpg); background-position:center center; background-repeat:no-repeat; background-attachment: fixed; background-size: cover;">
   <div class="container" style="opacity: 0.86;">
     <div class="row">
       <!-- ここから -->

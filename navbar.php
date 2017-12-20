@@ -9,7 +9,7 @@
     $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
- ?> 
+ ?>
 
 
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -25,7 +25,7 @@
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="orderlist.php">依頼一覧</a></li>
+          <li><a href="orderlist.php">依頼一覧</a></li>
           <li><a href="mypage.php">マイページ</a></li>
           <li><a href="orderstatus.php?user_id=<?php echo $signin_user['id']; ?>">取引一覧</a></li>
           <li><a href="register/edit_profile.php?id=<?php echo $signin_user['id']; ?>">プロフィール編集</a></li>

@@ -46,7 +46,7 @@
 
     // 登録ボタンが押された時の処理
     if (!empty($_POST)) {
-        echo '通過<br>';
+        // echo '通過<br>';
         // $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = 'INSERT INTO `orders` SET
           `city_id`=?

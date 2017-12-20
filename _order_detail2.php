@@ -5,7 +5,6 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
-    require('navbar.php');
 
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
@@ -55,7 +54,7 @@
         $errors['rewrite'] = true; //これはコメントアウト下部分で本来行わなければ行けない処理。コメントアウトしてしまったのでここに追記
     }
 
-    var_dump($_POST);
+    // var_dump($_POST);
 
     if (!empty($_POST)) {
         $city = $_POST['input_city'];
@@ -145,7 +144,7 @@
         // }
 
 
-        var_dump($errors);
+        // var_dump($errors);
 
         if (empty($errors)) {
           // バリデーション成功時の処理

@@ -61,7 +61,7 @@
   <link href="assets/css/animations.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body style="margin-top: 60px; background: white;">
+<body style="margin-top: 50px; background: white;">
   <?php require('navbar.php'); ?>
 
   <div class="container" style="min-height: 480px">
