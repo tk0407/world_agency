@@ -64,7 +64,7 @@
 <body style="margin-top: 60px; background: white;">
   <?php require('navbar.php'); ?>
 
-  <div class="container">
+  <div class="container" style="min-height: 480px">
     <div class="row mt centered ">
       <div class="col-xs-4 col-xs-offset-4">
         <h3>取引一覧</h3>
@@ -93,8 +93,32 @@
         <?php } ?>
       </div>
     </div>
-  <?php require('footer.php');?>
-  <script src="assets/js/jquery.js"></script>
-  <script src="assets/js/bootstrap.js"></script>
+
+<?php require('footer.php'); ?>
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="assets/js/bootstrap.min.js"></script>
+      <script src="assets/js/retina.js"></script>
+
+
+      <script>
+        $(window).scroll(function() {
+         $('.si').each(function(){
+           var imagePos = $(this).offset().top;
+
+           var topOfWindow = $(window).scrollTop();
+           if (imagePos < topOfWindow+400) {
+             $(this).addClass("slideUp");
+           }
+         });
+       });
+     </script>    
+
+
+
+     <script src="assets/js/jquery.js"></script>
+     <script src="assets/js/bootstrap.js"></script>
 </body>
 </html>

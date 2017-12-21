@@ -206,7 +206,9 @@ if (!isset($_REQUEST['orders_id'])) {
     <! ========== BLOG POSTS ==================================================================================================== 
     =============================================================================================================================>    
     <div id="white">
-
+      <br>
+      <br>
+      <br>
       <div class="col-lg-4 col-lg-offset-4 centered">
         <h3>取引相手のプロフィール</h3>
         <hr>
@@ -708,7 +710,34 @@ if (!isset($_REQUEST['orders_id'])) {
   <br>
 
 
+
 <?php require('footer.php'); ?>
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="assets/js/bootstrap.min.js"></script>
+      <script src="assets/js/retina.js"></script>
+
+
+      <script>
+        $(window).scroll(function() {
+         $('.si').each(function(){
+           var imagePos = $(this).offset().top;
+
+           var topOfWindow = $(window).scrollTop();
+           if (imagePos < topOfWindow+400) {
+             $(this).addClass("slideUp");
+           }
+         });
+       });
+     </script>    
+
+
+
+     <script src="assets/js/jquery.js"></script>
+     <script src="assets/js/bootstrap.js"></script>
+
 
     </body>
     </html>

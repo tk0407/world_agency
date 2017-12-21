@@ -95,7 +95,7 @@ if(!empty($_POST)){
 
   </head>
 
-  <body style="margin-top: ; background: #FFFFFF;">
+  <body style="margin-top:50px ; background: #FFFFFF;">
     <?php require('navbar.php'); ?>
 
     <! ========== BLOG POSTS ==================================================================================================== 
@@ -154,7 +154,33 @@ if(!empty($_POST)){
     </div><!-- /black -->
     <br>
 
+
 <?php require('footer.php'); ?>
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="assets/js/bootstrap.min.js"></script>
+      <script src="assets/js/retina.js"></script>
+
+
+      <script>
+        $(window).scroll(function() {
+         $('.si').each(function(){
+           var imagePos = $(this).offset().top;
+
+           var topOfWindow = $(window).scrollTop();
+           if (imagePos < topOfWindow+400) {
+             $(this).addClass("slideUp");
+           }
+         });
+       });
+     </script>    
+
+
+
+     <script src="assets/js/jquery.js"></script>
+     <script src="assets/js/bootstrap.js"></script>
 
     </body>
     </html>
