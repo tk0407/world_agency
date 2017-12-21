@@ -21,9 +21,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="index.php" class="navbar-brand">World Agency</a>
+        <a href="index.php" class="navbar-brand" id="navbar_top">World Agency</a>
       </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse1">
+      <div class="collapse navbar-collapse" id="navbar_top">
         <ul class="nav navbar-nav">
           <li><a href="orderlist.php">依頼一覧</a></li>
           <li><a href="mypage.php">マイページ</a></li>

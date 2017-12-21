@@ -1002,3 +1002,14 @@ ol {
     color: #02AEDC;
     background-color: transparent;
 }
+
+.navbar-default a.navbar-brand {
+  color: #2c3e50;
+}
+.navbar-default ul.navbar-nav > li > a {
+    color: #2c3e50;
+}
+
+a.navbar-font-white {
+  color: #ffffff !important;
+}

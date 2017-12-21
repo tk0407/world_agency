@@ -109,12 +109,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="index.php" class="navbar-brand">World Agency</a>
+        <a href="index.php" class="navbar-brand navbar-font-white">World Agency</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse1">
         <ul class="nav navbar-nav">
-          <li><a href="orderlist.php">依頼一覧</a></li>
-          <li><a href="mypage.php">マイページ</a></li>
+          <li><a class="navbar-font-white" href="orderlist.php">依頼一覧</a></li>
+          <li><a class="navbar-font-white" href="mypage.php">マイページ</a></li>
         </ul>
       </div>
     </div>
@@ -183,7 +183,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2">
-            <h2>The probability of success is difficult to estimate;<br/>but if we never search, the chance of success is zero.</h2>
+            <h2>終着点は重要じゃない。<br>旅の途中でどれだけ楽しいことを<br>やり遂げているかが大事なんだ。<br><br>-　スティーブ・ジョブズ</h2>
           </div>
         </div><!-- /row -->
       </div><!-- /container -->
@@ -200,7 +200,7 @@
     </div><!-- /row -->
     <div class="row mt centered"> 
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="300px" height="auto"  src="assets/img/portfolio/enjoi_10017288_wht_whitey_panda_logo_wide_r7_1024x1024.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/enjoi_10017288_wht_whitey_panda_logo_wide_r7_1024x1024.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 1</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
@@ -209,7 +209,7 @@
         <p>enjoy -<i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="300px" height="auto" src="assets/img/portfolio/Body&bath.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/Body&bath.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 2</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
@@ -218,7 +218,7 @@
         <p>Bath&Body - <i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="300px" height="auto" src="assets/img/portfolio/peackdesign20l_charcoal.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img  style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/peackdesign20l_charcoal.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 3</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
@@ -229,31 +229,31 @@
     </div><!-- /row -->
     <div class="row mt centered"> 
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port03.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/sabon.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 4</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>APE - <i class="fa fa-heart-o"></i></p>
+        <p>Sabon   - <i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port01.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/JollibeeT2.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 5</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>RAIDERS - <i class="fa fa-heart-o"></i></p>
+        <p>JollibeeT - <i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port02.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/papayasoap.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 6</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>VIKINGS - <i class="fa fa-heart-o"></i></p>
+        <p>Papaya Soap - <i class="fa fa-heart-o"></i></p>
       </div>
     </div><!-- /row -->
 
@@ -277,10 +277,10 @@
       
       <div class="row centered">
         <div class="col-lg-3 pt">
-          <img class="img-responsive" src="assets/img/clients/client01.png" alt="">
+          <img class="img-responsive" src="assets/img/clients/Wired (1).png" alt="">
         </div>
         <div class="col-lg-3 pt">
-          <img class="img-responsive" src="assets/img/clients/client02.png" alt="">
+          <img class="img-responsive" src="assets/img/clients/tripadvisor (1).png" alt="">
         </div>
         <div class="col-lg-3 pt">
           <img class="img-responsive" src="assets/img/clients/techcrunch.png" alt="">
@@ -307,7 +307,7 @@
       
       <div class="row mt">
         <div class="col-lg-8 col-lg-offset-2">
-          <p>現段階の対象都市は以下となります。<br>アメリカ（ハワイ/ニューヨーク/ロサンゼルス）、フランス(パリ/ニース/リヨン)、中国（香港、上海、北京）、タイ（バンコク/プーケット/パタヤ）、日本（東京/大阪/京都）</p>
+          <p>現段階の依頼対象都市は以下となります。<br>アメリカ（ハワイ/ニューヨーク/ロサンゼルス）、フランス(パリ/ニース/リヨン)、中国（香港、上海、北京）、タイ（バンコク/プーケット/パタヤ）、日本（東京/大阪/京都）</p>
         </div><! --/col-lg-8 -->
       </div><!-- /row -->
     </div><!-- /container -->
@@ -336,15 +336,15 @@
             <p>お客様が送っていただいた依頼内容に対して現地にいるエージェントからオファーが送られてきますので、ご自身で要望に一番沿ったエージェントをお選び下さい。</p>
           </div>
           <div class="col-lg-3">
-            <p class="capitalize">3&emsp;&emsp;&emsp;&emsp;&emsp;<i class="fa fa-money" style="font-size: 60px;" aria-hidden="true"></i></p>
-            <h4>お支払い/調達</h4>
-            <p>エージェントとのマッチングが完了いたしましたら後は依頼内容の詳細をメッセージを通してお伝え下さい。その後、依頼品をエージェントに調達いただきましたら提示していただいた金額をお支払いください。</p>
-          </div>      
+            <p class="capitalize">3&emsp;&emsp;&emsp;&emsp;&emsp;<i class="fa fa-comments" style="font-size: 60px;" aria-hidden="true"></i></p>
+            <h4>詳細のやり取り/調達</h4>
+            <p>エージェントとのマッチングが完了いたしましたら後は依頼内容の詳細をメッセージを通してお伝え下さい。その後、依頼品をエージェントに調達していただきます。</p>
+          </div>
   
           <div class="col-lg-3">
             <p class="capitalize">4&emsp;&emsp;&emsp;&emsp;&emsp;<i class="fa fa-gift" style="font-size: 60px;" aria-hidden="true"></i></p>
-            <h4>受取/依頼完了</h4>
-            <p>エージェントより依頼の品をお受け取り次第、依頼完了となります。お客様とエージェント、お互いに今回の取引について評価をしていただきます。もし、今回の取引を気に入っていただけたのであればお互いにフォーローし合えますので次回のお取引もお気に入りのエージェント様に依頼が可能です。</p>
+            <h4>お支払/取引完了</h4>
+            <p>エージェントより依頼の品をお受け取り次第、お支払をしていただきます。お客様からエージェントに今回の取引について評価をしていただき、もし今回の取引を気に入っていただけたのであればエージェントをフォーローできますので次回のお取引もお気に入りのエージェント様に依頼が可能です。</p>
           </div>
         </div><!-- /row -->
       </div><!-- /container -->
@@ -356,7 +356,8 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2">
-            <h2>Our products & services are crafted with the utmost care to fulfill your needs.</h2>
+            <h2>“The world is a book, and those who do not travel read only one page.”<br>
+             ―世界は一冊の本である。旅をしない者は、1ページしか読んでいないのだ―<br>アウグスティヌス - 哲学者</h2>
           </div>
         </div><!-- /row -->
       </div><!-- /container -->
@@ -369,7 +370,7 @@
         <div class="col-lg-4 centered si">
           <i class="fa fa-shopping-bag" aria-hidden="true"></i>
           <h4>ブランド品</h4>
-          <p>自分の住んでいる国では売っていない、もしくは高すぎるもの海外から取り寄せましょう。</p>
+          <p>自分の住んでいる国では売っていない、もしくは高すぎるものを海外から取り寄せましょう。</p>
         </div>
         <div class="col-lg-4 centered si">
           <i class="fa fa-futbol-o" aria-hidden="true"></i>
@@ -385,7 +386,7 @@
         <div class="col-lg-4 centered si">
           <i class="fa fa-search" aria-hidden="true"></i>
           <h4>市場調査</h4>
-          <p>まだ日本にはない海外で流行っている物や現地で気になるビジネスモデルの情報収集をWAを通して行いましょう</p>
+          <p>まだ日本にはない海外で流行っている物や現地で気になるビジネスモデルの情報収集をWAを通して行いましょう。</p>
         </div>
         <div class="col-lg-4 centered si">
           <i class="fa fa-picture-o" aria-hidden="true"></i>
@@ -417,8 +418,8 @@
           <div class="members">
             <img src="assets/img/team/gianni.png" alt="">
             <div class="team-info">
-              <div class="subhead">Developer</div>
-              <h2 class="team-name">Gianni</h2>
+              <div class="subhead">Co-founder<br>Developer</div>
+              <h2 class="team-name">Kazu</h2>
               <p class="team-description"><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-dribbble"></i></p>
             </div>
           </div>
@@ -428,8 +429,8 @@
           <div class="members">
             <img src="assets/img/team/rebecca.png" alt="">
             <div class="team-info">
-              <div class="subhead">Designer</div>
-              <h2 class="team-name">Rebecca</h2>
+              <div class="subhead">Co-founder<br>HR Manager</div>
+              <h2 class="team-name">Soyoka</h2>
               <p class="team-description"><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-dribbble"></i></p>
             </div>
           </div>
@@ -439,8 +440,8 @@
           <div class="members">
             <img src="assets/img/team/william.png" alt="">
             <div class="team-info">
-              <div class="subhead">Designer</div>
-              <h2 class="team-name">William</h2>
+              <div class="subhead">Founder/Designer</div>
+              <h2 class="team-name">Takamasa</h2>
               <p class="team-description"><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-dribbble"></i></p>
             </div>
           </div>
@@ -453,35 +454,35 @@
   <! ========== BLACK SECTION ================================================================================================= 
   =============================================================================================================================>    
   <div id="black">
-    <div class="container pt">
-      <div class="row mt centered">
-        <div class="col-lg-3">
-          <p><i class="fa fa-instagram"></i></p>
-          <h1>21.337</h1>
-          <hr>
-          <h4>Pictures Taken</h4>
-        </div>
+     <div class="container pt">
+       <div class="row mt centered">
+         <div class="col-lg-3">
+           <p><i class="fa fa-camera"></i></p>
+           <h1>21,337</h1>
+           <hr>
+           <h4>取引された写真の数</h4>
+         </div>
 
-        <div class="col-lg-3">
-          <p><i class="fa fa-music"></i></p>
-          <h1>9.764</h1>
-          <hr>
-          <h4>Songs Listened</h4>
-        </div>
+         <div class="col-lg-3">
+           <p><i class="fa fa-video-camera"></i></p>
+           <h1>2,764</h1>
+           <hr>
+           <h4>取引された動画の数</h4>
+         </div>
 
-        <div class="col-lg-3">
-          <p><i class="fa fa-trophy"></i></p>
-          <h1>107</h1>
-          <hr>
-          <h4>Awards Earned</h4>
-        </div>
+         <div class="col-lg-3">
+           <p><i class="fa fa-file-text"></i></p>
+           <h1>1,070</h1>
+           <hr>
+           <h4>取引された書類の枚数</h4>
+         </div>
 
-        <div class="col-lg-3">
-          <p><i class="fa fa-ticket"></i></p>
-          <h1>209</h1>
-          <hr>
-          <h4>Movies Watched</h4>
-        </div>
+         <div class="col-lg-3">
+           <p><i class="fa fa-gift"></i></p>
+           <h1>209,706</h1>
+           <hr>
+           <h4>取引された物の数</h4>
+         </div>
 
       </div><!-- /row -->
     </div><!-- /container -->
@@ -518,23 +519,6 @@
       </div><!-- /col-lg-8 -->
     </div><! --/row -->
   </div><!-- /container -->
-
-
-  <! ========== CONTACT SECTION =============================================================================================== 
-  =============================================================================================================================>    
-
-  <div id="white">
-    <div class="container">
-        <div class="row mt">
-          <div class="col-lg-4 col-lg-offset-4 centered">
-            <h3>Contact Us</h3>
-            <hr>
-          </div>
-        </div><! --/row -->
-    </div><!-- /container -->
-  <div id="map"></div>  
-  </div><!-- /white -->
-
 
 
   
