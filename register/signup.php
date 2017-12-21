@@ -89,8 +89,13 @@
   <br>
   <div class="container">
     <div class="row">
+      <div class="col-xs-8 col-xs-offset-2 centered">
+        <img src="../assets/img/WA_logo.png" width="100">
+        <br>
+        <br>
+      </div>
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
-        <h2 class="text-center content_header">World Agency  アカウント作成</h2>
+        <h2 class="text-center content_header">World Agency  アカウント登録</h2>
         <form method="POST" action="signup.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="email">メールアドレス</label>
@@ -115,6 +120,11 @@
           <input type="submit" class="btn btn-wa" value="確認">
           <a href="../signin.php" style="float: right; padding-top: 6px;" class="text-success">サインイン</a>
         </form>
+      </div>
+      <div class="col-xs-8 col-xs-offset-2 centered">
+      <br>
+      <br>
+      © 2018 World Agency
       </div>
 
     </div>

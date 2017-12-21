@@ -7,6 +7,7 @@
     //    header('Location: index.php');
     //    exit();
     // }
+    
     $errors = array();
     $firstname = '';
     $lastname = '';
@@ -129,7 +130,7 @@
   <link href="../assets/css/animations.css" rel="stylesheet">
   <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" /> -->
 
   </head>
 
@@ -271,6 +272,31 @@
 
     </div>
   </div>
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="../assets/js/bootstrap.min.js"></script>
+      <script src="../assets/js/retina.js"></script>
+
+
+      <script>
+        $(window).scroll(function() {
+         $('.si').each(function(){
+           var imagePos = $(this).offset().top;
+
+           var topOfWindow = $(window).scrollTop();
+           if (imagePos < topOfWindow+400) {
+             $(this).addClass("slideUp");
+           }
+         });
+       });
+     </script>    
+
+
+
+     <script src="../assets/js/jquery.js"></script>
+     <script src="../assets/js/bootstrap.js"></script>
 
 <?php require('../footer.php'); ?>
 

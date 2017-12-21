@@ -72,10 +72,14 @@
 
   </head>
 
-  <body style="margin-top: ; background: #FFFFFF;">
-
+  <body style="margin-top:50px ; background: #FFFFFF;">
   <div class="container">
     <div class="row">
+      <div class="col-xs-8 col-xs-offset-2 centered">
+        <img src="assets/img/WA_logo.png" width="100">
+        <br>
+        <br>
+      </div>
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">World Agency サインイン</h2>
         <form method="POST" action="" enctype="multipart/form-data">
@@ -94,12 +98,21 @@
             <input type="password" name="input_password" class="form-control" id="password" placeholder="4 ~ 16文字のパスワード">
           </div>
           <input type="submit" class="btn btn-wa" value="サインイン">
+          <a href="register/signup.php" style="float: right; padding-top: 6px;" class="text-success">アカウント登録</a>
         </form>
+      </div>
+      <div class="col-xs-8 col-xs-offset-2 centered">
+      <br>
+      <br>
+      © 2018 World Agency
       </div>
     </div>
   </div>
   <script src="assets/js/jquery-3.1.1.js"></script>
   <script src="assets/js/jquery-migrate-1.4.1.js"></script>
   <script src="assets/js/bootstrap.js"></script>
+
+
+
 </body>
 </html>

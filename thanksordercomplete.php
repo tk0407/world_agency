@@ -25,7 +25,7 @@
 
   </head>
 
-  <body style="margin-top: ; background: #FFFFFF;">
+  <body style="margin-top:50px ; background: #FFFFFF;">
     <?php require('navbar.php'); ?>
 
   <div class="container">

@@ -24,9 +24,7 @@
         $data = array($delete_id);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
-    }
 
-    if ($signin_user['id'] == $record['client_id']) {
         $sql = 'DELETE FROM offers WHERE order_id=?';
         $data = array($delete_id);
         $stmt = $dbh->prepare($sql);
