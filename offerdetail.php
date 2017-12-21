@@ -164,7 +164,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
   <![endif]-->
 </head>
-<body style="margin-top: 60px; background: #E4E6EB;">
+<body style="margin-top: 50px; background: ;">
   <?php require('navbar.php'); ?>
 
   <div class="container" style="opacity: 0.9;">

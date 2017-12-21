@@ -85,10 +85,8 @@
               <p class="">モノを依頼する</p>
           </div>
         </a>
-        <p>The Sky Is The Limit</p>
-        <p class="lead">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <hr-d>
-        <p class="time"><i class="fa fa-comment-o"></i> 3 | <i class="fa fa-calendar"></i> 14 Nov.</p>
+        <p>海外でしか手に入らないモノ</p>
+        <p class="lead">世の中には海外で購入したほうが安いもの、海外でしか手に入らないモノがたくさんあります。ここではそういったモノを今現地にいる人達に頼んで簡単に手に入れましょう。</p>
       </div><!-- col-lg-4 -->
       
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
@@ -97,10 +95,8 @@
               <p class="">情報を依頼する</p>
           </div>
         </a>
-        <p>Another Cool Stuff</p>
-        <p class="lead">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <hr-d>
-        <p class="time"><i class="fa fa-comment-o"></i> 1 | <i class="fa fa-calendar"></i> 13 Oct.</p>
+        <p>海外でしか手に入らない情報</p>
+        <p class="lead">世界中にある観光地の数々、昔行ったことはあるけれど今どうなっているか最新の情報などは現地にいる人でないとわかりません。また、今その土地で流行っているモノやサービスの情報は自国にとってとても有益であったりします。これらの情報を現地にいる人に調達してもらいましょう。</p>
       </div><!-- col-lg-4 -->
       
       <div class="col-lg-4 col-md-4 col-xs-12 desc">
@@ -109,10 +105,8 @@
               <p class="">データを依頼する</p>
           </div>
         </a>
-        <p>This Is Awesome</p>
-        <p class="lead">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <hr-d>
-        <p class="time"><i class="fa fa-comment-o"></i> 1 | <i class="fa fa-calendar"></i> 13 Oct.</p>
+        <p>海外の写真等のデータ</p>
+        <p class="lead">WEBサイトを運営したり、海外に関してのビジネスを運営しているとどうしてもその国、土地の写真やデータが必要になる時があります。ここではそういったデータも今現地にいる人達に依頼してみましょう。</p>
       </div><!-- col-lg-4 -->
       
     </div><!-- /row -->

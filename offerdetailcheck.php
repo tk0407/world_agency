@@ -163,7 +163,7 @@
   <![endif]-->
 </head>
 <body>
-<body style="margin-top: 60px; background: #E4E6EB;">
+<body style="margin-top: 50px; background:white;">
   <?php require('navbar.php'); ?>
 
   <div class="container" style="opacity: 0.9;">

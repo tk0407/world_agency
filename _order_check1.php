@@ -32,15 +32,16 @@
     $category = 1;
 
     $sql = 'SELECT * FROM `cities` WHERE id = ?';
+    $data = array($city_id);
     $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(1, $city_id, PDO::PARAM_INT); //インジェクション対策
-    $stmt->execute();
+    $stmt->bindParam(1, $city, PDO::PARAM_INT); //インジェクション対策
+    $stmt->execute($data);
     $city = $stmt->fetch(PDO::FETCH_ASSOC);
     // v($city);
 
     // 登録ボタンが押された時の処理
     if (!empty($_POST)) {
-        echo '通過<br>';
+        // echo '通過<br>';
         // $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = 'INSERT INTO `orders` SET
           `city_id`=?
@@ -65,12 +66,12 @@
         $stmt->bindParam(5, $order_price, PDO::PARAM_STR);
         $stmt->bindParam(6, $delivery_date, PDO::PARAM_STR);
         $stmt->bindParam(7, $publication_period, PDO::PARAM_STR);
-        $stmt->bindParam(8, $images, PDO::PARAM_STR);
+        $stmt->bindParam(8, $images, PDO::PARAM_STR); //LOBでバリデーションして問題ないか？→ここはTEXTでDBに保存しているのでSTRで大丈夫
         $stmt->bindParam(9, $detail, PDO::PARAM_STR);
         $stmt->bindParam(10, $attached_file, PDO::PARAM_STR);
         $stmt->bindParam(11, $client_id, PDO::PARAM_STR);
         $stmt->execute();
-s
+
         unset($_SESSION['register']);
         header('Location: thanksorder.php');
         exit();
@@ -98,11 +99,11 @@ s
 </head>
 <body>
   <?php require('navbar.php');?>
-  <div style="margin-top: 50px; z-index: 1; background-image: url(assets/img/portfolio/formback3.jpg); background-position:center center; background-repeat:no-repeat; background-attachment: fixed; background-size: cover;">
+  <div style="margin-top: 50px; background-image: url(assets/img/portfolio/formback3.jpg); background-position:center center;   background-repeat:no-repeat; background-attachment: fixed; background-size: cover; ">
     <div class="container" style="opacity: 0.95;">
       <div class="row">
         <div class="col-xs-8 col-xs-offset-2 thumbnail">
-          <h2 class="text-center content_header">依頼 情報確認</h2>
+          <h2 class="text-center content_header">依頼情報確認</h2>
           <div class="row">
             <div class="col-xs-4">
               <img src="order_images/<?php echo $images;?>" class="img-responsive img-thumbnail">

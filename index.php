@@ -2,7 +2,7 @@
     session_start();
     require('dbconnect.php');
     require('functions.php');
-    require('signin_check.php');
+    // require('signin_check.php');
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -77,7 +77,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body id="home">
 
 
   <! ========== HEADERWRAP ==================================================================================================== 
@@ -90,8 +90,8 @@
         </div>
         <div class="col-lg-12">
           <p>
-            <a href="register/signup.php"><button type="button" class="btn btn-theme btn-lg">新規登録</button></a>
-            <a href="signin.php"><button type="button" class="btn btn-theme btn-lg">ログイン</button></a>
+            <a href="register/signup.php"> <button class="square_btn btn btn-theme" style="width: auto; height: 10%; text-align: center; font-size: 150%;">新規登録</button></a>
+            <a href="signin.php"> <button class="square_btn btn btn-theme" style="width: auto; height: 10%; text-align: center; font-size: 150%;">ログイン</button></a>
           </p>
         </div>
       </div><!-- /row -->
@@ -109,24 +109,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="index.php" class="navbar-brand">World Agency</a>
+        <a href="index.php" class="navbar-brand navbar-font-white">World Agency</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="orderlist.php">依頼一覧</a></li>
-          <li><a href="mypage.php">マイページ</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="user_profile_img/<?php echo ($signin_user['img_name']);?>" class="img-circle" width="18">
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="profile.php?user_id=<?= $signin_user['id'] ?>">My Profile</a></li>
-              <li><a href="signout.php" style="color: #FF0000">Sign Out</a></li>
-            </ul>
-          </li>
+          <li><a class="navbar-font-white" href="orderlist.php">依頼一覧</a></li>
+          <li><a class="navbar-font-white" href="mypage.php">マイページ</a></li>
         </ul>
       </div>
     </div>
@@ -142,67 +130,60 @@
     </div>
     <h1 style="font-family: 'Ruda', sans-serif;font-weight: 900;color: #2c3e50;text-align: center;line-height: 40px;">海の向こうをもっと身近に</h1>
     <br>
-    <h4 style="font-family: 'Ruda', sans-serif;font-weight: 900;color: #2c3e50;text-align: center;line-height: 40px;">World Agencyとは、海外にいる人と自分の国には無いけど海外にあるものが欲しい人を繋げるサービスです。<br>自分から欲しいものを依頼する形式なので、本当に欲しいものが見つけられます。
+    <h4 style="font-family: 'Ruda', sans-serif;font-weight: 900;color: #2c3e50;text-align: center;line-height: 40px; margin-bottom: 10%;">World Agencyとは、海外にいる人と自分の国には無いけど海外にあるものが欲しい人を繋げるサービスです。<br>自分から欲しいものを依頼する形式なので、本当に欲しいものが見つけられます。
     </h4>
-
-    <div class="row mt centered ">
-      <div class="col-lg-4 col-lg-offset-4">
-        <p class="mt"><a href="orderofferpage.php"><button type="button" class="btn btn-theme btn-lg">依頼する/依頼を受ける</button></a></p>
-        <hr>
-      </div>
-    </div><!-- /row -->
-
-    <div class="row mt">
-      <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/mono1.jpg" alt="" />
-          <div class="b-wrapper">
-              <h4 class="b-from-left b-animate b-delay03">Post 1</h4>
-              <p class="b-from-right b-animate b-delay03">Read More.</p>
-          </div>
-        </a>
-        <p>海外でしか手に入らないモノ</p>
-        <p class="lead">世の中には海外で購入したほうが安いもの、海外でしか手に入らないモノがたくさんあります。ここではそういったモノを今現地にいる人達に頼んで簡単に手に入れましょう。</p>
-        <hr-d>
-        <p class="time"><i class="fa fa-comment-o"></i> 3 | <i class="fa fa-calendar"></i> 14 Nov.</p>
-      </div><!-- col-lg-4 -->
-      
-      <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/research.jpeg" alt="" />
-          <div class="b-wrapper">
-              <h4 class="b-from-left b-animate b-delay03">Post 2</h4>
-              <p class="b-from-right b-animate b-delay03">Read More.</p>
-          </div>
-        </a>
-        <p>海外でしか手に入らない情報</p>
-        <p class="lead">世界中にある観光地の数々、昔行ったことはあるけれど今どうなっているか最新の情報などは現地にいる人でないとわかりません。また、今その土地で流行っているモノやサービスの情報は自国にとってとても有益であったりします。これらの情報を現地にいる人に調達してもらいましょう。</p>
-        <hr-d>
-        <p class="time"><i class="fa fa-comment-o"></i> 1 | <i class="fa fa-calendar"></i> 13 Oct.</p>
-      </div><!-- col-lg-4 -->
-      
-      <div class="col-lg-4 col-md-4 col-xs-12 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/photos.jpeg" alt="" />
-          <div class="b-wrapper">
-              <h4 class="b-from-left b-animate b-delay03">Post 3</h4>
-              <p class="b-from-right b-animate b-delay03">Read More.</p>
-          </div>
-        </a>
-        <p>海外の写真等のデータ</p>
-        <p class="lead">WEBサイトを運営したり、海外に関してのビジネスを運営しているとどうしてもその国、土地の写真やデータが必要になる時があります。ここではそういったデータも今現地にいる人達に依頼してみましょう。</p>
-        <hr-d>
-        <p class="time"><i class="fa fa-comment-o"></i> 1 | <i class="fa fa-calendar"></i> 13 Oct.</p>
-      </div><!-- col-lg-4 -->
-      
+      <div class="mt">
+        <div class="row mt">
+          <div class="col-lg-4 col-md-4 col-xs-12 desc">
+            <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/mono1.jpg" alt="" />
+              <div class="b-wrapper">
+                  <h4 class="b-from-left b-animate b-delay03">Post 1</h4>
+                  <p class="b-from-right b-animate b-delay03">Read More.</p>
+              </div>
+            </a>
+            <p>海外でしか手に入らないモノ</p>
+            <p class="lead">  世の中には海外で購入したほうが安いもの、海外でしか手に入らないモノがたくさんあります。ここではそういったモノを今現地にい    る人達に頼んで簡単に手に入れましょう。</p>
+          </div><!-- col-lg-4 -->
+          
+          <div class="col-lg-4 col-md-4 col-xs-12 desc">
+            <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/research.jpeg" alt="" />
+              <div class="b-wrapper">
+                  <h4 class="b-from-left b-animate b-delay03">Post 2</h4>
+                  <p class="b-from-right b-animate b-delay03">Read More.</p>
+              </div>
+            </a>
+            <p>海外でしか手に入らない情報</p>
+            <p class="lead">  世界中にある観光地の数々、昔行ったことはあるけれど今どうなっているか最新の情報などは現地にいる人でないとわかりません。ま  た、今その土地 で流行っているモノやサービスの情報は自国にとってとても有益であったりします。これらの情報を現地にいる人に調達してもらいましょう  。</p>
+          </div><!-- col-lg-4 -->
+          
+          <div class="col-lg-4 col-md-4 col-xs-12 desc">
+            <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/background/photos.jpeg" alt="" />
+              <div class="b-wrapper">
+                  <h4 class="b-from-left b-animate b-delay03">Post 3</h4>
+                  <p class="b-from-right b-animate b-delay03">Read More.</p>
+              </div>
+            </a>
+            <p>海外の写真等のデータ</p>
+            <p class="lead">  WEBサイトを運営したり、海外に関してのビジネスを運営しているとどうしてもその国、土地の写真やデータが必要になる時があります    。ここではそういったデータも今現地にいる人達に依頼してみましょう。</p>
+          </div><!-- col-lg-4 -->
+    
+          <div class="row mt centered ">
+            <div class="col-lg-4 col-lg-offset-4">
+              <p class="mt"><a href="orderofferpage.php"><button class="square_btn btn btn-theme" style="width: auto; height: 100%; text-align:    center; font-size: 150%;">依頼する/依頼を受ける</button></a></p>
+              <hr>
+            </div>
+          </div><!-- /row -->
+      </div>  
     </div><!-- /row -->
   </div><!-- /container -->
-  
+
   <! ========== CALL TO ACTION 1 ============================================================================================== 
   =============================================================================================================================>    
     <div id="cta01">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2">
-            <h2>The probability of success is difficult to estimate;<br/>but if we never search, the chance of success is zero.</h2>
-            <button type="button" class="btn btn-cta btn-lg">LEARN MORE</button>
+            <h2>終着点は重要じゃない。<br>旅の途中でどれだけ楽しいことを<br>やり遂げているかが大事なんだ。<br><br>-　スティーブ・ジョブズ</h2>
           </div>
         </div><!-- /row -->
       </div><!-- /container -->
@@ -213,72 +194,72 @@
   <div class="container">
     <div class="row mt centered ">
       <div class="col-lg-4 col-lg-offset-4">
-        <h3>Our Latest Work</h3>
+        <h3>最新の取引</h3>
         <hr>
       </div>
     </div><!-- /row -->
     <div class="row mt centered"> 
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port01.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/enjoi_10017288_wht_whitey_panda_logo_wide_r7_1024x1024.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 1</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>APE - <i class="fa fa-heart-o"></i></p>
+        <p>enjoy -<i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port02.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/Body&bath.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 2</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>RAIDERS - <i class="fa fa-heart-o"></i></p>
+        <p>Bath&Body - <i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port03.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img  style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/peackdesign20l_charcoal.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 3</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>VIKINGS - <i class="fa fa-heart-o"></i></p>
+        <p>Peakdesign everyday backpack 20L - <i class="fa fa-heart-o"></i></p>
       </div>
     </div><!-- /row -->
     <div class="row mt centered"> 
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port03.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/sabon.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 4</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>APE - <i class="fa fa-heart-o"></i></p>
+        <p>Sabon   - <i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port01.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/JollibeeT2.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 5</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>RAIDERS - <i class="fa fa-heart-o"></i></p>
+        <p>JollibeeT - <i class="fa fa-heart-o"></i></p>
       </div>
       <div class="col-lg-4 desc">
-        <a class="b-link-fade b-animate-go" href="#"><img width="350" src="assets/img/portfolio/port02.jpg" alt="" />
+        <a class="b-link-fade b-animate-go" href="#"><img style="object-fit: contain; width: 300px; height: 200px;" src="assets/img/portfolio/papayasoap.jpg" alt="" />
           <div class="b-wrapper">
               <h4 class="b-from-left b-animate b-delay03">Project 6</h4>
               <p class="b-from-right b-animate b-delay03">View Details</p>
           </div>
         </a>
-        <p>VIKINGS - <i class="fa fa-heart-o"></i></p>
+        <p>Papaya Soap - <i class="fa fa-heart-o"></i></p>
       </div>
     </div><!-- /row -->
 
     <div class="row mt centered">
       <div class="col-lg-4 col-lg-offset-4">
-          <a href="orderofferpage.php"><button type="button" class="btn btn-theme btn-lg">依頼する/依頼を受ける</button></a>
+          <a href="orderofferpage.php"><button class="square_btn btn btn-theme" style="width: auto; height: 100%; text-align:    center; font-size: 150%;">依頼する/依頼を受ける</button></a>
       </div>
     </div><!-- /row -->
   </div><!-- /container -->
@@ -289,23 +270,23 @@
     <div class="container">
       <div class="row mt centered ">
         <div class="col-lg-4 col-lg-offset-4">
-          <h3>Brands & Clients</h3>
+          <h3>掲載メディア</h3>
           <hr>
         </div><!-- /col-lg-4 -->
       </div><!-- /row -->
       
       <div class="row centered">
         <div class="col-lg-3 pt">
-          <img class="img-responsive" src="assets/img/clients/client01.png" alt="">
+          <img class="img-responsive" src="assets/img/clients/Wired (1).png" alt="">
         </div>
         <div class="col-lg-3 pt">
-          <img class="img-responsive" src="assets/img/clients/client02.png" alt="">
+          <img class="img-responsive" src="assets/img/clients/tripadvisor (1).png" alt="">
         </div>
         <div class="col-lg-3 pt">
-          <img class="img-responsive" src="assets/img/clients/client03.png" alt="">
+          <img class="img-responsive" src="assets/img/clients/techcrunch.png" alt="">
         </div>
         <div class="col-lg-3 pt">
-          <img class="img-responsive" src="assets/img/clients/client04.png" alt="">
+          <img class="img-responsive" src="assets/img/clients/yt_logo_rgb_light.png" alt="">
         </div>
 
       </div><!-- /row -->
@@ -319,14 +300,14 @@
     <div class="container">
       <div class="row mt centered">
         <div class="col-lg-4 col-lg-offset-4">
-          <h3>Our Work Process</h3>
+          <h3>対象都市</h3>
           <hr>
         </div><!-- /col-lg-4 -->
       </div><!-- /row -->
       
       <div class="row mt">
         <div class="col-lg-8 col-lg-offset-2">
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <p>現段階の依頼対象都市は以下となります。<br>アメリカ（ハワイ/ニューヨーク/ロサンゼルス）、フランス(パリ/ニース/リヨン)、中国（香港、上海、北京）、タイ（バンコク/プーケット/パタヤ）、日本（東京/大阪/京都）</p>
         </div><! --/col-lg-8 -->
       </div><!-- /row -->
     </div><!-- /container -->
@@ -339,31 +320,31 @@
       <div class="container">
         <div class="row mt">
           <div class="col-lg-4 col-lg-offset-4 centered">
-            <h3>Different Stages</h3>
+            <h3>ご利用の流れ</h3>
             <hr>
           </div>
         </div>
         <div class="row mt">
           <div class="col-lg-3">
-            <p class="capitalize">1</p>
-            <h4>Brief</h4>
-            <p>Built for all levels of expertise, whether you need simple pages or complex ones, creating something incredible with Marco is an effortless and intuitive process.</p>
+            <p class="capitalize">1&emsp;&emsp;&emsp;&emsp;&emsp;<i class="fa fa-laptop" style="font-size: 60px;" aria-hidden="true"></i></p>
+            <h4>依頼</h4>
+            <p>お客様がお望みのカテゴリーから依頼内容をご入力いただき、世界中にいるエージェントに向けてオーダーを出していただきます。</p>
           </div>
           <div class="col-lg-3">
-            <p class="capitalize">2</p>
-            <h4>Analysis</h4>
-            <p>We’ve taken great care to ensure that Marco is fully retina-ready. So it’ll look good on any retina display. We use retina.js to ensure the best view.</p>
+            <p class="capitalize">2&emsp;&emsp;&emsp;&emsp;&emsp;<i class="fa fa-users" style="font-size: 60px;" aria-hidden="true"></i></p>
+            <h4>選定</h4>
+            <p>お客様が送っていただいた依頼内容に対して現地にいるエージェントからオファーが送られてきますので、ご自身で要望に一番沿ったエージェントをお選び下さい。</p>
           </div>
           <div class="col-lg-3">
-            <p class="capitalize">3</p>
-            <h4>Planning</h4>
-            <p>Marco fits any device handsomely. We tested our theme in major devices and browsers. Check it out and test it before buy it on responsinator.com.</p>
-          </div>      
+            <p class="capitalize">3&emsp;&emsp;&emsp;&emsp;&emsp;<i class="fa fa-comments" style="font-size: 60px;" aria-hidden="true"></i></p>
+            <h4>詳細のやり取り/調達</h4>
+            <p>エージェントとのマッチングが完了いたしましたら後は依頼内容の詳細をメッセージを通してお伝え下さい。その後、依頼品をエージェントに調達していただきます。</p>
+          </div>
   
           <div class="col-lg-3">
-            <p class="capitalize">4</p>
-            <h4>Execution</h4>
-            <p>Good looking animations are an essential part of the new theme design trend. We add animations.css, a cool script to help you enhance your site with style.</p>
+            <p class="capitalize">4&emsp;&emsp;&emsp;&emsp;&emsp;<i class="fa fa-gift" style="font-size: 60px;" aria-hidden="true"></i></p>
+            <h4>お支払/取引完了</h4>
+            <p>エージェントより依頼の品をお受け取り次第、お支払をしていただきます。お客様からエージェントに今回の取引について評価をしていただき、もし今回の取引を気に入っていただけたのであればエージェントをフォーローできますので次回のお取引もお気に入りのエージェント様に依頼が可能です。</p>
           </div>
         </div><!-- /row -->
       </div><!-- /container -->
@@ -375,8 +356,8 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2">
-            <h2>Our products & services are crafted with the utmost care to fulfill your needs.</h2>
-            <button type="button" class="btn btn-cta btn-lg">LEARN MORE</button>
+            <h2>“The world is a book, and those who do not travel read only one page.”<br>
+             ―世界は一冊の本である。旅をしない者は、1ページしか読んでいないのだ―<br>アウグスティヌス - 哲学者</h2>
           </div>
         </div><!-- /row -->
       </div><!-- /container -->
@@ -387,36 +368,36 @@
     <div class="container">
       <div class="row mt">
         <div class="col-lg-4 centered si">
-          <i class="fa fa-flask"></i>
-          <h4>Built with Bootstrap 3</h4>
-          <p>Built for all levels of expertise, whether you need simple pages or complex ones, creating something incredible with Marco is an effortless and intuitive process.</p>
+          <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+          <h4>ブランド品</h4>
+          <p>自分の住んでいる国では売っていない、もしくは高すぎるものを海外から取り寄せましょう。</p>
         </div>
         <div class="col-lg-4 centered si">
-          <i class="fa fa-eye"></i>
-          <h4>Retina Display Theme</h4>
-          <p>We’ve taken great care to ensure that Marco is fully retina-ready. So it’ll look good on any retina display. We use retina.js to ensure the best view.</p>
+          <i class="fa fa-futbol-o" aria-hidden="true"></i>
+          <h4>スポーツ用品</h4>
+          <p>日本で買う場合は元の価格より2倍,3倍ほどかかってしまったり、そもそも購入すること自体難しいスポーツ製品はWAを利用し手に入れましょう。</p>
         </div>
         <div class="col-lg-4 centered si">
-          <i class="fa fa-mobile"></i>
-          <h4>Responsive Design Always</h4>
-          <p>Marco fits any device handsomely. We tested our theme in major devices and browsers. Check it out and test it before buy it on responsinator.com.</p>
-        </div>      
+          <i class="fa fa-globe" aria-hidden="true"></i>
+          <h4>最新観光地情報</h4>
+          <p>現地にいないとなかなか知り得ない情報や、かなり昔に訪れた場所の情報をWAを使ってアップデートしましょう。</p>
+        </div>
 
         <div class="col-lg-4 centered si">
-          <i class="fa fa-cog"></i>
-          <h4>Really Nice Animations</h4>
-          <p>Good looking animations are an essential part of the new theme design trend. We add animations.css, a cool script to help you enhance your site with style.</p>
+          <i class="fa fa-search" aria-hidden="true"></i>
+          <h4>市場調査</h4>
+          <p>まだ日本にはない海外で流行っている物や現地で気になるビジネスモデルの情報収集をWAを通して行いましょう。</p>
         </div>
         <div class="col-lg-4 centered si">
-          <i class="fa fa-flag"></i>
-          <h4>Font Awesome Included</h4>
-          <p>Font Awesome is the most used icon font on Bootstrap. Gives you scalable vector icons that can instantly be customized with the power of CSS.</p>
+          <i class="fa fa-picture-o" aria-hidden="true"></i>
+          <h4>画像</h4>
+          <p>日本では撮影できない街や風景の画像を現地にいる人に撮ってもらいましょう。</p>
         </div>
         <div class="col-lg-4 centered si">
-          <i class="fa fa-heart"></i>
-          <h4>Carefully Crafted</h4>
-          <p>We aim to design both, functional & beautiful themes. Details are an important part of our main concept. We work hard to keep our code and front-end flawless.</p>
-        </div>      
+          <i class="fa fa-video-camera" aria-hidden="true"></i>
+          <h4>動画</h4>
+          <p>海外の映像を現地にいる人に撮影してもらいましょう。</p>
+        </div>
       </div><!-- /row -->
     </div><!-- /container -->
     
@@ -437,8 +418,8 @@
           <div class="members">
             <img src="assets/img/team/gianni.png" alt="">
             <div class="team-info">
-              <div class="subhead">Developer</div>
-              <h2 class="team-name">Gianni</h2>
+              <div class="subhead">Co-founder<br>Developer</div>
+              <h2 class="team-name">Kazu</h2>
               <p class="team-description"><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-dribbble"></i></p>
             </div>
           </div>
@@ -448,8 +429,8 @@
           <div class="members">
             <img src="assets/img/team/rebecca.png" alt="">
             <div class="team-info">
-              <div class="subhead">Designer</div>
-              <h2 class="team-name">Rebecca</h2>
+              <div class="subhead">Co-founder<br>HR Manager</div>
+              <h2 class="team-name">Soyoka</h2>
               <p class="team-description"><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-dribbble"></i></p>
             </div>
           </div>
@@ -459,8 +440,8 @@
           <div class="members">
             <img src="assets/img/team/william.png" alt="">
             <div class="team-info">
-              <div class="subhead">Designer</div>
-              <h2 class="team-name">William</h2>
+              <div class="subhead">Founder/Designer</div>
+              <h2 class="team-name">Takamasa</h2>
               <p class="team-description"><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-dribbble"></i></p>
             </div>
           </div>
@@ -473,35 +454,35 @@
   <! ========== BLACK SECTION ================================================================================================= 
   =============================================================================================================================>    
   <div id="black">
-    <div class="container pt">
-      <div class="row mt centered">
-        <div class="col-lg-3">
-          <p><i class="fa fa-instagram"></i></p>
-          <h1>21.337</h1>
-          <hr>
-          <h4>Pictures Taken</h4>
-        </div>
+     <div class="container pt">
+       <div class="row mt centered">
+         <div class="col-lg-3">
+           <p><i class="fa fa-camera"></i></p>
+           <h1>21,337</h1>
+           <hr>
+           <h4>取引された写真の数</h4>
+         </div>
 
-        <div class="col-lg-3">
-          <p><i class="fa fa-music"></i></p>
-          <h1>9.764</h1>
-          <hr>
-          <h4>Songs Listened</h4>
-        </div>
+         <div class="col-lg-3">
+           <p><i class="fa fa-video-camera"></i></p>
+           <h1>2,764</h1>
+           <hr>
+           <h4>取引された動画の数</h4>
+         </div>
 
-        <div class="col-lg-3">
-          <p><i class="fa fa-trophy"></i></p>
-          <h1>107</h1>
-          <hr>
-          <h4>Awards Earned</h4>
-        </div>
+         <div class="col-lg-3">
+           <p><i class="fa fa-file-text"></i></p>
+           <h1>1,070</h1>
+           <hr>
+           <h4>取引された書類の枚数</h4>
+         </div>
 
-        <div class="col-lg-3">
-          <p><i class="fa fa-ticket"></i></p>
-          <h1>209</h1>
-          <hr>
-          <h4>Movies Watched</h4>
-        </div>
+         <div class="col-lg-3">
+           <p><i class="fa fa-gift"></i></p>
+           <h1>209,706</h1>
+           <hr>
+           <h4>取引された物の数</h4>
+         </div>
 
       </div><!-- /row -->
     </div><!-- /container -->
@@ -513,7 +494,7 @@
   <div class="container">
       <div class="row mt">
         <div class="col-lg-4 col-lg-offset-4 centered">
-          <h3>Honest Testimonials</h3>
+          <h3>お客様の声</h3>
           <hr>
         </div>
       </div><! --/row -->
@@ -524,13 +505,13 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <h2>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</h2>
-              <h5>Paul Morrison - BlackTie.co</h5>
+              <h2>日本で買うと¥17,000程するスケートボードが、WAを使ったおかげで¥10,000で購入することが出来ました！</h2>
+              <h5>田中 太郎</h5>
             </div>
             
             <div class="item">
-              <h2>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h2>
-              <h5>Mike Wellington - BlackTie.co</h5>
+              <h2>ハワイでしか売っていないソープをエージェントさんに買ってきて貰えて凄くハッピー！</h2>
+              <h5>桜田 花子</h5>
             </div>
           </div><!-- /carousel-inner -->
         
@@ -540,30 +521,13 @@
   </div><!-- /container -->
 
 
-  <! ========== CONTACT SECTION =============================================================================================== 
-  =============================================================================================================================>    
-
-  <div id="white">
-    <div class="container">
-        <div class="row mt">
-          <div class="col-lg-4 col-lg-offset-4 centered">
-            <h3>Contact Us</h3>
-            <hr>
-          </div>
-        </div><! --/row -->
-    </div><!-- /container -->
-  <div id="map"></div>  
-  </div><!-- /white -->
-
-
-
   
   <! ========== CALL TO ACTION BAR =============================================================================================== 
   =============================================================================================================================>    
   <div id="cta-bar">
     <div class="container">
       <div class="row centered">
-        <a href="#"><h4>Are You Ready For The Next Step?</h4></a>
+        <a href="orderofferpage.php"><h4>依頼する/依頼を受ける</h4></a>
       </div>
     </div><!-- /container -->
   </div><!-- /cta-bar -->
@@ -576,21 +540,25 @@
       <div class="row">
         <!-- ADDRESS -->
         <div class="col-lg-3">
-          <h4>Our Studio</h4>
+          <h4>運営会社について</h4>
           <p>
-            Some Ave. 987,<br/>
-            Postal 64733<br/>
-            London, UK.<br/>
+            World Agencyとは<br/>
+            運営会社<br/>
+            利用規約<br/>
+            プライバシーポリシー<br/>
+            お問い合わせ<br/>
+            FAQ<br/>
+            ニュース<br/>
           </p>
           <p>
             <i class="fa fa-mobile"></i> +55 4893.8943<br/>
-            <i class="fa fa-envelope-o"></i> hello@yourdomain.com
+            <i class="fa fa-envelope-o"></i> wa@helloworld.com
           </p>
         </div><! --/col-lg-3 -->
         
         <!-- TWEETS -->
         <div class="col-lg-3">
-          <h4>Recent Tweets</h4>
+          <h4>最近のツイート</h4>
           <div id="showtweets"></div>
             <script>
               twitterFetcher.fetch('258157205101088768', 'showtweets', 2, true, false, false, '', false, handleTweets, false);
@@ -608,24 +576,22 @@
                   element.innerHTML = html;
               }         
             </script>
-          <p>Follow us <b>@Alvrz_is</b></p>
+          <p>Follow us <b>@World_Agency</b></p>
         </div><!-- /col-lg-3 -->
         
         <!-- LATEST POSTS -->
         <div class="col-lg-3">
-          <h4>Latest Posts</h4>
+          <h4>最新の情報</h4>
           <p>
-            <i class="fa fa-angle-right"></i> A post with an image<br/>
-            <i class="fa fa-angle-right"></i> Other post with a video<br/>
-            <i class="fa fa-angle-right"></i> A full width post<br/>
-            <i class="fa fa-angle-right"></i> We talk about something nice<br/>
-            <i class="fa fa-angle-right"></i> Yet another single post<br/>
+            <i class="fa fa-angle-right"></i> モノの取引<br/>
+            <i class="fa fa-angle-right"></i> 情報の取引<br/>
+            <i class="fa fa-angle-right"></i> データの取引<br/>
           </p>
         </div><!-- /col-lg-3 -->
         
         <!-- NEW PROJECT -->
         <div class="col-lg-3">
-          <h4>New Project</h4>
+          <h4>最新のお取引</h4>
           <a href="#"><img class="img-responsive" src="assets/img/portfolio/port03.jpg" alt="" /></a>
         </div><!-- /col-lg-3 -->
         
@@ -633,6 +599,7 @@
       </div><! --/row -->
     </div><!-- /container -->
   </div><!-- /f -->
+
   
 
 

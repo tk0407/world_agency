@@ -84,7 +84,7 @@ a:after {
 
 .navbar {
 	font-size: 14px;
-	background: #ffffff;
+	background: #f8f8f8;
 }
 
 .navbar-fixed-top {
@@ -280,7 +280,45 @@ p.capitalize:first-letter {
   border-color: #ffffff;
 }
 
+/* Button index */
+.square_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    color: white;
+    border: dashed 1px #02AEDC;
+    border-radius: 3px;
+    transition: .4s;
+    background-color: #02AEDC;
+}
 
+.square_btn:hover {
+    border-style: dotted;
+    color: #2c3e50;
+}
+
+
+
+/* Button Circle index*/
+.circle_btn{
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  border-radius: 50%;
+  border: solid 2px #ffffff;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  font-weight: bold;
+  transition: .4s;
+}
+
+.circle_btn:hover {
+    background: #02AEDC;
+}
 
 /***** Testimonials Styling *****/
 .testi-container {
@@ -949,9 +987,29 @@ ol {
 }
 
 .navbar-default a.navbar-brand {
-  color: #ffffff;
+  color: #777;
 }
 
 .navbar-default ul.navbar-nav > li > a {
-    color: #ffffff;
+    color: #777;
+}
+
+#navtoppage.navbar-default ul.navbar-nav > li > a:hover {
+    color: #02AEDC;
+}
+
+#navtoppage.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #02AEDC;
+    background-color: transparent;
+}
+
+.navbar-default a.navbar-brand {
+  color: #2c3e50;
+}
+.navbar-default ul.navbar-nav > li > a {
+    color: #2c3e50;
+}
+
+a.navbar-font-white {
+  color: #ffffff !important;
 }

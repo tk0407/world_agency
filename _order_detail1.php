@@ -6,29 +6,6 @@
     require('functions.php');
     require('signin_check.php');
 
-    $_GET['edit_id'] = 21;
-
-    if (!empty($_GET['edit_id'])) {
-    $sql = 'SELECT * FROM `orders` WHERE id = ?';
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(1, $_GET['edit_id'], PDO::PARAM_INT); //インジェクション対策
-    $stmt->execute();
-    $edit_order = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $city['id'] = $edit_order['city_id'];
-    $item_name = $edit_order['item_name'];
-    $amount = $edit_order['amount'];
-    $order_price = $edit_order['order_price'];
-    $delivery_date = $edit_order['delivery_date'];
-    $publication_period = $edit_order['publication_period'];
-    // = $edit_order['images'];
-    $detail = $edit_order['detail'];
-    // = $edit_order['attached_file'];
-    }
-
-    v($edit_order);
-
-
     // 各都市の名前をDBから全件取得
     $sql = 'SELECT * FROM `cities` WHERE 1';
     $data = array();

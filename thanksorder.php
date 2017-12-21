@@ -24,7 +24,7 @@
   <link href="assets/css/animations.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body style="margin-top: 60px">
+<body style="margin-top: 50px">
   <?php require('navbar.php');?>
   <div class="container">
     <div class="row">

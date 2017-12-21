@@ -4,7 +4,6 @@
     require('dbconnect.php');
     require('functions.php');
     require('signin_check.php');
-    require('navbar.php');
 
     // $signin_user['id'] = 1; //後でsignin idをここに表示できるようにする。
 
@@ -46,7 +45,7 @@
 
     // 登録ボタンが押された時の処理
     if (!empty($_POST)) {
-        echo '通過<br>';
+        // echo '通過<br>';
         // $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = 'INSERT INTO `orders` SET
           `city_id`=?
